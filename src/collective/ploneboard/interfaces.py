@@ -11,3 +11,8 @@ class IMessageboard(form.Schema):
 class ITopic(form.Schema):
     """
     """
+
+
+class IConversation(form.Schema):
+    """
+    """

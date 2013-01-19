@@ -13,4 +13,9 @@
     title="Collective Ploneboard: Add Topic"
     />
 
+  <permission
+    id="ploneboard.AddConversation"
+    title="Collective Ploneboard: Add Conversation"
+    />
+
 </configure>
