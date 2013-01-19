@@ -47,6 +47,8 @@ class PloneboardContenttypesIntegrationTest(unittest.TestCase):
             name='form.widgets.IBasic.title'
         ).value = "My Message Board"
         self.browser.getControl("Save").click()
+
+        self.browser.open(self.portal_url + '/my-message-board')
         self.browser.getLink('Topic').click()
         self.browser.getControl(
             name='form.widgets.IBasic.title'
@@ -55,6 +57,7 @@ class PloneboardContenttypesIntegrationTest(unittest.TestCase):
             name='form.widgets.IBasic.description'
         ).value = "Lorem ipsum"
         self.browser.getControl("Save").click()
+
         self.assertTrue("My First Topic" in self.browser.contents)
         self.assertTrue("Lorem ipsum" in self.browser.contents)
 
