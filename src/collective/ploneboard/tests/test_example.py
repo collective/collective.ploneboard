@@ -6,7 +6,7 @@ from collective.ploneboard.testing import \
     COLLECTIVE_PLONEBOARD_INTEGRATION_TESTING
 
 
-class TestExample(unittest.TestCase):
+class TestSetup(unittest.TestCase):
 
     layer = COLLECTIVE_PLONEBOARD_INTEGRATION_TESTING
 
@@ -16,10 +16,17 @@ class TestExample(unittest.TestCase):
         self.qi_tool = getToolByName(self.portal, 'portal_quickinstaller')
 
     def test_product_is_installed(self):
-        """ Validate that our products GS profile has been run and the product
-            installed
-        """
         pid = 'collective.ploneboard'
         installed = [p['id'] for p in self.qi_tool.listInstalledProducts()]
-        self.assertTrue(pid in installed,
-                        'package appears not to have been installed')
+        self.assertTrue(
+            pid in installed,
+            'package %s appears not to have been installed' % pid
+        )
+
+    def test_dexterity_is_installed(self):
+        pid = 'plone.app.dexterity'
+        installed = [p['id'] for p in self.qi_tool.listInstalledProducts()]
+        self.assertTrue(
+            pid in installed,
+            'package %s appears not to have been installed' % pid
+        )

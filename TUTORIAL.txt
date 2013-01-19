@@ -1,0 +1,38 @@
+$ bin/templer plone_basic
+
+test_setup.py::
+
+    def test_dexterity_is_installed(self):
+        pid = 'plone.app.dexterity'
+        installed = [p['id'] for p in self.qi_tool.listInstalledProducts()]
+        self.assertTrue(
+            pid in installed,
+            'package %s appears not to have been installed' % pid
+        )
+
+setup.py::
+
+      install_requires=[
+          'setuptools',
+          'plone.app.dexterity',
+      ],
+
+profiles/default/metadata.xml::
+
+    <?xml version="1.0"?>
+    <metadata>
+      <version>0001</version>
+      <dependencies>
+        <dependency>profile-plone.app.dexterity:default</dependency>
+      </dependencies>
+    </metadata>
+
+configure.zcml::
+
+    <includeDependencies package="." />
+
+
+TODO templer:
+
+- remove initialize function
+- remove testing profile
