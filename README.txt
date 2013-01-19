@@ -7,69 +7,71 @@ This is an experimental Plone add-on product to rewrite the functionality
 of Products.Ploneboard from the scratch with Dexterity types and
 plone.app.discussion.
 
-User Stories
-============
 
-Add Ploneboard
---------------
+Test Setup
+----------
 
-As an administrator I can add a message board.
+    >>> app = layer['app']
+    >>> from plone.testing.z2 import Browser
+    >>> browser = Browser(app)
+    >>> browser.handleErrors = False
+    >>> browser.addHeader('Authorization', 'Basic admin:secret')
+    >>> portal = layer['portal']
+    >>> portal_url = 'http://nohost/plone'
 
-- Go to portal root
-- Click "Message Board" on add-menu
-- Fill out "title" and "description"
+
+Add message board
+-----------------
+
+"As an administrator I can add a message board."
+
+  >>> browser.open(portal_url + '/++add++messageboard')
+  >>> browser.getControl(name='form.widgets.IBasic.title').value = "My Message Board"
+  >>> browser.getControl("Save").click()
+  >>> "My Message Board" in browser.contents
+  True
+
 
 Add Topic
 ---------
 
-As an administrator I can add a topic to an existing message board.
+"As an administrator I can add a topic to an existing message board"
 
-- Add Ploneboard
-- Click "Topic" in add-menu
+  >>> browser.open(portal_url + '/my-message-board')
+  >>> browser.getLink('Topic').click()
+  >>> browser.getControl(name='form.widgets.IBasic.title').value = "My First Topic"
+  >>> browser.getControl("Save").click()
+  >>> "My First Topic" in browser.contents
+  True
+
 
 Add Conversation
 ----------------
 
-As a member I can add a conversation to an existing topic.
+"As a member I can add a conversation to an existing topic."
 
-- Add Ploneboard
-- Add Topic
-- Click "Add conversation" Button
-- Fill out "title" and "text"
-- Click "post comment"
+  >>> browser.open(portal_url + '/my-message-board/my-first-topic')
+  >>> browser.getLink('Conversation').click()
+  >>> browser.getControl(name='form.widgets.IBasic.title').value = "My First Conversation"
+  >>> browser.getControl(name='form.widgets.text').value = "This is my first conversation"
+  >>> browser.getControl("Save").click()
+  >>> "My First Conversation" in browser.contents
+  True
 
-Reply to a comment
-------------------
+
+Reply
+-----
 
 As a member I can add a reply to an existing conversation.
 
-- Add Ploneboard
-- Add Topic
-- Add Conversation
-- Go to conversation
-- Fill out text
-- Click on "post comment"
-
-Message board view
-------------------
-
-- As an anonymous user I can view all topics of a message board.
-- As an anonymous user I can view the latest 5 conversations of a topic.
-
-Topic view
-----------
-
-- As a member I can view all conversations of a topic.
-
-Conversation view
------------------
-
-- As a member I can view all posts of a conversation.
+  >>> browser.getControl(name='form.widgets.text').value = "This is my first reply."
+  >>> browser.getControl(name="form.buttons.comment").click()
+  >>> "This is my first reply" in browser.contents
+  True
 
 
 Later
 -----
 
-- As a member I can attach a file to my comments/replies.
-- As a member I can search a message board.
-
+As a member I can attach a file to my comments/replies.
+As a member I can search a message board.
