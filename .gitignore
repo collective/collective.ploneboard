@@ -8,7 +8,7 @@
 /build
 /dist
 /local.cfg
-/*.egg-info
+*.egg-info
 *.egg
 /.installed.cfg
 *.pyc
@@ -18,7 +18,7 @@
 /.project
 /.pydevproject
 /.mr.developer.cfg
-/src/*
+/src/Products.*
 *.mo
 docs/Makefile
 docs/make.bat
