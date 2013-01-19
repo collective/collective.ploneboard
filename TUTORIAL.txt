@@ -199,6 +199,69 @@ Fix test_adding::
 
 Conversation: same as topic...
 
+test_conversation.py::
+
+    def test_conversation_enabled(self):
+        from plone.app.discussion.interfaces import IDiscussionLayer
+        from zope.interface import alsoProvides
+        alsoProvides(
+            self.portal.REQUEST,
+            IDiscussionLayer
+        )
+
+        self.portal.invokeFactory(
+            'messageboard',
+            'board'
+        )
+        self.portal.board.invokeFactory(
+            'topic',
+            'topic'
+        )
+        self.portal.board.topic.invokeFactory(
+            'conversation',
+            'conversation'
+        )
+        obj = self.portal.board.topic['conversation']
+        conv = obj.restrictedTraverse('@@conversation_view')
+        self.assertTrue(conv.enabled())
+
+
+test_integration.py::
+
+        # Add reply
+        self.browser.getControl(
+            name='form.widgets.text'
+        ).value = "This is my first reply."
+        self.browser.getControl(name="form.buttons.comment").click()
+        self.assertTrue("This is my first reply" in self.browser.contents)
+
+Discussion for conversation type.
+---------------------------------
+
+Allow globally - test_setup.py::
+
+    def test_discussion_is_globally_allowed(self):
+        from zope.component import queryUtility
+        from plone.registry.interfaces import IRegistry
+        from plone.app.discussion.interfaces import IDiscussionSettings
+        registry = queryUtility(IRegistry)
+        settings = registry.forInterface(IDiscussionSettings)
+        self.assertEqual(settings.globally_enabled, True)
+
+profiles/default/registry.xml::
+
+    <registry>
+      <record
+        field="globally_enabled"
+        interface="plone.app.discussion.interfaces.IDiscussionSettings"
+        name="plone.app.discussion.interfaces.IDiscussionSettings.globally_enabled">
+        <value>True</value>
+      </record>
+    </registry>
+
+Allow for conversation content type - conversation.xml::
+
+  <property name="allow_discussion">True</property>
 
 
 TODO templer:

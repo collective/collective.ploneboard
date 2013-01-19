@@ -30,3 +30,11 @@ class TestSetup(unittest.TestCase):
             pid in installed,
             'package %s appears not to have been installed' % pid
         )
+
+    def test_discussion_is_globally_allowed(self):
+        from zope.component import queryUtility
+        from plone.registry.interfaces import IRegistry
+        from plone.app.discussion.interfaces import IDiscussionSettings
+        registry = queryUtility(IRegistry)
+        settings = registry.forInterface(IDiscussionSettings)
+        self.assertEqual(settings.globally_enabled, True)

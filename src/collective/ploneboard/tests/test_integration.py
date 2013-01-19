@@ -51,3 +51,9 @@ class PloneboardContenttypesIntegrationTest(unittest.TestCase):
         ).value = "This is my first conversation"
         self.browser.getControl("Save").click()
         self.assertTrue("My First Conversation" in self.browser.contents)
+        # Add reply
+        self.browser.getControl(
+            name='form.widgets.text'
+        ).value = "This is my first reply."
+        self.browser.getControl(name="form.buttons.comment").click()
+        self.assertTrue("This is my first reply" in self.browser.contents)

@@ -63,3 +63,27 @@ class ConversationIntegrationTest(unittest.TestCase):
 
         obj = self.portal.board.topic['conversation']
         self.failUnless(IConversation.providedBy(obj))
+
+    def test_conversation_enabled(self):
+        from plone.app.discussion.interfaces import IDiscussionLayer
+        from zope.interface import alsoProvides
+        alsoProvides(
+            self.portal.REQUEST,
+            IDiscussionLayer
+        )
+
+        self.portal.invokeFactory(
+            'messageboard',
+            'board'
+        )
+        self.portal.board.invokeFactory(
+            'topic',
+            'topic'
+        )
+        self.portal.board.topic.invokeFactory(
+            'conversation',
+            'conversation'
+        )
+        obj = self.portal.board.topic['conversation']
+        conv = obj.restrictedTraverse('@@conversation_view')
+        self.assertTrue(conv.enabled())
