@@ -163,6 +163,41 @@ test_integration.py::
             self.assertTrue("My Message Board" in self.browser.contents)
             self.assertTrue("Lorem ipsum" in self.browser.contents)
 
+Add Topic
+---------
+
+- Global allow false
+=> failing test
+
+    raise ValueError('Disallowed subobject type: %s' % type_name)
+    ValueError: Disallowed subobject type: topic
+
+Skip test_adding in test_topic.py::
+
+    @unittest.skip("demonstrating skipping")
+    def test_adding(self):
+        self.portal.invokeFactory(
+            'topic',
+            'mytopic')
+        new_object = self.portal['mytopic']
+        self.failUnless(ITopic.providedBy(new_object))
+
+Create new test::
+
+    def test_global_allow_not_allowed(self):
+        self.assertRaises(
+            ValueError,
+            self.portal.invokeFactory,
+            'topic',
+            'my-topic',
+        )
+
+Remove decorator from test_adding => failing test.
+
+Fix test_adding::
+
+
+
 TODO templer:
 
 - remove initialize function

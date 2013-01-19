@@ -4,8 +4,13 @@
     i18n_domain="collective.ploneboard">
 
   <permission
-      id="ploneboard.AddMessageboard"
-      title="Collective Ploneboard: Add Message Board"
-      />
+    id="ploneboard.AddMessageboard"
+    title="Collective Ploneboard: Add Message Board"
+    />
+
+  <permission
+    id="ploneboard.AddTopic"
+    title="Collective Ploneboard: Add Topic"
+    />
 
 </configure>

@@ -6,3 +6,8 @@ from plone.directives import form
 class IMessageboard(form.Schema):
     """
     """
+
+
+class ITopic(form.Schema):
+    """
+    """

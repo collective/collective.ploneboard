@@ -1,26 +1,25 @@
 <?xml version="1.0"?>
-<object name="messageboard" meta_type="Dexterity FTI"
+<object name="topic" meta_type="Dexterity FTI"
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     i18n:domain="collective.ploneboard">
 
   <!-- Basic properties -->
-  <property name="title" i18n:translate="">Message Board</property>
+  <property name="title" i18n:translate="">Topic</property>
   <property name="description" i18n:translate=""></property>
   <property name="content_icon">folder_icon.png</property>
 
   <property name="allow_discussion">False</property>
 
   <!-- Hierarchy control -->
-  <property name="global_allow">True</property>
+  <property name="global_allow">False</property>
   <property name="filter_content_types">True</property>
   <property name="allowed_content_types">
-    <element value="topic" />
   </property>
 
   <!-- Schema, class and security -->
-  <property name="schema">collective.ploneboard.interfaces.IMessageboard</property>
+  <property name="schema">collective.ploneboard.interfaces.ITopic</property>
   <property name="klass">plone.dexterity.content.Container</property>
-  <property name="add_permission">ploneboard.AddMessageboard</property>
+  <property name="add_permission">ploneboard.AddTopic</property>
 
   <!-- enabled behaviors -->
   <property name="behaviors">

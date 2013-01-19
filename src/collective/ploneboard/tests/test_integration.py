@@ -42,7 +42,21 @@ class PloneboardContenttypesIntegrationTest(unittest.TestCase):
     def test_add_topic(self):
         """As an administrator I can add a topic to an existing message board.
         """
-        pass
+        self.browser.open(self.portal_url + '/++add++messageboard')
+        self.browser.getControl(
+            name='form.widgets.IBasic.title'
+        ).value = "My Message Board"
+        self.browser.getControl("Save").click()
+        self.browser.getLink('Topic').click()
+        self.browser.getControl(
+            name='form.widgets.IBasic.title'
+        ).value = "My First Topic"
+        self.browser.getControl(
+            name='form.widgets.IBasic.description'
+        ).value = "Lorem ipsum"
+        self.browser.getControl("Save").click()
+        self.assertTrue("My First Topic" in self.browser.contents)
+        self.assertTrue("Lorem ipsum" in self.browser.contents)
 
     def test_add_conversation(self):
         """As a member I can add a conversation to an existing topic.
