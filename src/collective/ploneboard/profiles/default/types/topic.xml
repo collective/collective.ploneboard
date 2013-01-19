@@ -6,7 +6,7 @@
   <!-- Basic properties -->
   <property name="title" i18n:translate="">Topic</property>
   <property name="description" i18n:translate=""></property>
-  <property name="content_icon">folder_icon.png</property>
+  <property name="content_icon">topic_icon.png</property>
 
   <property name="allow_discussion">False</property>
 
