@@ -1,5 +1,16 @@
 $ bin/templer plone_basic
 
+- add travis-ci conf
+
+- run tests
+
+- configure travis-ci
+
+- run travis-ci
+
+Dexterity
+---------
+
 test_setup.py::
 
     def test_dexterity_is_installed(self):
@@ -31,6 +42,83 @@ configure.zcml::
 
     <includeDependencies package="." />
 
+Message Board Content Type
+--------------------------
+
+"As an administrator I can add a message board."
+
+test_messageboard.py::
+
+    from zope.component import createObject
+    from zope.component import queryUtility
+    from plone.dexterity.interfaces import IDexterityFTI
+    import unittest2 as unittest
+
+    from plone.app.testing import setRoles
+    from plone.app.testing import TEST_USER_ID
+
+    from collective.ploneboard.testing import \
+        COLLECTIVE_PLONEBOARD_INTEGRATION_TESTING
+
+
+    class MessageBoardIntegrationTest(unittest.TestCase):
+
+        layer = COLLECTIVE_PLONEBOARD_INTEGRATION_TESTING
+
+        def setUp(self):
+            self.portal = self.layer['portal']
+            self.request = self.layer['request']
+            self.request['ACTUAL_URL'] = self.portal.absolute_url()
+            setRoles(self.portal, TEST_USER_ID, ['Manager'])
+
+        def test_fti(self):
+            from collective.ploneboard.interfaces import IMessageboard
+            fti = queryUtility(
+                IDexterityFTI,
+                name='messageboard'
+            )
+            schema = fti.lookupSchema()
+            self.assertEquals(IMessageboard, schema)
+
+        def test_factory(self):
+            fti = queryUtility(
+                IDexterityFTI,
+                name='messageboard'
+            )
+            factory = fti.factory
+            new_object = createObject(factory)
+            self.failUnless(IMessageboard.providedBy(new_object))
+
+        def test_adding(self):
+            self.portal.invokeFactory(
+                'messageboard',
+                'board')
+            board = self.portal['board']
+            self.failUnless(IMessageboard.providedBy(board))
+
+
+test output::
+
+    raise AccessControl_Unauthorized('Cannot create %s' % self.getId())
+    Unauthorized: Cannot create messageboard
+
+configure.zcml::
+
+  <include file="permissions.zcml" />
+
+permissions.zcml::
+
+  <configure
+      xmlns="http://namespaces.zope.org/zope"
+      xmlns:i18n="http://namespaces.zope.org/i18n"
+      i18n_domain="collective.ploneboard">
+
+    <permission
+        id="ploneboard.AddMessageboard"
+        title="Collective Ploneboard: Add Message Board"
+        />
+
+  </configure>
 
 TODO templer:
 
