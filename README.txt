@@ -3,10 +3,13 @@
 Introduction
 ============
 
+.. image:: https://secure.travis-ci.org/collective/collective.ploneboard.png?branch=master
+
 This is an experimental Plone add-on product to rewrite the functionality
 of Products.Ploneboard from the scratch with Dexterity types and
 plone.app.discussion.
 
+https://travis-ci.org/tisto/collective.ploneboard.png?branch=master
 
 Test Setup
 ----------
