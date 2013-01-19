@@ -28,11 +28,16 @@ class PloneboardContenttypesIntegrationTest(unittest.TestCase):
         """As an administrator I can add a message board.
         """
         self.browser.open(self.portal_url)
-
-#        self.browser.getControl(name="form.widgets.email").value = \
-#            "Not an email address"
-#        self.browser.getControl(name="form.buttons.subscribe").click()
-#        self.assertTrue("Invalid email address" in self.browser.contents)
+        self.browser.getLink('Message Board').click()
+        self.browser.getControl(
+            name='form.widgets.IBasic.title'
+        ).value = "My Message Board"
+        self.browser.getControl(
+            name='form.widgets.IBasic.description'
+        ).value = "Lorem ipsum"
+        self.browser.getControl("Save").click()
+        self.assertTrue("My Message Board" in self.browser.contents)
+        self.assertTrue("Lorem ipsum" in self.browser.contents)
 
     def test_add_topic(self):
         """As an administrator I can add a topic to an existing message board.
