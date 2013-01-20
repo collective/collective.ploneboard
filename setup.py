@@ -4,14 +4,14 @@ import os
 version = '1.0'
 
 long_description = (
-    open('README.txt').read()
+    open('README.rst').read()
     + '\n' +
     'Contributors\n'
     '============\n'
     + '\n' +
-    open('CONTRIBUTORS.txt').read()
+    open('CONTRIBUTORS.rst').read()
     + '\n' +
-    open('CHANGES.txt').read()
+    open('CHANGES.rst').read()
     + '\n')
 
 setup(name='collective.ploneboard',
@@ -29,9 +29,9 @@ setup(name='collective.ploneboard',
         "Topic :: Software Development :: Libraries :: Python Modules",
         ],
       keywords='',
-      author='',
-      author_email='',
-      url='http://svn.plone.org/svn/collective/',
+      author='Timo Stollenwerk',
+      author_email='contact@timostollenwerk.net',
+      url='http://github.com/tisto/collective.ploneboard/',
       license='gpl',
       packages=find_packages('src'),
       package_dir={'': 'src'},
