@@ -1,4 +1,6 @@
 import unittest2 as unittest
+from datetime import datetime
+
 from zope.component import getMultiAdapter
 from zope.component import createObject
 from zope.component import queryUtility
@@ -98,12 +100,14 @@ class TopicViewIntegrationTest(unittest.TestCase):
             title='Conversation 1'
         )
         conversation = IConversation(self.topic.conv1)
-        comment = createObject('plone.Comment')
-        comment.text = 'Reply 1'
-        conversation.addComment(comment)
-        comment = createObject('plone.Comment')
-        comment.text = 'Reply 2'
-        conversation.addComment(comment)
+        comment1 = createObject('plone.Comment')
+        comment1.creation_date = datetime.utcnow()
+        comment1.author_name = u'John Doe'
+        conversation.addComment(comment1)
+        comment2 = createObject('plone.Comment')
+        comment2.creation_date = datetime.utcnow()
+        comment2.author_name = u'Jane Doe'
+        conversation.addComment(comment2)
         from collective.ploneboard.browser.topic import TopicView
         view = TopicView(self.topic, self.request)
 
@@ -114,9 +118,11 @@ class TopicViewIntegrationTest(unittest.TestCase):
             conversations,
             [
                 {
-                    'title': 'Conversation 1',
+                    'title': u'Conversation 1',
                     'url': 'http://nohost/plone/board/topic1/conv1',
                     'total_comments': 2,
+                    'last_commenter': u'Jane Doe',
+                    'last_comment_date': comment2.creation_date,
                 }
             ]
         )

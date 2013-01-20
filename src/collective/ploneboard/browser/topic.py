@@ -14,11 +14,13 @@ class TopicView(BrowserView):
     def conversations(self):
         conversations = []
         for conversation_id in self.context.objectIds():
+            conv = self.context[conversation_id]
+            pad_conv = IConversation(self.context[conversation_id])
             conversations.append({
-                'title': self.context[conversation_id].title,
-                'url': self.context[conversation_id].absolute_url(),
-                'total_comments': IConversation(
-                    self.context[conversation_id]
-                ).total_comments,
+                'title': conv.title,
+                'url': conv.absolute_url(),
+                'total_comments': pad_conv.total_comments,
+                'last_commenter': pad_conv.items()[-1:][0][1].author_name,
+                'last_comment_date': pad_conv.last_comment_date,
             })
         return conversations
