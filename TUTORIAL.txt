@@ -264,6 +264,97 @@ Allow for conversation content type - conversation.xml::
   <property name="allow_discussion">True</property>
 
 
+Messageboard View
+-----------------
+
+As a member I can view the latest conversation on the message board grouped by topics.
+
+test_messageboard.py::
+
+    def test_conversations_method(self):
+        self.portal.board.invokeFactory('topic', 'topic1')
+        self.portal.board.invokeFactory('topic', 'topic2')
+        from collective.ploneboard.browser.messageboard import MessageboardView
+
+        view = MessageboardView(self.portal.board, self.request)
+
+        self.assertEqual(len(view.conversations()), 2)
+
+Test failure::
+
+    AttributeError: 'MessageboardView' object has no attribute 'conversations'
+
+browser/messageboard.py MessageboardView::
+
+    def conversations(self):
+        return ['foo', 'bar']
+
+=> Test green.
+
+=> Refactor
+
+test::
+        self.assertEqual(
+            [x['title'] for x in conversations],
+            ['Topic 1', 'Topic 2']
+        )
+
+code::
+        return [
+            {'title': 'Topic 1', 'conversations': []},
+            {'title': 'Topic 2', 'conversations': []},
+        ]
+
+code refactor::
+
+    def conversations(self):
+        output = []
+        for topic_id in self.context.objectIds():
+            topic = self.context[topic_id]
+            topic.title
+            output.append({'title': topic.title, 'conversations': []})
+        return output
+
+test_conversations::
+
+    def test_conversation_returns_conversations(self):
+        self.portal.board.invokeFactory('topic', id='topic1', title='Topic 1')
+        self.portal.board.topic1.invokeFactory(
+            'conversation',
+            id='conv1',
+            title='Conversation 1'
+        )
+        self.portal.board.topic1.invokeFactory(
+            'conversation',
+            id='conv2',
+            title='Conversation 2'
+        )
+        from collective.ploneboard.browser.messageboard import MessageboardView
+        view = MessageboardView(self.portal.board, self.request)
+
+        conversations = view.conversations()
+
+        self.assertEqual(len(conversations), 1)
+        self.assertEqual(
+            conversations[0]['conversations'],
+            []
+        )
+
+
+REFACTOR: conversations method => topics method::
+
+    <div tal:repeat="topic view/topics">
+      <h2 tal:content="topic/title"></h2>
+      <div tal:repeat="conversation topic/conversations">
+        <a tal:content="conversation/title"
+           tal:attributes="href conversation/url">Conversation</a>
+      </div>
+    </div>
+
+=> does not make sense with tal:repeat="topic view/conversations"
+
+=> refactor with confidence
+
 TODO templer:
 
 - remove initialize function

@@ -21,6 +21,13 @@
 
     <div tal:replace="structure provider:plone.abovecontentbody" />
 
+    <div tal:repeat="topic view/topics">
+      <h2 tal:content="topic/title"></h2>
+      <div tal:repeat="conversation topic/conversations">
+        <a tal:content="conversation/title"
+           tal:attributes="href conversation/url">Conversation</a>
+      </div>
+    </div>
 
     <div tal:replace="structure provider:plone.belowcontentbody" />
 

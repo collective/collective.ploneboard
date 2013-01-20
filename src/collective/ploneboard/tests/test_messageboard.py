@@ -75,3 +75,50 @@ class MessageBoardViewIntegrationTest(unittest.TestCase):
         self.assertTrue(view())
         self.assertTrue(view.template.filename.endswith('messageboard.pt'))
         self.assertTrue('My Message Board' in view())
+
+    def test_topics_method_returns_topics(self):
+        self.portal.board.invokeFactory('topic', id='topic1', title='Topic 1')
+        self.portal.board.invokeFactory('topic', id='topic2', title='Topic 2')
+        from collective.ploneboard.browser.messageboard import MessageboardView
+        view = MessageboardView(self.portal.board, self.request)
+
+        topics = view.topics()
+
+        self.assertEqual(len(topics), 2)
+        self.assertEqual(
+            [x['title'] for x in topics],
+            ['Topic 1', 'Topic 2']
+        )
+
+    def test_topics_method_returns_conversations(self):
+        self.portal.board.invokeFactory('topic', id='topic1', title='Topic 1')
+        self.portal.board.topic1.invokeFactory(
+            'conversation',
+            id='conv1',
+            title='Conversation 1'
+        )
+        self.portal.board.topic1.invokeFactory(
+            'conversation',
+            id='conv2',
+            title='Conversation 2'
+        )
+        from collective.ploneboard.browser.messageboard import MessageboardView
+        view = MessageboardView(self.portal.board, self.request)
+
+        topics = view.topics()
+
+        self.assertEqual(len(topics), 1)
+        self.assertEqual(
+            topics[0]['conversations'][0],
+            {
+                'title': 'Conversation 1',
+                'url': 'http://nohost/plone/board/topic1/conv1'
+            }
+        )
+        self.assertEqual(
+            topics[0]['conversations'][1],
+            {
+                'title': 'Conversation 2',
+                'url': 'http://nohost/plone/board/topic1/conv2'
+            }
+        )
