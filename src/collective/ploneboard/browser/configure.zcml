@@ -4,10 +4,19 @@
   xmlns:plone="http://namespaces.plone.org/plone"
   i18n_domain="collective.mailchimp">
 
+  <!-- Message Board -->
   <browser:page
     name="view"
     for="collective.ploneboard.interfaces.IMessageboard"
     class=".messageboard.MessageboardView"
+    permission="zope2.View"
+    />
+
+  <!-- Topic -->
+  <browser:page
+    name="view"
+    for="collective.ploneboard.interfaces.ITopic"
+    class=".topic.TopicView"
     permission="zope2.View"
     />
 

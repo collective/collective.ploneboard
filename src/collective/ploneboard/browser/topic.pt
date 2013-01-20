@@ -1,0 +1,57 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="collective.ploneboard">
+<body>
+
+<metal:main fill-slot="main">
+  <tal:main-macro metal:define-macro="main"
+    tal:define="toLocalizedTime nocall:context/@@plone/toLocalizedTime">
+
+    <div tal:replace="structure provider:plone.abovecontenttitle" />
+
+    <h1 class="documentFirstHeading" tal:content="context/title" />
+
+    <div tal:replace="structure provider:plone.belowcontenttitle" />
+
+    <p class="documentDescription" tal:content="context/description" />
+
+    <div tal:replace="structure provider:plone.abovecontentbody" />
+
+    <table style="width: 100%;" class="listing nosort">
+      <thead>
+        <tr>
+          <th>Gespräch</th>
+          <th>Antworten</th>
+          <th>Neuester Kommentar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tal:repeat tal:repeat="conversation view/conversations">
+          <tr class="odd">
+            <td class="forumTitleCell">
+              <a class="listingForum" href=""
+                 tal:content="conversation/title"
+                 tal:attributes="href conversation/url">
+                Topic
+              </a>
+            </td>
+            <td tal:content="conversation/total_comments">0</td>
+            <td>
+              <span class="discreet">Noch keine Gespräche.</span>
+            </td>
+          </tr>
+        </tal:repeat>
+      </tbody>
+    </table>
+
+    <div tal:replace="structure provider:plone.belowcontentbody" />
+
+  </tal:main-macro>
+</metal:main>
+
+</body>
+</html>

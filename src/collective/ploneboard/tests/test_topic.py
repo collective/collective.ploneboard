@@ -1,14 +1,19 @@
+import unittest2 as unittest
+from zope.component import getMultiAdapter
 from zope.component import createObject
 from zope.component import queryUtility
+
 from plone.dexterity.interfaces import IDexterityFTI
-import unittest2 as unittest
+
+from plone.app.discussion.interfaces import IConversation
 
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 
 from collective.ploneboard.interfaces import ITopic
-from collective.ploneboard.testing import \
+from collective.ploneboard.testing import (
     COLLECTIVE_PLONEBOARD_INTEGRATION_TESTING
+)
 
 
 class TopicIntegrationTest(unittest.TestCase):
@@ -57,3 +62,61 @@ class TopicIntegrationTest(unittest.TestCase):
         )
         obj = self.portal.board['mytopic']
         self.failUnless(ITopic.providedBy(obj))
+
+
+class TopicViewIntegrationTest(unittest.TestCase):
+
+    layer = COLLECTIVE_PLONEBOARD_INTEGRATION_TESTING
+
+    def setUp(self):
+        self.portal = self.layer['portal']
+        self.request = self.layer['request']
+        self.request['ACTUAL_URL'] = self.portal.absolute_url()
+        setRoles(self.portal, TEST_USER_ID, ['Manager'])
+        self.portal.invokeFactory(
+            'messageboard',
+            'board',
+        )
+        board = self.portal['board']
+        board.invokeFactory('topic', id='topic1', title='Topic 1')
+        self.topic = board.topic1
+
+    def test_messageboard_view(self):
+        view = getMultiAdapter(
+            (self.topic, self.portal.REQUEST),
+            name="view"
+        )
+        view = view.__of__(self.topic)
+        self.assertTrue(view())
+        self.assertTrue(view.template.filename.endswith('topic.pt'))
+        self.assertTrue('Topic 1' in view())
+
+    def test_conversations_method(self):
+        self.topic.invokeFactory(
+            'conversation',
+            id='conv1',
+            title='Conversation 1'
+        )
+        conversation = IConversation(self.topic.conv1)
+        comment = createObject('plone.Comment')
+        comment.text = 'Reply 1'
+        conversation.addComment(comment)
+        comment = createObject('plone.Comment')
+        comment.text = 'Reply 2'
+        conversation.addComment(comment)
+        from collective.ploneboard.browser.topic import TopicView
+        view = TopicView(self.topic, self.request)
+
+        conversations = view.conversations()
+
+        self.assertEqual(len(conversations), 1)
+        self.assertEqual(
+            conversations,
+            [
+                {
+                    'title': 'Conversation 1',
+                    'url': 'http://nohost/plone/board/topic1/conv1',
+                    'total_comments': 2,
+                }
+            ]
+        )
