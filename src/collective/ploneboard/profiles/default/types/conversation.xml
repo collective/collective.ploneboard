@@ -6,7 +6,7 @@
   <!-- Basic properties -->
   <property name="title" i18n:translate="">Conversation</property>
   <property name="description" i18n:translate=""></property>
-  <property name="content_icon">++resource++collective.ploneboard/conversation.gif</property>
+  <property name="content_icon">++resource++collective.ploneboard/images/conversation.gif</property>
 
   <property name="allow_discussion">True</property>
 
