@@ -23,10 +23,32 @@
 
     <div tal:repeat="topic view/topics">
       <h2 tal:content="topic/title"></h2>
-      <div tal:repeat="conversation topic/conversations">
-        <a tal:content="conversation/title"
-           tal:attributes="href conversation/url">Conversation</a>
-      </div>
+      <table style="width: 100%;" class="listing nosort">
+        <thead>
+          <tr>
+            <th>Name des Forums</th>
+            <th>Gespräche</th>
+            <th>Neuester Kommentar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tal:repeat tal:repeat="conversation topic/conversations">
+            <tr class="odd">
+              <td class="forumTitleCell">
+                <a class="listingForum" href=""
+                   tal:content="conversation/title"
+                   tal:attributes="href conversation/url">
+                  Topic
+                </a>
+              </td>
+              <td>0</td>
+              <td>
+                <span class="discreet">Noch keine Gespräche.</span>
+              </td>
+            </tr>
+          </tal:repeat>
+        </tbody>
+      </table>
     </div>
 
     <div tal:replace="structure provider:plone.belowcontentbody" />

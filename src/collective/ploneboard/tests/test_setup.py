@@ -38,3 +38,13 @@ class TestSetup(unittest.TestCase):
         registry = queryUtility(IRegistry)
         settings = registry.forInterface(IDiscussionSettings)
         self.assertEqual(settings.globally_enabled, True)
+
+    def test_image_resource_registered(self):
+        self.portal.restrictedTraverse(
+            '++resource++collective.ploneboard/images/ploneboard.gif'
+        )
+
+    def test_stylesheets_resource_registered(self):
+        self.portal.restrictedTraverse(
+            '++resource++collective.ploneboard/stylesheets/ploneboard.css'
+        )
