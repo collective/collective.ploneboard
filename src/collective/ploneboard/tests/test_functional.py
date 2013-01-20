@@ -20,7 +20,7 @@ optionflags = (
     doctest.REPORT_ONLY_FIRST_FAILURE
 )
 testfiles = [
-    '../../../../README.txt',
+    '../../../../README.rst',
 ]
 
 
