@@ -7,6 +7,8 @@
 
   <includeDependencies package="." />
 
+  <include package=".browser" />
+
   <genericsetup:registerProfile
       name="default"
       title="collective.ploneboard"
@@ -14,7 +16,6 @@
       description="Installs the collective.ploneboard package"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
-  <!-- -*- extra stuff goes here -*- -->
 
   <include file="permissions.zcml" />
 
