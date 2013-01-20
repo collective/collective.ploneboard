@@ -5,6 +5,8 @@
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     i18n_domain="collective.ploneboard">
 
+  <i18n:registerTranslations directory="locales"/>
+
   <includeDependencies package="." />
 
   <include package=".browser" />
