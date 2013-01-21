@@ -19,7 +19,7 @@
 
   <genericsetup:registerProfile
       name="default"
-      title="collective.ploneboard"
+      title="Ploneboard"
       directory="profiles/default"
       description="Installs the collective.ploneboard package"
       provides="Products.GenericSetup.interfaces.EXTENSION"
