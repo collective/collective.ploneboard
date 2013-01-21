@@ -22,13 +22,19 @@
     <div tal:replace="structure provider:plone.abovecontentbody" />
 
     <div class="topic" tal:repeat="topic view/topics">
-      <h3 tal:content="topic/title"></h3>
+      <h3>
+        <a href=""
+           tal:attributes="href topic/url"
+           tal:content="topic/title">
+           Topic
+        </a>
+      </h3>
       <table style="width: 100%;" class="listing nosort">
         <thead>
           <tr>
-            <th>Name des Forums</th>
-            <th>Gespräche</th>
-            <th>Neuester Kommentar</th>
+            <th>Gespräch</th>
+            <th class="replies">Antworten</th>
+            <th class="latest_reply">Neuester Kommentar</th>
           </tr>
         </thead>
         <tbody>

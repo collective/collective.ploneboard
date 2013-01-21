@@ -1,7 +1,3 @@
-body {
-    background: red;
-}
-
 .portaltype-messageboard .topic {
     background: #f2f2f2;
     padding: 5px;
@@ -17,4 +13,12 @@ body {
     background: #ddd;
     padding-left: 14px;
     line-height: 2em;
+}
+
+.portaltype-messageboard th.replies {
+    width: 10%;
+}
+
+.portaltype-messageboard th.latest_reply {
+    width: 30%;
 }

@@ -21,6 +21,7 @@ class MessageboardView(BrowserView):
                 })
             topics.append({
                 'title': topic.title,
-                'conversations': conversations
+                'url': topic.absolute_url(),
+                'conversations': conversations,
             })
         return topics
