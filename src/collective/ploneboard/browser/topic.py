@@ -16,11 +16,17 @@ class TopicView(BrowserView):
         for conversation_id in self.context.objectIds():
             conv = self.context[conversation_id]
             pad_conv = IConversation(self.context[conversation_id])
+            # XXX: last_commenter should be in metadata
+            comments = pad_conv.items()
+            if comments:
+                last_commenter = comments[-1:][0][1].author_name
+            else:
+                last_commenter = ""
             conversations.append({
                 'title': conv.title,
                 'url': conv.absolute_url(),
                 'total_comments': pad_conv.total_comments,
-                'last_commenter': pad_conv.items()[-1:][0][1].author_name,
+                'last_commenter': last_commenter,
                 'last_comment_date': pad_conv.last_comment_date,
             })
         return conversations

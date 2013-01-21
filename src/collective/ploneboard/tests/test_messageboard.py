@@ -109,16 +109,18 @@ class MessageBoardViewIntegrationTest(unittest.TestCase):
 
         self.assertEqual(len(topics), 1)
         self.assertEqual(
-            topics[0]['conversations'][0],
-            {
-                'title': 'Conversation 1',
-                'url': 'http://nohost/plone/board/topic1/conv1'
-            }
+            topics[0]['conversations'][0]['title'],
+            'Conversation 1',
         )
         self.assertEqual(
-            topics[0]['conversations'][1],
-            {
-                'title': 'Conversation 2',
-                'url': 'http://nohost/plone/board/topic1/conv2'
-            }
+            topics[0]['conversations'][0]['url'],
+            'http://nohost/plone/board/topic1/conv1'
+        )
+        self.assertEqual(
+            topics[0]['conversations'][1]['title'],
+            'Conversation 2'
+        )
+        self.assertEqual(
+            topics[0]['conversations'][1]['url'],
+            'http://nohost/plone/board/topic1/conv2'
         )
