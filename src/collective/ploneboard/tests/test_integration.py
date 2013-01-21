@@ -101,3 +101,4 @@ class PloneboardContenttypesFunctionalTest(unittest.TestCase):
         self.browser.getControl(name='form.buttons.comment').click()
 
         self.assertTrue('This is my first comment.' in self.browser.contents)
+        self.assertTrue('image.png' in self.browser.contents)

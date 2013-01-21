@@ -87,3 +87,25 @@ class ConversationIntegrationTest(unittest.TestCase):
         obj = self.portal.board.topic['conversation']
         conv = obj.restrictedTraverse('@@conversation_view')
         self.assertTrue(conv.enabled())
+
+    def test_comment_download(self):
+        self.portal.invokeFactory(
+            'messageboard',
+            'board'
+        )
+        self.portal.board.invokeFactory(
+            'topic',
+            'topic'
+        )
+        self.portal.board.topic.invokeFactory(
+            'conversation',
+            'conv'
+        )
+
+# XXX: Todo
+#        conv = self.portal.board.topic.conv.restrictedTraverse('@@conversation_view')
+#        comment = createObject('plone.Comment')
+#        comment.text = u'text'
+#        #comment.attachment = NamedBlobImage()
+#        conv.addComment(comment)
+#        comment.restrictedTraverse('/@@download/attachment/Foto.JPG')

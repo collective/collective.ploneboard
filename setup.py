@@ -42,6 +42,7 @@ setup(name='collective.ploneboard',
           'setuptools',
           'plone.app.dexterity',
           'plone.namedfile[blobs]',
+          'z3c.jbot',
       ],
       extras_require={'test': ['plone.app.testing']},
       entry_points="""
