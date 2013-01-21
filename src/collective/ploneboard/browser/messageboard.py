@@ -1,3 +1,5 @@
+from zope.component import getMultiAdapter
+
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
@@ -13,12 +15,10 @@ class MessageboardView(BrowserView):
         topics = []
         for topic_id in self.context.objectIds():
             topic = self.context[topic_id]
-            conversations = []
-            for conversation_id in topic.objectIds():
-                conversations.append({
-                    'title': topic[conversation_id].title,
-                    'url': topic[conversation_id].absolute_url(),
-                })
+            conversations = getMultiAdapter(
+                (topic, self.request),
+                name="view"
+            ).conversations()
             topics.append({
                 'title': topic.title,
                 'url': topic.absolute_url(),
