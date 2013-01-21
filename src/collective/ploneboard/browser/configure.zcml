@@ -4,6 +4,14 @@
   xmlns:plone="http://namespaces.plone.org/plone"
   i18n_domain="collective.mailchimp">
 
+  <!-- Comment Extender -->
+  <adapter
+    factory=".commentextender.CommentExtenderFactory"
+    provides=".commentextender.ICommentExtenderFields" />
+  <adapter
+    factory=".commentextender.CommentExtender"
+    provides="plone.z3cform.fieldsets.interfaces.IFormExtender" />
+
   <!-- Message Board -->
   <browser:page
     name="view"

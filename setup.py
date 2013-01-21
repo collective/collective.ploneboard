@@ -41,6 +41,7 @@ setup(name='collective.ploneboard',
       install_requires=[
           'setuptools',
           'plone.app.dexterity',
+          'plone.namedfile[blobs]',
       ],
       extras_require={'test': ['plone.app.testing']},
       entry_points="""
