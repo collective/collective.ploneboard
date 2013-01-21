@@ -21,8 +21,8 @@
 
     <div tal:replace="structure provider:plone.abovecontentbody" />
 
-    <div tal:repeat="topic view/topics">
-      <h2 tal:content="topic/title"></h2>
+    <div class="topic" tal:repeat="topic view/topics">
+      <h3 tal:content="topic/title"></h3>
       <table style="width: 100%;" class="listing nosort">
         <thead>
           <tr>
