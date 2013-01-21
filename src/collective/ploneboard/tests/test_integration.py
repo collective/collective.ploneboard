@@ -28,7 +28,7 @@ class PloneboardContenttypesIntegrationTest(unittest.TestCase):
         # Add board
         self.browser.open(self.portal_url + '/++add++messageboard')
         self.browser.getControl(
-            name='form.widgets.IBasic.title'
+            name='form.widgets.IDublinCore.title'
         ).value = "My Message Board"
         self.browser.getControl("Save").click()
         self.assertTrue("My Message Board" in self.browser.contents)
