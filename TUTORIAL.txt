@@ -1,15 +1,85 @@
+Buildout
+========
+
+$ mkdir tdd-dojo
+$ curl -O http://python-distribute.org/bootstrap.py
+
+buildout.cfg::
+
+    [buildout]
+    parts = instance
+    extends = http://dist.plone.org/release/4.2.3/versions.cfg
+
+    [instance]
+    recipe = plone.recipe.zope2instance
+    http-address = 8080
+    user = admin:admin
+    eggs =
+        Plone
+        templer.core
+        templer.plone
+
+$ python bootstrap.py
+$ bin/buildout
+
+
+Package
+=======
+
 $ bin/templer plone_basic
+Register Profile (Should this package register a GS Profile) [False]: True
+
+$ mkdir src
+$ mv collective.ploneboard src
+
+buildout.cfg::
+
+    [buildout]
+    parts = instance test
+    develop = src/collective.ploneboard
+
+    eggs =
+        ...
+        collective.ploneboard [test]
+
+    [test]
+    recipe = zc.recipe.testrunner
+    defaults = ['--auto-color', '--auto-progress']
+    eggs = ${instance:eggs}
+
+Test:
+
+    def test_product_is_installed(self):
+        """ Validate that our products GS profile has been run and the product
+            installed
+        """
+        pid = 'collective.ploneboard'
+        installed = [p['id'] for p in self.qi_tool.listInstalledProducts()]
+        self.assertTrue(pid in installed,
+                        'package appears not to have been installed')
+
+Run Tests::
+
+    $ bin/test -s collective.ploneboard
 
 - add travis-ci conf
-
-- run tests
-
 - configure travis-ci
-
 - run travis-ci
 
-Dexterity
----------
+User Stories
+============
+
+- "As an administrator I can add a message board."
+- "As an administrator I can add a topic to a message board."
+- "As an administrator I can add a conversation to a topic."
+- "As a member I can add a reply to a conversation"
+
+
+Test Setup
+==========
+
+TEST
+----
 
 test_setup.py::
 
@@ -21,12 +91,26 @@ test_setup.py::
             'package %s appears not to have been installed' % pid
         )
 
+FAILURE
+-------
+
+    $ bin/test -s collective.ploneboard
+
+Output::
+
+    AssertionError: False is not True : package plone.app.dexterity appears not to have been installed
+
+FIX
+---
+
 setup.py::
 
       install_requires=[
           'setuptools',
           'plone.app.dexterity',
       ],
+
+=> run buildout and test => FAILURE
 
 profiles/default/metadata.xml::
 
@@ -38,12 +122,17 @@ profiles/default/metadata.xml::
       </dependencies>
     </metadata>
 
+=> KEY ERROR
+
 configure.zcml::
 
     <includeDependencies package="." />
 
+=> GREEN
+
+
 Message Board Content Type
---------------------------
+==========================
 
 "As an administrator I can add a message board."
 
@@ -77,10 +166,112 @@ test_messageboard.py::
                 IDexterityFTI,
                 name='messageboard'
             )
-            schema = fti.lookupSchema()
-            self.assertEquals(IMessageboard, schema)
+
+            self.assertTrue(
+                fti,
+                'Factory Type Information for messageboard can not be looked up.'
+            )
+
+RED
+---
+
+    $ bin/test -t test_messageboard
+
+=> RED: ImportError: No module named interfaces
+
+interfaces.py::
+
+    from zope.interface import Interface
+
+
+    class IMessageboard(Interface):
+        """
+        """
+
+=> GREEN
+
+profile/default/types.xml::
+
+    <?xml version="1.0"?>
+    <object meta_type="Plone Types Tool" name="portal_types">
+      <object meta_type="Dexterity FTI" name="messageboard" />
+    </object>
+
+$ mkdir profiles/default/types
+
+profiles/default/types/messageboard.xml::
+
+    <?xml version="1.0"?>
+    <object name="messageboard" meta_type="Dexterity FTI"
+        xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+        i18n:domain="collective.ploneboard">
+
+      <!-- Basic properties -->
+      <property name="title" i18n:translate="">Message Board</property>
+      <property name="description" i18n:translate=""></property>
+      <property name="content_icon">++resource++collective.ploneboard/images/ploneboard.gif</property>
+
+      <property name="allow_discussion">False</property>
+
+      <!-- Hierarchy control -->
+      <property name="global_allow">True</property>
+      <property name="filter_content_types">True</property>
+      <property name="allowed_content_types">
+        <element value="topic" />
+      </property>
+
+      <!-- Schema, class and security -->
+      <property name="schema">collective.ploneboard.interfaces.IMessageboard</property>
+      <property name="klass">plone.dexterity.content.Container</property>
+      <property name="add_permission">ploneboard.AddMessageboard</property>
+
+      <!-- enabled behaviors -->
+      <property name="behaviors">
+        <element value="plone.app.dexterity.behaviors.metadata.IDublinCore" />
+        <element value="plone.app.dexterity.behaviors.exclfromnav.IExcludeFromNavigation" />
+        <element value="plone.app.content.interfaces.INameFromTitle" />
+      </property>
+
+      <!-- Views and aliases -->
+      <property name="default_view">view</property>
+      <property name="default_view_fallback">False</property>
+      <property name="view_methods">
+        <element value="view"/>
+      </property>
+
+      <alias from="(Default)" to="(selected layout)"/>
+      <alias from="edit" to="@@edit"/>
+      <alias from="sharing" to="@@sharing"/>
+      <alias from="view" to="@@view"/>
+
+      <action title="View" action_id="view" category="object" condition_expr=""
+              url_expr="string:${folder_url}/" visible="True">
+        <permission value="View"/>
+      </action>
+      <action title="Edit" action_id="edit" category="object" condition_expr=""
+              url_expr="string:${object_url}/edit" visible="True">
+        <permission value="Modify portal content"/>
+      </action>
+
+    </object>
+
+
+Further tests::
+
+        def test_fti(self):
+            from collective.ploneboard.interfaces import IMessageboard
+            fti = queryUtility(
+                IDexterityFTI,
+                name='messageboard'
+            )
+            self.assertTrue(
+                fti,
+                'Factory Type Information for messageboard can not be looked up.'
+            )
+            self.assertEqual(fti.lookupSchema(), IMessageboard)
 
         def test_factory(self):
+            from collective.ploneboard.interfaces import IMessageboard
             fti = queryUtility(
                 IDexterityFTI,
                 name='messageboard'
@@ -90,14 +281,14 @@ test_messageboard.py::
             self.failUnless(IMessageboard.providedBy(new_object))
 
         def test_adding(self):
+            from collective.ploneboard.interfaces import IMessageboard
             self.portal.invokeFactory(
                 'messageboard',
                 'board')
             board = self.portal['board']
             self.failUnless(IMessageboard.providedBy(board))
 
-
-test output::
+RED::
 
     raise AccessControl_Unauthorized('Cannot create %s' % self.getId())
     Unauthorized: Cannot create messageboard
@@ -120,7 +311,9 @@ permissions.zcml::
 
   </configure>
 
-test_integration.py::
+
+FUNCTIONAL TESTS
+----------------
 
     # -*- coding: utf-8 -*-
     from plone.app.testing import SITE_OWNER_NAME
@@ -163,10 +356,17 @@ test_integration.py::
             self.assertTrue("My Message Board" in self.browser.contents)
             self.assertTrue("Lorem ipsum" in self.browser.contents)
 
-Add Topic
----------
 
-- Global allow false
+Topic Content Type
+==================
+
+"As an administrator I can add a topic."
+
+- Copy messageboard.
+
+"As an administrator I can add a topic to a message board."
+
+- Set "Global allow" to false in the FTI
 => failing test
 
     raise ValueError('Disallowed subobject type: %s' % type_name)
@@ -197,7 +397,23 @@ Remove decorator from test_adding => failing test.
 Fix test_adding::
 
 
-Conversation: same as topic...
+    def test_adding(self):
+        self.portal.invokeFactory(
+            'messageboard',
+            'board'
+        )
+        self.portal.board.invokeFactory(
+            'topic',
+            'mytopic'
+        )
+        obj = self.portal.board['mytopic']
+        self.failUnless(ITopic.providedBy(obj))
+
+
+Conversation Content Type
+=========================
+
+=> Copy topic.
 
 test_conversation.py::
 
@@ -235,6 +451,7 @@ test_integration.py::
         self.browser.getControl(name="form.buttons.comment").click()
         self.assertTrue("This is my first reply" in self.browser.contents)
 
+
 Discussion for conversation type.
 ---------------------------------
 
@@ -267,7 +484,7 @@ Allow for conversation content type - conversation.xml::
 Messageboard View
 -----------------
 
-As a member I can view the latest conversation on the message board grouped by topics.
+"As a member I can view the latest conversation on the message board grouped by topics."
 
 test_messageboard.py::
 
@@ -351,7 +568,7 @@ REFACTOR: conversations method => topics method::
       </div>
     </div>
 
-=> does not make sense with tal:repeat="topic view/conversations"
+=> does not make sense with tal:repeat="topics view/topics"
 
 => refactor with confidence
 
