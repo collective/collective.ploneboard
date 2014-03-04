@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.0'
+version = '1.0a1'
 
 long_description = (
     open('README.rst').read()
@@ -21,13 +21,13 @@ setup(name='collective.ploneboard',
       # Get more strings from
       # http://pypi.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
-        "Environment :: Web Environment",
-        "Framework :: Plone",
-        "Operating System :: OS Independent",
-        "Programming Language :: Python",
-        "Programming Language :: Python :: 2.6",
-        "Topic :: Software Development :: Libraries :: Python Modules",
-        ],
+          "Environment :: Web Environment",
+          "Framework :: Plone",
+          "Operating System :: OS Independent",
+          "Programming Language :: Python",
+          "Programming Language :: Python :: 2.6",
+          "Topic :: Software Development :: Libraries :: Python Modules",
+      ],
       keywords='',
       author='Timo Stollenwerk',
       author_email='contact@timostollenwerk.net',
@@ -41,6 +41,7 @@ setup(name='collective.ploneboard',
       install_requires=[
           'setuptools',
           'plone.app.dexterity',
+          'plone.directives.form',  # get rid of that dependency
           'plone.namedfile[blobs]',
           'z3c.jbot',
       ],
