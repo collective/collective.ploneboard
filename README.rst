@@ -78,3 +78,4 @@ Later
 
 As a member I can attach a file to my comments/replies.
 As a member I can search a message board.
+
