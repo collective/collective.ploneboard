@@ -103,7 +103,8 @@ class ConversationIntegrationTest(unittest.TestCase):
         )
 
 # XXX: Todo
-#        conv = self.portal.board.topic.conv.restrictedTraverse('@@conversation_view')
+#        conv = self.portal.board.topic.conv.restrictedTraverse(
+#            '@@conversation_view')
 #        comment = createObject('plone.Comment')
 #        comment.text = u'text'
 #        #comment.attachment = NamedBlobImage()
