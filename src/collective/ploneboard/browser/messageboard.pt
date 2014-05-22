@@ -18,51 +18,67 @@
     <div tal:replace="structure provider:plone.belowcontenttitle" />
 
     <p class="documentDescription" tal:content="context/description" />
+    Categories:
+    <ul>
+    	<div tal:repeat="mc context/cats">
+    		<li><div tal:content="mc"/></li>
+    	</div>
+	</ul>
 
     <div tal:replace="structure provider:plone.abovecontentbody" />
 
-    <div class="topic" tal:repeat="topic view/topics">
-      <h3>
-        <a href=""
-           tal:attributes="href topic/url"
-           tal:content="topic/title">
-           Topic
-        </a>
-      </h3>
-      <table style="width: 100%;" class="listing nosort">
-        <thead>
-          <tr>
-            <th>Gespräch</th>
-            <th class="replies">Antworten</th>
-            <th class="latest_reply">Neuester Kommentar</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tal:repeat tal:repeat="conversation topic/conversations">
-            <tr class="odd">
-              <td class="forumTitleCell">
-                <a class="listingForum" href=""
-                   tal:content="conversation/title"
-                   tal:attributes="href conversation/url">
-                  Topic
-                </a>
-              </td>
-              <td tal:content="conversation/total_comments">0</td>
-              <td>
-                <tal:block tal:condition="conversation/last_commenter">
-                  <a href="" tal:attributes="href conversation/url">
-                    <span tal:replace="conversation/last_commenter" />
-                  </a>
-                  <span class="discreet" tal:content="python:toLocalizedTime(conversation['last_comment_date'])" />
-                </tal:block>
-                <tal:block tal:condition="not:conversation/last_commenter">
-                  <span class="discreet">Noch keine Gespräche.</span>
-                </tal:block>
-              </td>
-            </tr>
-          </tal:repeat>
-        </tbody>
-      </table>
+    <div tal:define="local dict view/categories">
+      <!--p tal:content="dict"/-->
+      <div class="Categories" tal:repeat="cat dict">
+        <h2 tal:content="cat"/>
+        
+        <div tal:define="local topics python: dict[cat]">
+          <!--h3 tal:content="topics"/-->
+          <div class="topic" tal:repeat="topic topics">
+            <h3>
+              <a href=""
+                 tal:attributes="href topic/url"
+                 tal:content="topic/title">
+                 Topic
+              </a>
+            </h3>
+            <table style="width: 100%;" class="listing nosort">
+              <thead>
+                <tr>
+                  <th>Gespräch</th>
+                  <th class="replies">Antworten</th>
+                  <th class="latest_reply">Neuester Kommentar</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tal:repeat tal:repeat="conversation topic/conversations">
+                  <tr class="odd">
+                    <td class="forumTitleCell">
+                      <a class="listingForum" href=""
+                         tal:content="conversation/title"
+                         tal:attributes="href conversation/url">
+                        Topic
+                      </a>
+                    </td>
+                    <td tal:content="conversation/total_comments">0</td>
+                    <td>
+                      <tal:block tal:condition="conversation/last_commenter">
+                        <a href="" tal:attributes="href conversation/url">
+                          <span tal:replace="conversation/last_commenter" />
+                        </a>
+                        <span class="discreet" tal:content="python:toLocalizedTime(conversation['last_comment_date'])" />
+                      </tal:block>
+                      <tal:block tal:condition="not:conversation/last_commenter">
+                        <span class="discreet">Noch keine Gespräche.</span>
+                      </tal:block>
+                    </td>
+                  </tr>
+                </tal:repeat>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div tal:replace="structure provider:plone.belowcontentbody" />
