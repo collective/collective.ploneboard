@@ -42,7 +42,9 @@ class PloneboardContenttypesFunctionalTest(unittest.TestCase):
         self.browser.getControl(
             name='form.widgets.IDublinCore.title'
         ).value = "My Message Board"
-        self.browser.getControl(name='form.widgets.category').value="Get Started\r\nPromotion\r\nCommunications"
+        self.browser.getControl(
+            name='form.widgets.category'
+        ).value = "Get Started\r\nPromotion\r\nCommunications"
         self.browser.getControl("Save").click()
         self.assertTrue("My Message Board" in self.browser.contents)
         self.assertTrue("Get Started" in self.browser.contents)
@@ -50,7 +52,12 @@ class PloneboardContenttypesFunctionalTest(unittest.TestCase):
         self.assertTrue("Communications" in self.browser.contents)
 
     def test_topic(self):
-        self.portal.invokeFactory('messageboard', 'board',title="My Message Board", category="Get Started\r\nPromotion\r\nCommunications")
+        self.portal.invokeFactory(
+            'messageboard',
+            'board',
+            title="My Message Board",
+            category="Get Started\r\nPromotion\r\nCommunications"
+            )
         transaction.commit()
 
         self.browser.open(self.portal.board.absolute_url())

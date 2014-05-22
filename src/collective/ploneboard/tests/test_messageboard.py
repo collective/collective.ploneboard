@@ -81,13 +81,23 @@ class MessageBoardViewIntegrationTest(unittest.TestCase):
         self.assertTrue('Communications' in view())
 
     def test_topics_method_returns_topics(self):
-        self.portal.board.invokeFactory('topic', id='topic1', title='Topic 1', description="Goes to a single category", category=[u'Get Started'])
-        self.portal.board.invokeFactory('topic', id='topic2', title='Topic 2', description="Chooses two categories", category=[u'Promotion',u'Communications'])
+        self.portal.board.invokeFactory(
+            'topic',
+            id='topic1',
+            title='Topic 1',
+            description="Goes to a single category",
+            category=[u'Get Started'])
+        self.portal.board.invokeFactory(
+            'topic',
+            id='topic2',
+            title='Topic 2',
+            description="Chooses two categories",
+            category=[u'Promotion', u'Communications'])
         from collective.ploneboard.browser.messageboard import MessageboardView
         view = MessageboardView(self.portal.board, self.request)
         categories = view.categories()
         self.assertEqual(len(categories), 3)
-        self.assertTrue(categories,dict)
+        self.assertTrue(categories, dict)
 
         topics = view.topics()
 
@@ -98,7 +108,12 @@ class MessageBoardViewIntegrationTest(unittest.TestCase):
         )
 
     def test_topics_method_returns_conversations(self):
-        self.portal.board.invokeFactory('topic', id='topic1', title='Topic 1', description="testing", category=[u'Get Started'])
+        self.portal.board.invokeFactory(
+            'topic',
+            id='topic1',
+            title='Topic 1',
+            description="testing",
+            category=[u'Get Started'])
         self.portal.board.topic1.invokeFactory(
             'conversation',
             id='conv1',
