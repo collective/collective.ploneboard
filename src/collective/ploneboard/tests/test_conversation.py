@@ -55,14 +55,57 @@ class ConversationIntegrationTest(unittest.TestCase):
             'topic',
             'topic'
         )
-
+        setRoles(self.portal, TEST_USER_ID, ['Member'])
         self.portal.board.topic.invokeFactory(
             'conversation',
             'conversation'
         )
-
         obj = self.portal.board.topic['conversation']
         self.failUnless(IConversation.providedBy(obj))
+
+    def test_permission_for_manager(self):
+        self.portal.invokeFactory(
+            'messageboard',
+            'board'
+        )
+        self.portal.board.invokeFactory(
+            'topic',
+            'topic'
+        )
+        setRoles(self.portal, TEST_USER_ID, ['Member'])
+        self.portal.board.topic.invokeFactory(
+            'conversation',
+            'conversation'
+        )
+        permissions = [
+            p['name'] for p in
+            self.portal.board.topic.permissionsOfRole('Manager')
+            if p['selected']]
+        self.assertTrue(
+            'Collective Ploneboard: Add Conversation'
+            in permissions)
+
+    def test_permission_for_member(self):
+        self.portal.invokeFactory(
+            'messageboard',
+            'board'
+        )
+        self.portal.board.invokeFactory(
+            'topic',
+            'topic'
+        )
+        setRoles(self.portal, TEST_USER_ID, ['Member'])
+        self.portal.board.topic.invokeFactory(
+            'conversation',
+            'conversation'
+        )
+        permissions = [
+            p['name'] for p in
+            self.portal.board.topic.permissionsOfRole('Member')
+            if p['selected']]
+        self.assertTrue(
+            'Collective Ploneboard: Add Conversation'
+            in permissions)
 
     def test_conversation_enabled(self):
         from plone.app.discussion.interfaces import IDiscussionLayer

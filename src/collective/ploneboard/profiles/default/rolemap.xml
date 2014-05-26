@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<rolemap>
+    <permissions>
+        <permission name="Collective Ploneboard: Add Message Board" acquire="True">
+            <role name="Manager"/>
+        </permission>
+        <permission name="Collective Ploneboard: Add Topic" acquire="True">
+            <role name="Manager"/>
+        </permission>
+        <permission name="Collective Ploneboard: Add Conversation" acquire="True">
+            <role name="Member"/>
+        </permission>
+    </permissions>
+</rolemap>

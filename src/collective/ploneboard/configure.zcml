@@ -7,8 +7,11 @@
     i18n_domain="collective.ploneboard">
 
   <i18n:registerTranslations directory="locales"/>
-
+  
   <includeDependencies package="." />
+
+  <includeDependencies package="collective.autopermission" />
+  <include file="permissions.zcml" />
 
   <include package="z3c.jbot" file="meta.zcml" />
   <browser:jbot directory="overrides" />
@@ -28,6 +31,5 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
-  <include file="permissions.zcml" />
 
 </configure>

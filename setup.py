@@ -40,6 +40,7 @@ setup(name='collective.ploneboard',
       zip_safe=False,
       install_requires=[
           'setuptools',
+          'collective.autopermission',
           'plone.app.dexterity',
           'plone.directives.form',  # get rid of that dependency
           'plone.namedfile[blobs]',
