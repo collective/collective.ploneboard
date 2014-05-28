@@ -6,6 +6,7 @@ import unittest2 as unittest
 from datetime import datetime
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
+from plone.namedfile import NamedBlobImage
 
 from collective.ploneboard.interfaces import IConversation
 from collective.ploneboard.testing import \
@@ -123,6 +124,16 @@ class ConversationIntegrationTest(unittest.TestCase):
             'conversation',
             'conv'
             )
+        from plone.app.discussion.interfaces import IConversation
+        conversation = IConversation(self.portal.board.topic.conv)
+        comment = createObject('plone.Comment')
+        comment.text = u'Text goes here'
+        comment.attachment = NamedBlobImage('image.png')
+        conversation.addComment(comment)
+        downloadurl = comment.restrictedTraverse(
+            '@@download/attachment/image.png'
+            )
+        print downloadurl
 
         # XXX: Todo
 #        conv = self.portal.board.topic.conv.restrictedTraverse(
