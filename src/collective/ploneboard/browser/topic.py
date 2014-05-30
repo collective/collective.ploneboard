@@ -9,8 +9,10 @@ class TopicView(BrowserView):
     template = ViewPageTemplateFile('topic.pt')
 
     def __call__(self):
-        # context = self.context.aq_inner
+        context = self.context.aq_inner
         # print context.category
+        if context.category == []:
+            context.category.append('Unspecified')
         return self.template()
 
     def conversations(self):

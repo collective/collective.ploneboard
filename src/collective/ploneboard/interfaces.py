@@ -32,12 +32,11 @@ class ITopic(form.Schema):
     category = schema.List(
         title=_(u"Category"),
         description=_(u"Choose to tag your Topic"),
-        required=True,
         value_type=schema.Choice(
             title=_(u"Ssup"),
             source=possibleCategories,
-            required=False
-            )
+            ),
+        required=False,
         )
 
 

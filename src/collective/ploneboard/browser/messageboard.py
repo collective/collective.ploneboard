@@ -23,6 +23,8 @@ class MessageboardView(BrowserView):
                 (topic, self.request),
                 name="view"
             ).conversations()
+            if topic.category == []:
+                topic.category.append('Unspecified')
             for each_category in topic.category:
                 if each_category not in categ:
                     key = each_category
