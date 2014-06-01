@@ -19,12 +19,11 @@
 
     <p class="documentDescription" tal:content="context/description" />
     Categories:
-    <ul>
-    	<div tal:repeat="mc context/cats">
-    		<li><div tal:content="mc"/></li>
-    	</div>
+    <ul class="catulist">
+        <div tal:repeat="mc context/cats">
+            <li class="catlist"><span class="catname" tal:content="mc"/></li>
+        </div>
 	</ul>
-
     <div tal:replace="structure provider:plone.abovecontentbody" />
 
     <div tal:define="local dict view/categories">

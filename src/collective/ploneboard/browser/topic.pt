@@ -19,8 +19,8 @@
 
     <p class="documentDescription" tal:content="context/description" />
     Categories:
-    <div class="category" tal:repeat="cat context/category">
-    	<div class="documentDescription" tal:content="cat" />
+    <div style="padding:2px;margin:3px;" tal:repeat="cat context/category">
+    	<span class="catname" tal:content="cat" />
     </div>
     <div tal:replace="structure provider:plone.abovecontentbody" />
 

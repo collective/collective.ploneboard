@@ -17,7 +17,7 @@ from plone.app.discussion.browser.comments import CommentForm
 from plone.app.discussion.comment import Comment
 
 from collective.ploneboard import _
-
+import pdb
 
 class ICommentExtenderFields(Interface):
     attachment = NamedBlobFile(
@@ -37,7 +37,6 @@ CommentExtenderFactory = factory(CommentExtenderFields)
 
 class CommentExtender(extensible.FormExtender):
     adapts(Interface, IDefaultBrowserLayer, CommentForm)
-
     fields = Fields(ICommentExtenderFields)
 
     def __init__(self, context, request, form):
@@ -46,5 +45,6 @@ class CommentExtender(extensible.FormExtender):
         self.form = form
 
     def update(self):
+        # pdb.set_trace()
         self.add(ICommentExtenderFields, prefix="")
         self.move('attachment', after='text', prefix="")

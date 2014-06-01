@@ -22,3 +22,20 @@
 .portaltype-messageboard th.latest_reply {
     width: 30%;
 }
+.catname {
+    background-color: #F7941D;
+    color: #FFF;
+    font: 14px/19px Helvetica,Arial,sans-serif;
+    padding: 6px;
+}
+.catulist {
+    display: block;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+.catulist .catlist {
+    display: inline;
+    list-style-type: none;
+    padding: 0.5em 0.1em;
+}

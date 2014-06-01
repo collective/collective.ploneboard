@@ -9,9 +9,9 @@
   <i18n:registerTranslations directory="locales"/>
   
   <includeDependencies package="." />
-
   <includeDependencies package="collective.autopermission" />
   <include file="permissions.zcml" />
+
 
   <include package="z3c.jbot" file="meta.zcml" />
   <browser:jbot directory="overrides" />
@@ -31,5 +31,13 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
+  <genericsetup:importStep
+      name="ploneboard-various"
+      title="Additional Collective Ploneboard policy setup"
+      description="Collective Ploneboard policy configuration"
+      handler="collective.ploneboard.setuphandlers.importVarious">
+      <depends name="rolemap" />
+      <depends name="workflows" />
+  </genericsetup:importStep>
 
 </configure>
