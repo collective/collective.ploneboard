@@ -1,14 +1,20 @@
 __docformat__ = "epytext"
 
+
 def runCustomCode(site):
-    """ Run custom add-on product installation code to modify Plone site object and others
+    """ Run custom add-on product
+    installation code to modify Plone
+    site object and others
 
     @param site: Plone site
     """
 
+
 def setupVarious(context):
     """
-    @param context: Products.GenericSetup.context.DirectoryImportContext instance
+    @param context:
+    Products.GenericSetup.context.DirectoryImportContext
+    instance
     """
 
     # We check from our GenericSetup context whether we are running
@@ -21,9 +27,12 @@ def setupVarious(context):
 
     runCustomCode(portal)
 
+
 def importVarious(context):
     """
-    @param context: Products.GenericSetup.context.DirectoryImportContext instance
+    @param context:
+    Products.GenericSetup.context.DirectoryImportContext
+    instance
     """
 
     # We check from our GenericSetup context whether we are running

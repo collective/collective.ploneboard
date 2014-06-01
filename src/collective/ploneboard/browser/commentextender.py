@@ -17,7 +17,8 @@ from plone.app.discussion.browser.comments import CommentForm
 from plone.app.discussion.comment import Comment
 
 from collective.ploneboard import _
-import pdb
+# import pdb
+
 
 class ICommentExtenderFields(Interface):
     attachment = NamedBlobFile(
