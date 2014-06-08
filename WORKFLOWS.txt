@@ -1,0 +1,22 @@
+Collective Ploneboard ships with a simple one-state workflow and a review workflow for conversations and a review workflow for topics.
+
+=> Topics Workflow Collective Ploneboard - review workflow for topics
+   
+   A simple review workflow which also enables member users to add a new conversation.
+
+1. Conversation Workflow Collective Ploneboard - one-state workflow
+
+   A workflow with no transitions, but it has a published state. Any conversation started by a member directly becomes public and does not requires a review.
+
+   * --> [published]--> * 
+
+2. Conversation Publication Workflow Collective Ploneboard - review workflow
+
+   A simple review workflow that comes with three states (private, pending and published) and four transitions (publish, reject, retract and submit).
+   The 'private' state is the initial state. 'pending' is the state where the conversation is reviewed by the reviewer and the manager, and decided whether to publish or reject. In 'pending' author can also retract his submission. 'published' is the state where the conversation is visible to everyone and non-editable.
+
+   * --> [private] -- {submit} --> [pending] -- {publish} --> [published]-->*
+             |                         |                          |
+             +<-------------------- {reject} ---------------------+                     
+             |                         |                          |
+             +<-------------------- {retract} --------------------+
