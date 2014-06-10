@@ -24,7 +24,10 @@ class WorkflowIntegrationTest(unittest.TestCase):
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
         workflowTool = getToolByName(self.portal, 'portal_workflow')
         workflowTool.setChainForPortalTypes(('topic',), 'try_topi_w')
-        workflowTool.setChainForPortalTypes(('conversation',), 'try_conv_no_review_w')
+        workflowTool.setChainForPortalTypes(
+            ('conversation',),
+            'try_conv_no_review_w'
+            )
         workflowTool.updateRoleMappings()
 
     def test_workflow_installed(self):
@@ -74,7 +77,10 @@ class WorkflowIntegrationTest(unittest.TestCase):
     def test_permission(self):
         workflowTool = getToolByName(self.portal, 'portal_workflow')
         workflowTool.setChainForPortalTypes(('topic',), 'try_topi_w')
-        workflowTool.setChainForPortalTypes(('conversation',), 'try_conv_no_review_w')
+        workflowTool.setChainForPortalTypes(
+            ('conversation',),
+            'try_conv_no_review_w'
+            )
         workflowTool.updateRoleMappings()
         self.portal.invokeFactory(
             'messageboard',
@@ -84,7 +90,7 @@ class WorkflowIntegrationTest(unittest.TestCase):
             'topic',
             'topic',
         )
-        #setRoles(self.portal, TEST_USER_ID, ['Member','Authenticated'])
+        # setRoles(self.portal, TEST_USER_ID, ['Member','Authenticated'])
         acl_users = getToolByName(self.portal, 'acl_users')
         acl_users.userFolderAddUser('user1', 'secret', ['Member'], [])
         workflowTool.updateRoleMappings()
