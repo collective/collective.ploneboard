@@ -5,8 +5,8 @@ from Products.CMFCore.utils import getToolByName
 
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
-# from plone.app.testing import login
-# from plone.app.testing import logout
+from plone.app.testing import login
+from plone.app.testing import logout
 
 from collective.ploneboard.testing import (
     COLLECTIVE_PLONEBOARD_INTEGRATION_TESTING
@@ -22,6 +22,10 @@ class WorkflowIntegrationTest(unittest.TestCase):
         self.request = self.layer['request']
         self.request['ACTUAL_URL'] = self.portal.absolute_url()
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
+        workflowTool = getToolByName(self.portal, 'portal_workflow')
+        workflowTool.setChainForPortalTypes(('topic',), 'try_topi_w')
+        workflowTool.setChainForPortalTypes(('conversation',), 'try_conv_no_review_w')
+        workflowTool.updateRoleMappings()
 
     def test_workflow_installed(self):
         workflow = getToolByName(self.portal, 'portal_workflow')
@@ -67,8 +71,11 @@ class WorkflowIntegrationTest(unittest.TestCase):
             )
 
     # XXX: Todo- test for adding conversation as a member
-    """
     def test_permission(self):
+        workflowTool = getToolByName(self.portal, 'portal_workflow')
+        workflowTool.setChainForPortalTypes(('topic',), 'try_topi_w')
+        workflowTool.setChainForPortalTypes(('conversation',), 'try_conv_no_review_w')
+        workflowTool.updateRoleMappings()
         self.portal.invokeFactory(
             'messageboard',
             'board',
@@ -77,13 +84,17 @@ class WorkflowIntegrationTest(unittest.TestCase):
             'topic',
             'topic',
         )
-        # setRoles(self.portal, TEST_USER_ID, ['Member','Editor'])
+        #setRoles(self.portal, TEST_USER_ID, ['Member','Authenticated'])
         acl_users = getToolByName(self.portal, 'acl_users')
         acl_users.userFolderAddUser('user1', 'secret', ['Member'], [])
+        workflowTool.updateRoleMappings()
         login(self.portal, 'user1')
+        mt = getToolByName(self.portal, 'portal_membership')
+        member = mt.getMemberById('user1')
+        print member.getRolesInContext(self.portal.board.topic)
+
         self.portal.board.topic.invokeFactory(
             'conversation',
             'conv',
         )
         logout()
-    """
