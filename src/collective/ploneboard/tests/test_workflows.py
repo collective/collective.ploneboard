@@ -4,8 +4,10 @@ from Products.CMFCore.utils import getToolByName
 
 from Products.CMFCore.utils import _checkPermission as checkPerm
 from Products.CMFCore.permissions import View
+from Products.CMFCore import permissions
 
 # from AccessControl import Unauthorized
+from Products.CMFCore.WorkflowCore import WorkflowException
 
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
@@ -204,7 +206,7 @@ class ConversationNoReviewWorkflowTest(unittest.TestCase):
         login(self.portal, 'reader')
         self.assertTrue(checkPerm(View, self.portal.board.topic.conv))
 
-"""
+
 class ConversationReviewWorkflowTest(unittest.TestCase):
 
     layer = COLLECTIVE_PLONEBOARD_INTEGRATION_TESTING
@@ -231,6 +233,7 @@ class ConversationReviewWorkflowTest(unittest.TestCase):
             'conversation',
             'conv',
         )
+        self.portal.acl_users._doAddUser('anonymous', 'secret', [], [])
         self.portal.acl_users._doAddUser('member', 'secret', ['Member'], [])
         self.portal.acl_users._doAddUser(
             'reviewer', 'secret', ['Reviewer'], [])
@@ -238,27 +241,85 @@ class ConversationReviewWorkflowTest(unittest.TestCase):
         self.portal.acl_users._doAddUser('editor', ' secret', ['Editor'], [])
         self.portal.acl_users._doAddUser('reader', 'secret', ['Reader'], [])
 
-    def test_delete(self):
-
-        self.portal.REQUEST.form['conv'] = self.portal.board.topic.conv
-        view = self.portal.board.topic.conv.restrictedTraverse(
-            '@@moderate-delete-conversation'
+    def test_initial_workflow_state(self):
+        # Initial workflow state should be 'private'
+        self.assertEqual(
+            self.workflowTool.getInfoFor(
+                self.portal.board.topic.conv,
+                'review_state'
+                ),
+            'private'
             )
-        view()
-        # del self.portal.board.topic['conv']
+
+    def test_delete(self):
+        mt = getToolByName(self.portal, 'portal_membership')
+        self.assertTrue(mt.checkPermission(
+            permissions.DeleteObjects,
+            self.portal.board.topic.conv)
+            )
+        # Can delete
+        self.portal.board.topic.manage_delObjects(["conv"])
+        # Deleted
         self.assertFalse('conv' in self.portal.board.topic.objectIds())
 
-    def test_delete_as_anonymous(self):
-        logout();
-        del self.portal.board.topic['conv']
-        #self.assertRaises(Unauthorized)
-        self.assertTrue('conv' in self.portal.board.topic.objectIds())
-
     def test_delete_as_user(self):
+        logout()
         # Members can not delete conversations
-        logout();
-        #setRoles(self.portal, TEST_USER_ID, ['Member'])
-        #del self.portal.board.topic['conv']
-        #self.assertRaises(Unauthorized)
-        #self.assertTrue('conv' in self.portal.board.topic.objectIds())
-"""
+        login(self.portal, 'member')
+        mt = getToolByName(self.portal, 'portal_membership')
+        self.assertFalse(mt.checkPermission(
+            permissions.DeleteObjects,
+            self.portal.board.topic.conv)
+            )
+
+    def test_delete_as_anonymous(self):
+        # Anonymous user can not delete conversation
+        logout()
+        login(self.portal, 'anonymous')
+        mt = getToolByName(self.portal, 'portal_membership')
+        self.assertFalse(mt.checkPermission(
+            permissions.DeleteObjects,
+            self.portal.board.topic.conv)
+            )
+
+    def test_submit(self):
+        self.workflowTool.doActionFor(self.portal.board.topic.conv, "submit")
+        # Workflow state should be 'pending'
+        self.assertEqual(
+            self.workflowTool.getInfoFor(
+                self.portal.board.topic.conv,
+                'review_state'
+                ),
+            'pending'
+            )
+
+    def test_publish(self):
+        self.workflowTool.doActionFor(self.portal.board.topic.conv, "publish")
+        # Workflow state should be 'published'
+        self.assertEqual(
+            self.workflowTool.getInfoFor(
+                self.portal.board.topic.conv,
+                'review_state'
+                ),
+            'published'
+            )
+
+    def test_publish_as_anonymous(self):
+        logout()
+        # self.workflowTool.doActionFor(self.portal.board.topic.conv,"publish")
+        try:
+            self.workflowTool.doActionFor(
+                self.portal.board.topic.conv,
+                "publish"
+                )
+        except WorkflowException:
+                # Exception is raised
+                pass
+        # Workflow state should remain 'private'
+        self.assertEqual(
+            self.workflowTool.getInfoFor(
+                self.portal.board.topic.conv,
+                'review_state'
+                ),
+            'private'
+            )
