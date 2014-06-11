@@ -97,8 +97,8 @@ class WorkflowIntegrationTest(unittest.TestCase):
             'topic',
         )
         # Publish messageboard and topic
-        workflowTool.doActionFor( self.portal.board , "publish")
-        workflowTool.doActionFor( self.portal.board.topic , "publish")
+        workflowTool.doActionFor(self.portal.board, "publish")
+        workflowTool.doActionFor(self.portal.board.topic, "publish")
 
         self.portal.acl_users._doAddUser('member', 'secret', ['Member'], [])
         self.portal.acl_users._doAddUser(
@@ -113,7 +113,6 @@ class WorkflowIntegrationTest(unittest.TestCase):
             'conv',
         )
         self.assertTrue('conv' in self.portal.board.topic.objectIds())
-
 
     def test_review_conversation_permission(self):
         # 'Review portal content'
@@ -211,7 +210,10 @@ class ConversationNoReviewWorkflowTest(unittest.TestCase):
             'conversation',
             'my_second_conversation',
         )
-        self.assertTrue('my_first_conversation' and 'my_second_conversation' in self.portal.board.topic.objectIds())
+        self.assertTrue(
+            'my_first_conversation' and 'my_second_conversation'
+            in self.portal.board.topic.objectIds()
+            )
 
     def test_view_conversations(self):
         # Conversations published are viewed by everyone
@@ -287,7 +289,10 @@ class ConversationReviewWorkflowTest(unittest.TestCase):
             'conversation',
             'my_second_conversation',
         )
-        self.assertTrue('my_first_conversation' and 'my_second_conversation' in self.portal.board.topic.objectIds())
+        self.assertTrue(
+            'my_first_conversation' and 'my_second_conversation'
+            in self.portal.board.topic.objectIds()
+            )
 
     def test_initial_workflow_state(self):
         # Initial workflow state should be 'private'
