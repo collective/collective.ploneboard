@@ -79,13 +79,12 @@ class WorkflowIntegrationTest(unittest.TestCase):
             workflow.getChainFor(self.portal.board.topic.conv)
             )
 
-    # XXX: Todo- test for adding conversation as a member
-    """
     def test_permission(self):
+        # As a member I can add new conversation
         workflowTool = getToolByName(self.portal, 'portal_workflow')
-        workflowTool.setChainForPortalTypes(('topic',), 'try_topi_w')
+        workflowTool.setChainForPortalTypes(['topic'], 'try_topi_w')
         workflowTool.setChainForPortalTypes(
-            ('conversation',),
+            ['conversation'],
             'try_conv_no_review_w'
             )
         workflowTool.updateRoleMappings()
@@ -97,21 +96,24 @@ class WorkflowIntegrationTest(unittest.TestCase):
             'topic',
             'topic',
         )
-        # setRoles(self.portal, TEST_USER_ID, ['Member','Authenticated'])
-        acl_users = getToolByName(self.portal, 'acl_users')
-        acl_users.userFolderAddUser('user1', 'secret', ['Member'], [])
-        workflowTool.updateRoleMappings()
-        login(self.portal, 'user1')
-        mt = getToolByName(self.portal, 'portal_membership')
-        member = mt.getMemberById('user1')
-        print member.getRolesInContext(self.portal.board.topic)
+        # Publish messageboard and topic
+        workflowTool.doActionFor( self.portal.board , "publish")
+        workflowTool.doActionFor( self.portal.board.topic , "publish")
 
+        self.portal.acl_users._doAddUser('member', 'secret', ['Member'], [])
+        self.portal.acl_users._doAddUser(
+            'reviewer', 'secret', ['Reviewer'], [])
+        self.portal.acl_users._doAddUser('manager', 'secret', ['Manager'], [])
+        self.portal.acl_users._doAddUser('editor', ' secret', ['Editor'], [])
+        self.portal.acl_users._doAddUser('reader', 'secret', ['Reader'], [])
+
+        login(self.portal, 'member')
         self.portal.board.topic.invokeFactory(
             'conversation',
             'conv',
         )
-        logout()
-    """
+        self.assertTrue('conv' in self.portal.board.topic.objectIds())
+
 
     def test_review_conversation_permission(self):
         # 'Review portal content'
@@ -188,6 +190,29 @@ class ConversationNoReviewWorkflowTest(unittest.TestCase):
             'published'
             )
 
+    def test_add_conversation_as_member(self):
+        # As a member I can add new conversations
+        # Publish messageboard and topic
+        self.workflowTool.doActionFor(
+            self.portal.board,
+            "publish"
+            )
+        self.workflowTool.doActionFor(
+            self.portal.board.topic,
+            "publish"
+            )
+        # Member logs in
+        login(self.portal, "member")
+        self.portal.board.topic.invokeFactory(
+            'conversation',
+            'my_first_conversation',
+        )
+        self.portal.board.topic.invokeFactory(
+            'conversation',
+            'my_second_conversation',
+        )
+        self.assertTrue('my_first_conversation' and 'my_second_conversation' in self.portal.board.topic.objectIds())
+
     def test_view_conversations(self):
         # Conversations published are viewed by everyone
         # Member is allowed
@@ -240,6 +265,29 @@ class ConversationReviewWorkflowTest(unittest.TestCase):
         self.portal.acl_users._doAddUser('manager', 'secret', ['Manager'], [])
         self.portal.acl_users._doAddUser('editor', ' secret', ['Editor'], [])
         self.portal.acl_users._doAddUser('reader', 'secret', ['Reader'], [])
+
+    def test_add_conversation_as_member(self):
+        # As a member I can add new conversations
+        # Publish messageboard and topic
+        self.workflowTool.doActionFor(
+            self.portal.board,
+            "publish"
+            )
+        self.workflowTool.doActionFor(
+            self.portal.board.topic,
+            "publish"
+            )
+        # Member logs in
+        login(self.portal, "member")
+        self.portal.board.topic.invokeFactory(
+            'conversation',
+            'my_first_conversation',
+        )
+        self.portal.board.topic.invokeFactory(
+            'conversation',
+            'my_second_conversation',
+        )
+        self.assertTrue('my_first_conversation' and 'my_second_conversation' in self.portal.board.topic.objectIds())
 
     def test_initial_workflow_state(self):
         # Initial workflow state should be 'private'

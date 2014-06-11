@@ -28,6 +28,11 @@ Add message board
 
 "As an administrator I can add a message board."
 
+  >>> from plone.app.testing import setRoles
+  >>> from plone.app.testing import TEST_USER_ID
+  >>> setRoles(portal, TEST_USER_ID, ['Manager'])
+  >>> import transaction
+  >>> transaction.commit()
   >>> browser.open(portal_url + '/++add++messageboard')
   >>> browser.getControl(name='form.widgets.IDublinCore.title').value = "My Message Board"
   >>> browser.getControl(name='form.widgets.category').value = "Get Started\r\nPromotion\r\nCommunications"
@@ -60,6 +65,8 @@ Add Conversation
 
 "As a member I can add a conversation to an existing topic."
 
+  >>> setRoles(portal, TEST_USER_ID, ['Member'])
+  >>> transaction.commit()
   >>> browser.open(portal_url + '/my-message-board/my-first-topic')
   >>> browser.getLink('Conversation').click()
   >>> browser.getControl(name='form.widgets.IBasic.title').value = "My First Conversation"
