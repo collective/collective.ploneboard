@@ -41,11 +41,11 @@ class CommentExtender(extensible.FormExtender):
     fields = Fields(ICommentExtenderFields)
 
     def __init__(self, context, request, form):
+        # pdb.set_trace()
         self.context = context
         self.request = request
         self.form = form
 
     def update(self):
-        # pdb.set_trace()
         self.add(ICommentExtenderFields, prefix="")
         self.move('attachment', after='text', prefix="")

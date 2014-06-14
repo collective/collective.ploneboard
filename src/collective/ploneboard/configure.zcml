@@ -39,5 +39,4 @@
       <depends name="rolemap" />
       <depends name="workflows" />
   </genericsetup:importStep>
-
 </configure>
