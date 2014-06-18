@@ -6,6 +6,7 @@
  <object name="folder_workflow" meta_type="Workflow"/>
  <object name="intranet_folder_workflow" meta_type="Workflow"/>
  <object name="intranet_workflow" meta_type="Workflow"/>
+ <object name="messageboard_workflow" meta_type="Workflow"/>
  <object name="one_state_workflow" meta_type="Workflow"/>
  <object name="plone_workflow" meta_type="Workflow"/>
  <object name="simple_publication_workflow" meta_type="Workflow"/>
@@ -37,6 +38,9 @@
   <type type_id="Plone Site"/>
   <type type_id="conversation">
    <bound-workflow workflow_id="try_conv_no_review_w"/>
+  </type>
+  <type type_id="messageboard">
+   <bound-workflow workflow_id="messageboard_workflow"/>
   </type>
   <type type_id="topic">
    <bound-workflow workflow_id="try_topi_w"/>
