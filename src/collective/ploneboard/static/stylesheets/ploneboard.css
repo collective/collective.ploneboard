@@ -1,4 +1,4 @@
-.portaltype-messageboard .topic {
+.portaltype-messageboard .topic .conv {
     background: #f2f2f2;
     padding: 5px;
     border-style: solid solid #ddd;
@@ -8,7 +8,7 @@
     border-bottom-right-radius: 0.5em;
 }
 
-.portaltype-messageboard .topic h3 {
+.portaltype-messageboard .topic h3 .conv {
     color: #333;
     background: #ddd;
     padding-left: 14px;
@@ -38,4 +38,24 @@
     display: inline;
     list-style-type: none;
     padding: 0.5em 0.1em;
+}
+.CategoriesTopics {
+    background: #D7F7F4;
+    padding: 5px;
+    margin: 5px;
+    border-style: solid solid #ddd;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+    border-bottom-left-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+}
+.CategoriesConv {
+    background: #F5F3B3;
+    padding: 5px;
+    margin: 5px;
+    border-style: solid solid #ddd;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+    border-bottom-left-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
 }

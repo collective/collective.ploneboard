@@ -13,9 +13,10 @@
   <!-- Hierarchy control -->
   <property name="global_allow">True</property>
   <property name="filter_content_types">True</property>
-  <property name="allowed_content_types">
-    <element value="topic" />
-  </property>
+   <property name="allowed_content_types">
+       <element value="topic"/>
+       <element value="conversation"/>
+   </property>
 
   <!-- Schema, class and security -->
   <property name="schema">collective.ploneboard.interfaces.IMessageboard</property>
@@ -27,6 +28,7 @@
     <element value="plone.app.dexterity.behaviors.metadata.IDublinCore" />
     <element value="plone.app.dexterity.behaviors.exclfromnav.IExcludeFromNavigation" />
     <element value="plone.app.content.interfaces.INameFromTitle" />
+    <!--element value="cioppino.twothumbs.interfaces.ILoveThumbsDontYou" /-->
   </property>
 
   <!-- Views and aliases -->

@@ -18,6 +18,7 @@
     <div tal:replace="structure provider:plone.belowcontenttitle" />
 
     <p class="documentDescription" tal:content="context/description" />
+    <!--div tal:content="structure here/@@rate-if-you-dare" /-->
     Categories:
     <ul class="catulist">
         <div tal:repeat="mc context/cats">
@@ -28,7 +29,7 @@
 
     <div tal:define="local dict view/categories">
       <!--p tal:content="dict"/-->
-      <div class="Categories" tal:repeat="cat dict">
+      <div class="CategoriesTopics" tal:repeat="cat dict">
         <h2 tal:content="cat"/>
         
         <div tal:define="local topics python: dict[cat]">
@@ -79,6 +80,48 @@
         </div>
       </div>
     </div>
+
+
+    <div class="CategoriesConv">
+      <h2> Conversations </h2>
+      <div class="conv" tal:repeat="conversation view/direct_conversations">
+        <h3>
+          <a href=""
+             tal:attributes="href conversation/url"
+             tal:content="conversation/title">
+             Topic
+          </a>
+        </h3>
+        <table style="width: 100%;" class="listing nosort">
+          <thead>
+            <tr>
+              <th class="replies">Antworten</th>
+              <th class="latest_reply">Neuester Kommentar</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+            <tr class="odd">
+              <td tal:content="conversation/total_comments">0</td>
+              <td>
+                <tal:block tal:condition="conversation/last_commenter">
+                  <a href="" tal:attributes="href conversation/url">
+                    <span tal:replace="conversation/last_commenter" />
+                  </a>
+                  <span class="discreet" tal:content="python:toLocalizedTime(conversation['last_comment_date'])" />
+                </tal:block>
+                <tal:block tal:condition="not:conversation/last_commenter">
+                  <span class="discreet">Noch keine Gespräche.</span>
+                </tal:block>
+              </td>
+            </tr>
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
 
     <div tal:replace="structure provider:plone.belowcontentbody" />
 

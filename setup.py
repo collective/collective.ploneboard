@@ -45,6 +45,9 @@ setup(name='collective.ploneboard',
           'plone.directives.form',  # get rid of that dependency
           'plone.namedfile[blobs]',
           'z3c.jbot',
+          # 'plone.browserlayer',
+          # 'plone.formwidget.captcha',
+          # 'collective.captcha',
       ],
       extras_require={'test': ['plone.app.testing']},
       entry_points="""
