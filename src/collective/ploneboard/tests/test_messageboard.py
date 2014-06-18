@@ -80,69 +80,78 @@ class MessageBoardViewIntegrationTest(unittest.TestCase):
         self.assertTrue('Promotion' in view())
         self.assertTrue('Communications' in view())
 
-    def test_topics_method_returns_topics(self):
-        self.portal.board.invokeFactory(
-            'topic',
-            id='topic1',
-            title='Topic 1',
-            description="Goes to a single category",
-            category=[u'Get Started'])
-        self.portal.board.invokeFactory(
-            'topic',
-            id='topic2',
-            title='Topic 2',
-            description="Chooses two categories",
-            category=[u'Promotion', u'Communications'])
-        from collective.ploneboard.browser.messageboard import MessageboardView
-        view = MessageboardView(self.portal.board, self.request)
-        categories = view.categories()
-        self.assertEqual(len(categories), 3)
-        self.assertTrue(categories, dict)
-
-        topics = view.topics()
-
-        self.assertEqual(len(topics), 2)
-        self.assertEqual(
-            [x['title'] for x in topics],
-            ['Topic 1', 'Topic 2']
-        )
-
-    def test_topics_method_returns_conversations(self):
+    def test_categories_method_returns_categories(self):
         self.portal.board.invokeFactory(
             'topic',
             id='topic1',
             title='Topic 1',
             description="testing",
             category=[u'Get Started'])
-        self.portal.board.topic1.invokeFactory(
+        self.portal.board.invokeFactory(
+            'topic',
+            id='topic2',
+            title='Topic 2',
+            description="testing",
+            category=[u'Get Started', u'Promotion'])
+        view = getMultiAdapter(
+            (self.portal.board, self.request),
+            name="view"
+            )
+        view = view.__of__(self.portal.board)
+        view()
+        topics = view.categories()
+        self.assertTrue(u'Promotion' in topics)
+        self.assertTrue(u'Get Started' in topics)
+
+    def test_categories_method_returns_topics(self):
+        self.portal.board.invokeFactory(
+            'topic',
+            id='topic1',
+            title='Topic 1',
+            description="testing",
+            category=[u'Get Started'])
+        self.portal.board.invokeFactory(
+            'topic',
+            id='topic2',
+            title='Topic 2',
+            description="testing",
+            category=[u'Get Started', u'Promotion'])
+        view = getMultiAdapter(
+            (self.portal.board, self.request),
+            name="view"
+            )
+        view = view.__of__(self.portal.board)
+        view()
+        topics = view.categories()
+        self.assertEqual(len(topics[u'Get Started']), 2)
+        self.assertEqual(len(topics[u'Promotion']), 1)
+
+    def test_unspecified_category_for_topic(self):
+        self.portal.board.invokeFactory(
+            'topic',
+            id='topic1',
+            title='Topic 1',
+            description="testing",
+            category=[])
+        view = getMultiAdapter(
+            (self.portal.board, self.request),
+            name="view"
+            )
+        view = view.__of__(self.portal.board)
+        view()
+        topics = view.categories()
+        self.assertTrue(u'Unspecified' in topics)
+
+    def test_direct_conversations(self):
+        self.portal.board.invokeFactory(
             'conversation',
             id='conv1',
-            title='Conversation 1'
-        )
-        self.portal.board.topic1.invokeFactory(
-            'conversation',
-            id='conv2',
-            title='Conversation 2'
-        )
-        from collective.ploneboard.browser.messageboard import MessageboardView
-        view = MessageboardView(self.portal.board, self.request)
-
-        topics = view.topics()
-
-        self.assertEqual(len(topics), 1)
-        self.assertEqual(
-            topics[0]['conversations'][0]['title'],
-            'Conversation 1',
-        )
-        self.assertEqual(
-            topics[0]['conversations'][0]['url'],
-            'http://nohost/plone/board/topic1/conv1'
-        )
-        self.assertEqual(
-            topics[0]['conversations'][1]['title'],
-            'Conversation 2'
-        )
-        self.assertEqual(
-            topics[0]['conversations'][1]['url'],
-            'http://nohost/plone/board/topic1/conv2'
-        )
+            title='Conversation1',)
+        view = getMultiAdapter(
+            (self.portal.board, self.request),
+            name="view"
+            )
+        view = view.__of__(self.portal.board)
+        view()
+        convs = view.direct_conversations()
+        self.assertEqual(convs[0]['title'], 'Conversation1')
