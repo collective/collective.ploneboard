@@ -28,19 +28,32 @@ class WorkflowIntegrationTest(unittest.TestCase):
         self.request = self.layer['request']
         self.request['ACTUAL_URL'] = self.portal.absolute_url()
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
-        workflowTool = getToolByName(self.portal, 'portal_workflow')
-        workflowTool.setChainForPortalTypes(('topic',), 'try_topi_w')
-        workflowTool.setChainForPortalTypes(
+        self.workflowTool = getToolByName(self.portal, 'portal_workflow')
+        self.workflowTool.setChainForPortalTypes(('messageboard',), 'messageboard_workflow')
+        self.workflowTool.setChainForPortalTypes(('topic',), 'try_topi_w')
+        self.workflowTool.setChainForPortalTypes(
             ('conversation',),
             'try_conv_no_review_w'
             )
-        workflowTool.updateRoleMappings()
+        self.workflowTool.updateRoleMappings()
 
     def test_workflow_installed(self):
         workflow = getToolByName(self.portal, 'portal_workflow')
+        self.assertTrue('messageboard_workflow' in workflow)
         self.assertTrue('try_conv_w' in workflow)
         self.assertTrue('try_conv_no_review_w' in workflow)
         self.assertTrue('try_topi_w' in workflow)
+
+    def test_messageboard_workflow_mapped(self):
+        self.portal.invokeFactory(
+            'messageboard',
+            'board',
+        )
+        workflow = getToolByName(self.portal.board, 'portal_workflow')
+        self.assertEqual(
+            ('messageboard_workflow',),
+            workflow.getChainFor(self.portal.board)
+            )
 
     def test_topic_workflow_mapped(self):
         self.portal.invokeFactory(
@@ -80,7 +93,7 @@ class WorkflowIntegrationTest(unittest.TestCase):
             )
 
     def test_permission(self):
-        # As a member I can add new conversation
+        # As a member I can add new conversation inside a topic
         workflowTool = getToolByName(self.portal, 'portal_workflow')
         workflowTool.setChainForPortalTypes(['topic'], 'try_topi_w')
         workflowTool.setChainForPortalTypes(
@@ -113,6 +126,29 @@ class WorkflowIntegrationTest(unittest.TestCase):
             'conv',
         )
         self.assertTrue('conv' in self.portal.board.topic.objectIds())
+
+    def test_permission_for_direct_conversations(self):
+        # As a member I can add a new conversation directly inside a messageboard
+        self.portal.invokeFactory(
+            'messageboard',
+            'board',
+        )
+        # Publish messageboard
+        self.workflowTool.doActionFor(self.portal.board, "publish")
+
+        self.portal.acl_users._doAddUser('member', 'secret', ['Member'], [])
+        self.portal.acl_users._doAddUser(
+            'reviewer', 'secret', ['Reviewer'], [])
+        self.portal.acl_users._doAddUser('manager', 'secret', ['Manager'], [])
+        self.portal.acl_users._doAddUser('editor', ' secret', ['Editor'], [])
+        self.portal.acl_users._doAddUser('reader', 'secret', ['Reader'], [])
+
+        login(self.portal, 'member')
+        self.portal.board.invokeFactory(
+            'conversation',
+            'conv',
+        )
+        self.assertTrue('conv' in self.portal.board.objectIds())
 
     def test_review_conversation_permission(self):
         # 'Review portal content'
