@@ -29,7 +29,10 @@ class WorkflowIntegrationTest(unittest.TestCase):
         self.request['ACTUAL_URL'] = self.portal.absolute_url()
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
         self.workflowTool = getToolByName(self.portal, 'portal_workflow')
-        self.workflowTool.setChainForPortalTypes(('messageboard',), 'messageboard_workflow')
+        self.workflowTool.setChainForPortalTypes(
+            ('messageboard',),
+            'messageboard_workflow'
+            )
         self.workflowTool.setChainForPortalTypes(('topic',), 'try_topi_w')
         self.workflowTool.setChainForPortalTypes(
             ('conversation',),
@@ -128,13 +131,17 @@ class WorkflowIntegrationTest(unittest.TestCase):
         self.assertTrue('conv' in self.portal.board.topic.objectIds())
 
     def test_permission_for_direct_conversations(self):
-        # As a member I can add a new conversation directly inside a messageboard
+        # As a member I can add
+        # a new conversation directly inside a messageboard
         self.portal.invokeFactory(
             'messageboard',
             'board',
         )
         # Publish messageboard
-        self.workflowTool.doActionFor(self.portal.board, "publish")
+        self.workflowTool.doActionFor(
+            self.portal.board,
+            "publish"
+            )
 
         self.portal.acl_users._doAddUser('member', 'secret', ['Member'], [])
         self.portal.acl_users._doAddUser(
