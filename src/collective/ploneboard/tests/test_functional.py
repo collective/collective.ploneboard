@@ -21,6 +21,8 @@ optionflags = (
 )
 testfiles = [
     '../../../../README.rst',
+    'functional_test_messageboard_workflow.txt',
+    'functional_test_try_conv_no_review_w.txt',
 ]
 
 

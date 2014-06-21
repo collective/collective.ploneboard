@@ -1,0 +1,89 @@
+==============================
+Message Board Review Workflow
+==============================
+
+This is a functional test for messageboard_workflow.
+It is to showcase how a memmber user can add a new conversation directly inside a messageboard.
+Admin can add both a topic and a conversation inside a messageboard.
+
+Setting up and logging in
+-------------------------
+
+Setting up browser and loging in
+
+    >>> app = layer['app']
+    >>> from plone.testing.z2 import Browser
+    >>> browser = Browser(app)
+    >>> browser.handleErrors = False
+    >>> browser.addHeader('Authorization', 'Basic admin:secret')
+    >>> portal = layer['portal']
+    >>> portal_url = 'http://nohost/plone'
+    >>> browser.open(portal_url)
+
+Enable Workflows
+----------------
+
+    >>> portal.portal_workflow.setChainForPortalTypes(('messageboard',), ('messageboard_workflow'),)
+    >>> portal.portal_workflow.setChainForPortalTypes(('topic',), ('try_topi_w'),)
+    >>> portal.portal_workflow.setChainForPortalTypes(('conversation',), ('try_conv_no_review_w'),)
+
+Add message board
+-----------------
+
+"As an administrator I can add a message board."
+
+    >>> from plone.app.testing import setRoles
+    >>> from plone.app.testing import TEST_USER_ID
+    >>> setRoles(portal, TEST_USER_ID, ['Manager'])
+    >>> import transaction
+    >>> transaction.commit()
+    >>> browser.open(portal_url + '/++add++messageboard')
+    >>> browser.getControl(name='form.widgets.IDublinCore.title').value = "My Message Board"
+    >>> browser.getControl(name='form.widgets.category').value = "Get Started\r\nPromotion\r\nCommunications"
+    >>> browser.getControl("Save").click()
+    >>> "My Message Board" in browser.contents
+    True
+    >>> "Get Started" in browser.contents
+    True
+    >>> "Promotion" in browser.contents
+    True
+    >>> "Communications" in browser.contents
+    True
+
+Workflow Actions
+----------------
+
+Make the messageboard public
+
+    >>> browser.open(portal_url + '/my-message-board')
+    >>> browser.getLink(id='workflow-transition-publish').click()
+    >>> 'Published' in browser.contents
+    True
+    >>> import transaction
+    >>> transaction.commit()
+
+Add Topic
+---------
+
+"As an administrator I can add a topic to an existing message board"
+
+    >>> browser.getLink('Topic').click()
+    >>> browser.getControl(name='form.widgets.IBasic.title').value = "Topic under messageboard"
+    >>> browser.getControl("Save").click()
+    >>> "Topic under messageboard" in browser.contents
+    True
+
+Add a new conversation under messageboard as member
+---------------------------------------------------
+
+    >>> portal.acl_users._doAddUser('member', 'secret', ['Member'], [])
+    <PloneUser 'member'>
+    >>> from plone.app.testing import login, logout
+    >>> login(portal, 'member')
+    >>> browser.getLink('Conversation').click()
+    >>> browser.getControl(name='form.widgets.IBasic.title').value = "Direct Conversation"
+    >>> browser.getControl(name='form.widgets.text').value = "This is a conversation not under any topic"
+    >>> browser.getControl("Save").click()
+    >>> "Direct Conversation" in browser.contents
+    True
+    >>> logout()
