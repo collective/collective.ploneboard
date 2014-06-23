@@ -6,3 +6,6 @@ Changelog
 
 - Package created using templer
   [timo]
+
+- Doctests added for workflows
+  [aman]
