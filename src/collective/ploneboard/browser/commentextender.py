@@ -11,6 +11,8 @@ from zope.component import adapts, queryUtility
 from zope.interface import Interface
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 
+from collective.ploneboard.interfaces import IPloneboardLayer
+
 from plone.z3cform.fieldsets import extensible
 
 from plone.registry.interfaces import IRegistry
@@ -39,7 +41,7 @@ CommentExtenderFactory = factory(CommentExtenderFields)
 
 
 class CommentExtender(extensible.FormExtender):
-    adapts(Interface, IDefaultBrowserLayer, CommentForm)
+    adapts(Interface, IPloneboardLayer, CommentForm)
     fields = Fields(ICommentExtenderFields)
 
     def __init__(self, context, request, form):
@@ -51,6 +53,6 @@ class CommentExtender(extensible.FormExtender):
     def update(self):
         self.add(ICommentExtenderFields, prefix="")
         self.move('attachment', after='text', prefix="")
-        registry = queryUtility(IRegistry)
-        settings = registry.forInterface(IDiscussionSettings, check=False)
-        settings.text_transform = 'text/html'
+        # registry = queryUtility(IRegistry)
+        # settings = registry.forInterface(IDiscussionSettings, check=False)
+        # settings.text_transform = 'text/html'
