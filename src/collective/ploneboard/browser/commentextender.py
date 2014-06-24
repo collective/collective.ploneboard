@@ -7,16 +7,16 @@ from z3c.form.field import Fields
 from zope import interface
 
 from zope.annotation import factory
-from zope.component import adapts, queryUtility
+from zope.component import adapts
 from zope.interface import Interface
-from zope.publisher.interfaces.browser import IDefaultBrowserLayer
+# from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 
 from collective.ploneboard.interfaces import IPloneboardLayer
 
 from plone.z3cform.fieldsets import extensible
 
-from plone.registry.interfaces import IRegistry
-from plone.app.discussion.interfaces import IDiscussionSettings
+# from plone.registry.interfaces import IRegistry
+# from plone.app.discussion.interfaces import IDiscussionSettings
 from plone.app.discussion.browser.comments import CommentForm
 from plone.app.discussion.comment import Comment
 
