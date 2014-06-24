@@ -21,14 +21,34 @@
 		// console.log(tinyMCE.baseURL);
 		tinyMCE.init({
 		        mode : "textareas",
+		        width : "100%" ,
 		        theme : "simple"
 		});
 	}
 
 	$(window).load(function () {
 		initMCEall();
-    	forceTinyMceReload(); 
+    	forceTinyMceReload();
+    	$(".reply-to-comment-button").bind("click", function (e) {
+            initMCEall();
+            var comment_div = $(this).parents().filter(".comment");
+	        var comment_id = comment_div.attr("id");
+	        $('#formfield-form-widgets-new-textarea'+comment_id).find('#form-widgets-new-textarea'+comment_id+'_container').css("display","inline");
 
+	        // $('#formfield-form-widgets-new-textarea'+comment_id).find('#form-widgets-comment-text_container').css("display","none");
+	        // $('#commenting').find('#form-widgets-comment-text_container').first().css("display","none");
+	        $('#formfield-form-widgets-new-textarea'+comment_id).find('#form-widgets-comment-text_container').remove();
+	        $('#commenting').find('#form-widgets-comment-text_container').first().remove();
+	        
+        });
+        $("#commenting #form-buttons-cancel").bind("click", function (e) {
+	        var comment_div = $(this).parents().filter(".comment");
+		    var comment_id = comment_div.attr("id");
+		    // $('#formfield-form-widgets-new-textarea'+comment_id).find('#form-widgets-comment-text_container').css("display","none");
+		    // $('#commenting').find('#form-widgets-comment-text_container').first().css("display","none");
+		    $('#formfield-form-widgets-new-textarea'+comment_id).find('#form-widgets-comment-text_container').remove();
+		    $('#commenting').find('#form-widgets-comment-text_container').first().remove();	
+        });
 	});
 
 	function forceTinyMceReload() { 
@@ -154,7 +174,7 @@
                 <button class="context reply-to-comment-button hide allowMultiSubmit"
                         tal:condition="python:isDiscussionAllowed and (isAnon and isAnonymousDiscussionAllowed or userHasReplyPermission)"
                         i18n:translate="label_reply"
-                        onclick="initMCEall()">
+                        >
                     Reply
                 </button>
             </div>
