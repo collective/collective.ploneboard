@@ -16,10 +16,12 @@ class Contribution(BrowserView):
 
     def messageboards(self):
         my_messageboards = []
-        results = self.catalog.searchResults({ 'portal_type':"messageboard" })
+        results = self.catalog.searchResults({'portal_type': "messageboard"})
         for result in results:
             rid = result.getRID()
-            author = self.catalog._catalog.getIndex('Creator').getEntryForObject(rid, default=[])
+            author = self.catalog._catalog.getIndex(
+                'Creator'
+                ).getEntryForObject(rid, default=[])
             if str(self.current_user) == str(author):
                 my_messageboards.append({
                     'title': result["Title"],
@@ -31,10 +33,12 @@ class Contribution(BrowserView):
 
     def topics(self):
         my_topics = []
-        results = self.catalog.searchResults({ 'portal_type':"topic" })
+        results = self.catalog.searchResults({'portal_type': "topic"})
         for result in results:
             rid = result.getRID()
-            author = self.catalog._catalog.getIndex('Creator').getEntryForObject(rid, default=[])
+            author = self.catalog._catalog.getIndex(
+                'Creator'
+                ).getEntryForObject(rid, default=[])
             if str(self.current_user) == str(author):
                 my_topics.append({
                     'title': result["Title"],
@@ -46,10 +50,12 @@ class Contribution(BrowserView):
 
     def conversations(self):
         my_conversations = []
-        results = self.catalog.searchResults({ 'portal_type':"conversation" })
+        results = self.catalog.searchResults({'portal_type': "conversation"})
         for result in results:
             rid = result.getRID()
-            author = self.catalog._catalog.getIndex('Creator').getEntryForObject(rid, default=[])
+            author = self.catalog._catalog.getIndex(
+                'Creator'
+                ).getEntryForObject(rid, default=[])
             if str(self.current_user) == str(author):
                 my_conversations.append({
                     'title': result["Title"],
@@ -61,10 +67,14 @@ class Contribution(BrowserView):
 
     def comments(self):
         my_comments = []
-        results = self.catalog.searchResults({ 'portal_type':"Discussion Item" })
+        results = self.catalog.searchResults(
+            {'portal_type': "Discussion Item"}
+            )
         for result in results:
             rid = result.getRID()
-            author = self.catalog._catalog.getIndex('Creator').getEntryForObject(rid, default=[])
+            author = self.catalog._catalog.getIndex(
+                'Creator'
+                ).getEntryForObject(rid, default=[])
             if str(self.current_user) == str(author):
                 my_comments.append({
                     'title': result["Title"],
@@ -73,4 +83,3 @@ class Contribution(BrowserView):
                     'url': result.getURL(),
                     })
         return my_comments
-
