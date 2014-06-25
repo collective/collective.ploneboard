@@ -3,6 +3,7 @@ from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
 from plone.app.discussion.interfaces import IConversation
+from AccessControl import getSecurityManager
 
 
 class MessageboardView(BrowserView):
@@ -12,11 +13,19 @@ class MessageboardView(BrowserView):
     def __call__(self):
         self.list_of_topics = []
         self.list_of_conv = []
+        self.current_user = getSecurityManager().getUser()
         context = self.context.aq_inner
         # print context.category
         context.cats = context.category.split('\r\n')
         # print context.cats
         return self.template()
+
+    def givelink(self):
+        ans = None
+        if str(self.current_user) == "Anonymous User":
+            return ans
+        ans = self.context.absolute_url() + "/@@my-contribution"
+        return ans
 
     def categories(self):						# Returns topics grouped by categories
         categ = {}

@@ -18,6 +18,7 @@
     <div tal:replace="structure provider:plone.belowcontenttitle" />
 
     <p class="documentDescription" tal:content="context/description" />
+    <a style="float:right" href="" tal:condition="view/givelink" tal:attributes="href view/givelink" >My Contribution</a>
     <!--div tal:content="structure here/@@rate-if-you-dare" /-->
     Categories:
     <ul class="catulist">

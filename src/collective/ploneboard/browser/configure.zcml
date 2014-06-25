@@ -32,4 +32,14 @@
     layer="collective.ploneboard.interfaces.IPloneboardLayer"
     />
 
+  <!-- My Contribution -->
+  <browser:page
+    name="my-contribution"
+    for="*"
+    class=".my.Contribution"
+    permission="zope2.View"
+    template="contribution.pt"
+    layer="collective.ploneboard.interfaces.IPloneboardLayer"
+    />
+
 </configure>
