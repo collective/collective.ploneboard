@@ -16,7 +16,10 @@ class MessageboardView(BrowserView):
         self.current_user = getSecurityManager().getUser()
         context = self.context.aq_inner
         # print context.category
-        context.cats = context.category.split('\r\n')
+        if context.category:
+            context.cats = context.category.split('\r\n')
+        else:
+            context.cats=[]
         # print context.cats
         return self.template()
 

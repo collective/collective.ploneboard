@@ -25,7 +25,7 @@ class IMessageboard(form.Schema):
     category = schema.Text(
         title=_(u"Categories for tagging Topics"),
         description=_(u"Seperate by writing in different lines"),
-        required=True,
+        required=False,
         )
 
 

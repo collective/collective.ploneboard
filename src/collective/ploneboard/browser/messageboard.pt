@@ -26,6 +26,7 @@
             <li class="catlist"><span class="catname" tal:content="mc"/></li>
         </div>
 	</ul>
+    <small tal:condition="not: context/cats"> Unspecified</small>
     <div tal:replace="structure provider:plone.abovecontentbody" />
 
     <div tal:define="local dict view/categories">
@@ -83,7 +84,7 @@
     </div>
 
 
-    <div class="CategoriesConv">
+    <div class="CategoriesConv" tal:condition="view/direct_conversations">
       <h2> Conversations </h2>
       <div class="conv" tal:repeat="conversation view/direct_conversations">
         <h3>
