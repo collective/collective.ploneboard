@@ -47,7 +47,7 @@
 		    // $('#formfield-form-widgets-new-textarea'+comment_id).find('#form-widgets-comment-text_container').css("display","none");
 		    // $('#commenting').find('#form-widgets-comment-text_container').first().css("display","none");
 		    $('#formfield-form-widgets-new-textarea'+comment_id).find('#form-widgets-comment-text_container').remove();
-		    $('#commenting').find('#form-widgets-comment-text_container').first().remove();	
+		    //$('#commenting').find('#form-widgets-comment-text_container').first().remove();	
         });
 	});
 
