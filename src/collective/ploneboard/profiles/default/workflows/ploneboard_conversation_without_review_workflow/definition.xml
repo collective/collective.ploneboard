@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
-<dc-workflow workflow_id="try_conv_no_review_w" title="Conversation Workflow Collective Ploneboard" description="An open-with-single-state workflow for Conversation in Collective Ploneboard." state_variable="review_state" initial_state="published" manager_bypass="False">
+<dc-workflow workflow_id="ploneboard_conversation_without_review_workflow" title="Conversation Workflow Collective Ploneboard" description="An open-with-single-state workflow for Conversation in Collective Ploneboard." state_variable="review_state" initial_state="published" manager_bypass="False">
  <permission>Access contents information</permission>
+ <permission>Add portal content</permission>
  <permission>Change portal events</permission>
+ <permission>Collective Ploneboard: Add Conversation</permission>
  <permission>Modify portal content</permission>
  <permission>View</permission>
- <permission>Add portal content</permission>
- <permission>Collective Ploneboard: Add Conversation</permission>
  <state state_id="published" title="Published">
   <description>Visible to everyone, editable by the owner.</description>
   <permission-map name="Access contents information" acquired="True">

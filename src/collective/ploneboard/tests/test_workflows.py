@@ -31,21 +31,27 @@ class WorkflowIntegrationTest(unittest.TestCase):
         self.workflowTool = getToolByName(self.portal, 'portal_workflow')
         self.workflowTool.setChainForPortalTypes(
             ('messageboard',),
-            'messageboard_workflow'
+            'ploneboard_messageboard_workflow'
             )
-        self.workflowTool.setChainForPortalTypes(('topic',), 'try_topi_w')
+        self.workflowTool.setChainForPortalTypes(
+            ('topic',),
+            'ploneboard_topic_workflow'
+            )
         self.workflowTool.setChainForPortalTypes(
             ('conversation',),
-            'try_conv_no_review_w'
+            'ploneboard_conversation_without_review_workflow'
             )
         self.workflowTool.updateRoleMappings()
 
     def test_workflow_installed(self):
         workflow = getToolByName(self.portal, 'portal_workflow')
-        self.assertTrue('messageboard_workflow' in workflow)
-        self.assertTrue('try_conv_w' in workflow)
-        self.assertTrue('try_conv_no_review_w' in workflow)
-        self.assertTrue('try_topi_w' in workflow)
+        self.assertTrue('ploneboard_messageboard_workflow' in workflow)
+        self.assertTrue('ploneboard_topic_workflow' in workflow)
+        self.assertTrue('ploneboard_conversation_workflow' in workflow)
+        self.assertTrue(
+            'ploneboard_conversation_without_review_workflow'
+            in workflow
+            )
 
     def test_messageboard_workflow_mapped(self):
         self.portal.invokeFactory(
@@ -54,7 +60,7 @@ class WorkflowIntegrationTest(unittest.TestCase):
         )
         workflow = getToolByName(self.portal.board, 'portal_workflow')
         self.assertEqual(
-            ('messageboard_workflow',),
+            ('ploneboard_messageboard_workflow',),
             workflow.getChainFor(self.portal.board)
             )
 
@@ -69,7 +75,7 @@ class WorkflowIntegrationTest(unittest.TestCase):
         )
         workflow = getToolByName(self.portal.board.topic, 'portal_workflow')
         self.assertEqual(
-            ('try_topi_w',),
+            ('ploneboard_topic_workflow',),
             workflow.getChainFor(self.portal.board.topic)
             )
 
@@ -91,17 +97,24 @@ class WorkflowIntegrationTest(unittest.TestCase):
             'portal_workflow'
             )
         self.assertEqual(
-            ('try_conv_no_review_w',),
+            ('ploneboard_conversation_without_review_workflow',),
             workflow.getChainFor(self.portal.board.topic.conv)
             )
 
     def test_permission(self):
         # As a member I can add new conversation inside a topic
         workflowTool = getToolByName(self.portal, 'portal_workflow')
-        workflowTool.setChainForPortalTypes(['topic'], 'try_topi_w')
+        workflowTool.setChainForPortalTypes(
+            ['messageboard'],
+            'ploneboard_messageboard_workflow'
+            )
+        workflowTool.setChainForPortalTypes(
+            ['topic'],
+            'ploneboard_topic_workflow'
+            )
         workflowTool.setChainForPortalTypes(
             ['conversation'],
-            'try_conv_no_review_w'
+            'ploneboard_conversation_without_review_workflow'
             )
         workflowTool.updateRoleMappings()
         self.portal.invokeFactory(
@@ -197,10 +210,17 @@ class ConversationNoReviewWorkflowTest(unittest.TestCase):
         self.portal = self.layer['portal']
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
         self.workflowTool = getToolByName(self.portal, 'portal_workflow')
-        self.workflowTool.setChainForPortalTypes(['topic'], 'try_topi_w')
+        self.workflowTool.setChainForPortalTypes(
+            ['messageboard'],
+            'ploneboard_messageboard_workflow'
+            )
+        self.workflowTool.setChainForPortalTypes(
+            ['topic'],
+            'ploneboard_topic_workflow'
+            )
         self.workflowTool.setChainForPortalTypes(
             ['conversation'],
-            'try_conv_no_review_w'
+            'ploneboard_conversation_without_review_workflow'
             )
         self.workflowTool.updateRoleMappings()
         self.portal.invokeFactory(
@@ -285,10 +305,17 @@ class ConversationReviewWorkflowTest(unittest.TestCase):
         self.portal = self.layer['portal']
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
         self.workflowTool = getToolByName(self.portal, 'portal_workflow')
-        self.workflowTool.setChainForPortalTypes(['topic'], 'try_topi_w')
+        self.workflowTool.setChainForPortalTypes(
+            ['messageboard'],
+            'ploneboard_messageboard_workflow'
+            )
+        self.workflowTool.setChainForPortalTypes(
+            ['topic'],
+            'ploneboard_topic_workflow'
+            )
         self.workflowTool.setChainForPortalTypes(
             ['conversation'],
-            'try_conv_w'
+            'ploneboard_conversation_workflow'
             )
         self.workflowTool.updateRoleMappings()
         self.portal.invokeFactory(

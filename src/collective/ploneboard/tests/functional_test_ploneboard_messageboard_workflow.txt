@@ -1,10 +1,11 @@
 ==============================
-Message Board Review Workflow
+Message Board Workflow
 ==============================
 
-This is a functional test for messageboard_workflow.
-It is to showcase how a memmber user can add a new conversation directly inside a messageboard.
+This is a functional test for ploneboard_messageboard_workflow.
+It is to showcase how a member user can add a new conversation directly inside a messageboard.
 Admin can add both a topic and a conversation inside a messageboard.
+It also tests for publishing a messageboard internally, where only logged-in users can view them.
 
 Setting up and logging in
 -------------------------
@@ -23,9 +24,9 @@ Setting up browser and loging in
 Enable Workflows
 ----------------
 
-    >>> portal.portal_workflow.setChainForPortalTypes(('messageboard',), ('messageboard_workflow'),)
-    >>> portal.portal_workflow.setChainForPortalTypes(('topic',), ('try_topi_w'),)
-    >>> portal.portal_workflow.setChainForPortalTypes(('conversation',), ('try_conv_no_review_w'),)
+    >>> portal.portal_workflow.setChainForPortalTypes(('messageboard',), ('ploneboard_messageboard_workflow'),)
+    >>> portal.portal_workflow.setChainForPortalTypes(('topic',), ('ploneboard_topic_workflow'),)
+    >>> portal.portal_workflow.setChainForPortalTypes(('conversation',), ('ploneboard_conversation_without_review_workflow'),)
 
 Add message board
 -----------------
@@ -50,8 +51,8 @@ Add message board
     >>> "Communications" in browser.contents
     True
 
-Workflow Actions
-----------------
+Workflow Actions - Publish
+--------------------------
 
 Make the messageboard public
 
@@ -87,3 +88,31 @@ Add a new conversation under messageboard as member
     >>> "Direct Conversation" in browser.contents
     True
     >>> logout()
+
+Internally Publish test
+=======================
+
+Workflow Actions - Publish Internally
+-------------------------------------
+    
+    >>> browser.open(portal_url + '/my-message-board')
+    >>> browser.getLink(id='workflow-transition-publish_internally').click()
+    >>> 'Internally Published' in browser.contents
+    True
+    >>> import transaction
+    >>> transaction.commit()
+
+Anonymous user can't view 'My Message Board'
+--------------------------------------------
+
+    >>> unprivileged_browser = Browser(app)
+    >>> unprivileged_browser.handleErrors = False
+    >>> unprivileged_browser.open(portal_url)
+    >>> "My Message Board" in unprivileged_browser.contents
+    False
+
+Member user can view 'My Message Board'
+--------------------------------------
+    
+    >>> "My Message Board" in browser.contents
+    True

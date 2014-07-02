@@ -2,8 +2,8 @@
 Conversation Simple Review Workflow
 ==================================
 
-This is a functional test for try_conv_w workflow.
-It is to showcase how a memmber user can add a new conversation in an existing topic (or directly inside a messageboard) with requesting for a review to publish. 
+This is a functional test for ploneboard_conversation_workflow.
+It is to showcase how a member user can add a new conversation in an existing topic (or directly inside a messageboard) with requesting for a review to publish. 
 Reviewer reviews it and then it gets published.
 
 Setting up and logging in
@@ -23,9 +23,9 @@ Setting up browser and loging in
 Enable Workflows
 ----------------
 
-    >>> portal.portal_workflow.setChainForPortalTypes(('messageboard',), ('messageboard_workflow'),)
-    >>> portal.portal_workflow.setChainForPortalTypes(('topic',), ('try_topi_w'),)
-    >>> portal.portal_workflow.setChainForPortalTypes(('conversation',), ('try_conv_w'),)
+    >>> portal.portal_workflow.setChainForPortalTypes(('messageboard',), ('ploneboard_messageboard_workflow'),)
+    >>> portal.portal_workflow.setChainForPortalTypes(('topic',), ('ploneboard_topic_workflow'),)
+    >>> portal.portal_workflow.setChainForPortalTypes(('conversation',), ('ploneboard_conversation_workflow'),)
 
 Add message board
 -----------------

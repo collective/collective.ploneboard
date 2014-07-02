@@ -2,8 +2,8 @@
 Conversation Single State Workflow
 ==================================
 
-This is a functional test for try_conv_no_review_w workflow.
-It is to showcase how a memmber user can add a new conversation in an existing topic (or directly inside a messageboard) without requesting a review to publish. Its published by default once created.
+This is a functional test for ploneboard_conversation_without_review_workflow.
+It is to showcase how a member user can add a new conversation in an existing topic (or directly inside a messageboard) without requesting a review to publish. Its published by default once created.
 
 Setting up and logging in
 -------------------------
@@ -22,9 +22,9 @@ Setting up browser and loging in
 Enable Workflows
 ----------------
 
-    >>> portal.portal_workflow.setChainForPortalTypes(('messageboard',), ('messageboard_workflow'),)
-    >>> portal.portal_workflow.setChainForPortalTypes(('topic',), ('try_topi_w'),)
-    >>> portal.portal_workflow.setChainForPortalTypes(('conversation',), ('try_conv_no_review_w'),)
+    >>> portal.portal_workflow.setChainForPortalTypes(('messageboard',), ('ploneboard_messageboard_workflow'),)
+    >>> portal.portal_workflow.setChainForPortalTypes(('topic',), ('ploneboard_topic_workflow'),)
+    >>> portal.portal_workflow.setChainForPortalTypes(('conversation',), ('ploneboard_conversation_without_review_workflow'),)
 
 Add message board
 -----------------

@@ -6,13 +6,14 @@
  <object name="folder_workflow" meta_type="Workflow"/>
  <object name="intranet_folder_workflow" meta_type="Workflow"/>
  <object name="intranet_workflow" meta_type="Workflow"/>
- <object name="messageboard_workflow" meta_type="Workflow"/>
  <object name="one_state_workflow" meta_type="Workflow"/>
  <object name="plone_workflow" meta_type="Workflow"/>
+ <object name="ploneboard_conversation_without_review_workflow"
+    meta_type="Workflow"/>
+ <object name="ploneboard_conversation_workflow" meta_type="Workflow"/>
+ <object name="ploneboard_messageboard_workflow" meta_type="Workflow"/>
+ <object name="ploneboard_topic_workflow" meta_type="Workflow"/>
  <object name="simple_publication_workflow" meta_type="Workflow"/>
- <object name="try_conv_no_review_w" meta_type="Workflow"/>
- <object name="try_conv_w" meta_type="Workflow"/>
- <object name="try_topi_w" meta_type="Workflow"/>
  <bindings>
   <default>
    <bound-workflow workflow_id="simple_publication_workflow"/>
@@ -37,13 +38,14 @@
   <type type_id="Image"/>
   <type type_id="Plone Site"/>
   <type type_id="conversation">
-   <bound-workflow workflow_id="try_conv_no_review_w"/>
+   <bound-workflow
+      workflow_id="ploneboard_conversation_without_review_workflow"/>
   </type>
   <type type_id="messageboard">
-   <bound-workflow workflow_id="messageboard_workflow"/>
+   <bound-workflow workflow_id="ploneboard_messageboard_workflow"/>
   </type>
   <type type_id="topic">
-   <bound-workflow workflow_id="try_topi_w"/>
+   <bound-workflow workflow_id="ploneboard_topic_workflow"/>
   </type>
  </bindings>
 </object>

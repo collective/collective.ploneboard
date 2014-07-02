@@ -1,36 +1,26 @@
 <?xml version="1.0"?>
-<dc-workflow workflow_id="try_topi_w" title="Topics Workflow Collective Ploneboard" description="A review workflow for topics in Collective Ploneboard." state_variable="review_state" initial_state="private" manager_bypass="False">
+<dc-workflow workflow_id="ploneboard_conversation_workflow" title="Conversation Publication Workflow Collective Ploneboard" description="A review workflow for Conversation content types in Collective Ploneboard." state_variable="review_state" initial_state="private" manager_bypass="False">
  <permission>Access contents information</permission>
  <permission>Change portal events</permission>
  <permission>Modify portal content</permission>
  <permission>View</permission>
- <permission>Add portal content</permission>
- <permission>Collective Ploneboard: Add Conversation</permission>
  <state state_id="pending" title="Pending review">
   <description>Waiting to be reviewed, not editable by the owner.</description>
   <exit-transition transition_id="publish"/>
   <exit-transition transition_id="reject"/>
   <exit-transition transition_id="retract"/>
   <permission-map name="Access contents information" acquired="False">
-   <permission-role>Contributor</permission-role>
-   <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
+   <permission-role>Editor</permission-role>
    <permission-role>Reader</permission-role>
+   <permission-role>Contributor</permission-role>
    <permission-role>Reviewer</permission-role>
-   <permission-role>Site Administrator</permission-role>
-  </permission-map>
-  <permission-map name="Add portal content" acquired="False">
-   <permission-role>Manager</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="Change portal events" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>Reviewer</permission-role>
-   <permission-role>Site Administrator</permission-role>
-  </permission-map>
-  <permission-map name="Collective Ploneboard: Add Conversation" acquired="False">
-   <permission-role>Manager</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
@@ -39,11 +29,11 @@
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
-   <permission-role>Contributor</permission-role>
-   <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
+   <permission-role>Editor</permission-role>
    <permission-role>Reader</permission-role>
+   <permission-role>Contributor</permission-role>
    <permission-role>Reviewer</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
@@ -53,39 +43,31 @@
   <exit-transition transition_id="publish"/>
   <exit-transition transition_id="submit"/>
   <permission-map name="Access contents information" acquired="False">
-   <permission-role>Contributor</permission-role>
-   <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
+   <permission-role>Editor</permission-role>
    <permission-role>Reader</permission-role>
-   <permission-role>Site Administrator</permission-role>
-  </permission-map>
-  <permission-map name="Add portal content" acquired="False">
-   <permission-role>Manager</permission-role>
+   <permission-role>Contributor</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="Change portal events" acquired="False">
-   <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
-   <permission-role>Site Administrator</permission-role>
-  </permission-map>
-  <permission-map name="Collective Ploneboard: Add Conversation" acquired="False">
-   <permission-role>Manager</permission-role>
+   <permission-role>Editor</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
-   <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
+   <permission-role>Editor</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
-   <permission-role>Contributor</permission-role>
-   <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
+   <permission-role>Editor</permission-role>
    <permission-role>Reader</permission-role>
+   <permission-role>Contributor</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
  </state>
@@ -96,28 +78,16 @@
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Anonymous</permission-role>
   </permission-map>
-  <permission-map name="Add portal content" acquired="False">
-   <permission-role>Authenticated</permission-role>
-   <permission-role>Manager</permission-role>
-   <permission-role>Member</permission-role>
-   <permission-role>Site Administrator</permission-role>
-  </permission-map>
   <permission-map name="Change portal events" acquired="False">
-   <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
-   <permission-role>Site Administrator</permission-role>
-  </permission-map>
-  <permission-map name="Collective Ploneboard: Add Conversation" acquired="False">
-   <permission-role>Authenticated</permission-role>
-   <permission-role>Manager</permission-role>
-   <permission-role>Member</permission-role>
+   <permission-role>Editor</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
-   <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
+   <permission-role>Editor</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
