@@ -17,9 +17,11 @@ class MessageboardView(BrowserView):
         context = self.context.aq_inner
         # print context.category
         if context.category:
-            context.cats = context.category.split('\r\n')
+            context.cats = list(set(context.category.split('\r\n')))
         else:
-            context.cats=[]
+            context.cats = []
+        if u'' in context.cats:
+            context.cats.remove(u'')
         # print context.cats
         return self.template()
 

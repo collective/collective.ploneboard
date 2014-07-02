@@ -12,7 +12,7 @@ from five import grok
 @grok.provider(IContextSourceBinder)
 def possibleCategories(context):
     terms = []
-    category = context.cats
+    category = list(set(context.cats))
     for category_i in category:
         terms.append(SimpleVocabulary.createTerm(
             str(category_i),
@@ -23,8 +23,11 @@ def possibleCategories(context):
 
 class IMessageboard(form.Schema):
     category = schema.Text(
-        title=_(u"Categories for tagging Topics"),
-        description=_(u"Seperate by writing in different lines"),
+        title=_(u"Categories"),
+        description=_(
+            u"Enter the categories you want to have available for topics," +
+            "one category on each line."
+            ),
         required=False,
         )
 
