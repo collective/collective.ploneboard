@@ -28,6 +28,9 @@ class Contribution(BrowserView):
                     'description': result["Description"],
                     'review_state': result["review_state"],
                     'url': result.getURL(),
+                    'modified_time': result["modified"].strftime(
+                        '%b %d, %Y %I:%M %p'
+                        ),
                     })
         return my_messageboards
 
@@ -45,6 +48,9 @@ class Contribution(BrowserView):
                     'description': result["Description"],
                     'review_state': result["review_state"],
                     'url': result.getURL(),
+                    'modified_time': result["modified"].strftime(
+                        '%b %d, %Y %I:%M %p'
+                        ),
                     })
         return my_topics
 
@@ -62,6 +68,9 @@ class Contribution(BrowserView):
                     'description': result["Description"],
                     'review_state': result["review_state"],
                     'url': result.getURL(),
+                    'modified_time': result["modified"].strftime(
+                        '%b %d, %Y %I:%M %p'
+                        ),
                     })
         return my_conversations
 
@@ -81,5 +90,8 @@ class Contribution(BrowserView):
                     'description': result["Description"],
                     'review_state': result["review_state"],
                     'url': result.getURL(),
+                    'modified_time': result["modified"].strftime(
+                        '%b %d, %Y %I:%M %p'
+                        ),
                     })
         return my_comments

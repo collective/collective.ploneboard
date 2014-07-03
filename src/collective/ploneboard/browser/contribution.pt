@@ -7,55 +7,79 @@
     <metal:block fill-slot="content-core">
         <div>
             <div class="MyMessageboards" tal:condition="view/messageboards">
-                <h1 style="color:GREY"> MessageBoards </h1>
+                <h1 style="color:GRAY"> Message Boards </h1>
                 <hr>
-                <br/>
                 <div tal:repeat="messageboard view/messageboards">
+                    <br/>
+                    <span style="float:right;color:BLUE" tal:content="messageboard/review_state">Review state</span>
                     <h3>
                         <img tal:attributes="src string:${context/@@plone_portal_state/portal_url}/++resource++collective.ploneboard/images/ploneboard.gif" alt="[ X ]"/>
                         <a href="" tal:attributes="href messageboard/url" tal:content="messageboard/title">Messageboard</a>
                     </h3>
-                    <span style="float:right;color:BLUE" tal:content="messageboard/review_state">Review state</span>
+                    <small style="float:right">
+                        last modified 
+                        <span tal:content="messageboard/modified_time">Modified Time</span>
+                    </small>
                     <p tal:content="messageboard/description">Description</p>
+                    <br/>
+                    <hr style="height:2px;border-width:0;color:white;background-color:white;">
                 </div>
             </div>
             <div class="MyTopics" tal:condition="view/topics" >
                 <h1 style="color:GREY"> Topics </h1>
                 <hr>
-                <br/>
                 <div tal:repeat="topic view/topics">
+                    <br/>
+                    <span style="float:right;color:BLUE" tal:content="topic/review_state">Review state</span>
                     <h3>
                         <img tal:attributes="src string:${context/@@plone_portal_state/portal_url}/++resource++collective.ploneboard/images/topic_icon.png" alt="[ X ]"/>
                         <a href="" tal:attributes="href topic/url" tal:content="topic/title">Messageboard</a>
                     </h3>
-                    <span style="float:right;color:BLUE" tal:content="topic/review_state">Review state</span>
+                    <small style="float:right">
+                        last modified 
+                        <span tal:content="topic/modified_time">Modified Time</span>
+                    </small>
                     <p tal:content="topic/description">Description</p>
+                    <br/>
+                    <hr style="height:2px;border-width:0;color:white;background-color:white;">
                 </div>
             </div>
             <div class="MyConversations" tal:condition="view/conversations" >
                 <h1 style="color:GREY"> Conversations </h1>
                 <hr>
-                <br/>
                 <div tal:repeat="conversation view/conversations">
+                    <br/>
+                    <span style="float:right;color:BLUE" tal:content="conversation/review_state">Review state</span>
                     <h3>
                         <img tal:attributes="src string:${context/@@plone_portal_state/portal_url}/++resource++collective.ploneboard/images/conversation.gif" alt="[ X ]"/>
                         <a href="" tal:attributes="href conversation/url" tal:content="conversation/title">Messageboard</a>
                     </h3>
-                    <span style="float:right;color:BLUE" tal:content="conversation/review_state">Review state</span>
+                    <small style="float:right">
+                        last modified 
+                        <span tal:content="conversation/modified_time">Modified Time</span>
+                    </small>
                     <p tal:content="conversation/description">Description</p>
+                    <br/>
+                    <hr style="height:2px;border-width:0;color:white;background-color:white;">
                 </div>
             </div>
             <div class="MyComments" tal:condition="view/comments">
                 <h1 style="color:GREY"> Comments </h1>
                 <hr>
-                <br/>
                 <div tal:repeat="comment view/comments">
+                    <br/>
+                    <span style="float:right;color:BLUE" tal:content="comment/review_state">Review state</span>
                     <h3>
                         <img tal:attributes="src string:${context/@@plone_portal_state/portal_url}/++resource++collective.ploneboard/images/comment.png" alt="[ X ]"/>
                         <a href="" tal:attributes="href comment/url" tal:content="comment/description">Messageboard</a>
                     </h3>
-                    <span style="float:right;color:BLUE" tal:content="comment/review_state">Review state</span>
+                    <small style="float:right">
+                        last modified 
+                        <span tal:content="comment/modified_time">Modified Time</span>
+                    </small>
                     <p tal:content="comment/title">Description</p>
+                    <br/>
+                    <hr style="height:2px;border-width:0;color:white;background-color:white;">
                 </div>
             </div>
         </div>
