@@ -15,7 +15,7 @@ class TopicView(BrowserView):
             context.category.append('Unspecified')
         return self.template()
 
-    def conversations(self):
+    def conversations(self, sort_mode="recent"):
         conversations = []
         for conversation_id in self.context.objectIds():
             conv = self.context[conversation_id]
@@ -39,11 +39,15 @@ class TopicView(BrowserView):
                         '%b %d, %Y %I:%M %p'
                         ),
                 })
+        if sort_mode == "recent":
+            sort_key = 'modification_time'
+        else:
+            sort_key = 'total_comments'
         # Order based on last modified (default)
         conversations = sorted(
             conversations,
             key=lambda conversation_instance: conversation_instance[
-                'modification_time'
+                sort_key
                 ],
             reverse=True
             )

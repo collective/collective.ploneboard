@@ -6,11 +6,28 @@
       metal:use-macro="context/main_template/macros/master"
       i18n:domain="collective.ploneboard">
 <body>
-
 <metal:main fill-slot="main">
   <tal:main-macro metal:define-macro="main"
     tal:define="toLocalizedTime nocall:context/@@plone/toLocalizedTime">
-
+	<script rel="javascript" type="text/javascript">
+		$(window).load(function () {
+			$('.recent').css("display","block");
+			$('.total_comments').css("display","none");
+			$('#recent-button').bind("click", function (e) {
+				$('.recent').css("display","block");
+				$('.total_comments').css("display","none");
+				});
+			$('#total_comments-button').bind("click", function (e) {
+				$('.total_comments').css("display","block");
+				$('.recent').css("display","none");
+				});
+			});
+	</script>
+	<style type="text/css">
+ 	a:hover {
+  		cursor:pointer;
+ 	}
+	</style>
     <div tal:replace="structure provider:plone.abovecontenttitle" />
 
     <h1 class="documentFirstHeading" tal:content="context/title" />
@@ -31,8 +48,17 @@
 	</ul>
     <small tal:condition="not: context/cats"> Unspecified</small>
     <div tal:replace="structure provider:plone.abovecontentbody" />
+    <br/>
+    <div style="float:right">
+    	Sort by:
+    	<a id="recent-button"> Recent </a>
+    	|
+    	<a id="total_comments-button"> Comments </a>
+    </div>
+    <br/>
 
-    <div tal:define="local dict view/categories">
+    <!-- Default: Recent first sort mode-->
+    <div class="recent" tal:define="local dict python:view.categories(sort_mode='recent')">
       <!--p tal:content="dict"/-->
       <div class="CategoriesTopics" tal:repeat="cat dict">
         <h2 tal:content="cat"/>
@@ -87,9 +113,9 @@
     </div>
 
 
-    <div class="CategoriesConv" tal:condition="view/direct_conversations">
+    <div class="CategoriesConv recent" tal:condition="python:view.direct_conversations(sort_mode='recent')">
       <h2> Conversations </h2>
-      <div class="conv" tal:repeat="conversation view/direct_conversations">
+      <div class="conv" tal:repeat="conversation python:view.direct_conversations(sort_mode='recent')">
         <h3>
           <a href=""
              tal:attributes="href conversation/url"
@@ -127,6 +153,99 @@
     </div>
 
 
+    <!-- Total comments view mode -->
+	<div class="total_comments" tal:define="local dict python:view.categories(sort_mode='total_comments')">
+      <!--p tal:content="dict"/-->
+      <div class="CategoriesTopics" tal:repeat="cat dict">
+        <h2 tal:content="cat"/>
+        
+        <div tal:define="local topics python: dict[cat]">
+          <!--h3 tal:content="topics"/-->
+          <div class="topic" tal:repeat="topic topics">
+            <h3>
+              <a href=""
+                 tal:attributes="href topic/url"
+                 tal:content="topic/title">
+                 Topic
+              </a>
+            </h3>
+            <table style="width: 100%;" class="listing nosort">
+              <thead>
+                <tr>
+                  <th>Gespräch</th>
+                  <th class="replies">Antworten</th>
+                  <th class="latest_reply">Neuester Kommentar</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tal:repeat tal:repeat="conversation topic/conversations">
+                  <tr class="odd">
+                    <td class="forumTitleCell">
+                      <a class="listingForum" href=""
+                         tal:content="conversation/title"
+                         tal:attributes="href conversation/url">
+                        Topic
+                      </a>
+                    </td>
+                    <td tal:content="conversation/total_comments">0</td>
+                    <td>
+                      <tal:block tal:condition="conversation/last_commenter">
+                        <a href="" tal:attributes="href conversation/url">
+                          <span tal:replace="conversation/last_commenter" />
+                        </a>
+                        <span class="discreet" tal:content="python:toLocalizedTime(conversation['last_comment_date'])" />
+                      </tal:block>
+                      <tal:block tal:condition="not:conversation/last_commenter">
+                        <span class="discreet">Noch keine Gespräche.</span>
+                      </tal:block>
+                    </td>
+                  </tr>
+                </tal:repeat>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="CategoriesConv total_comments" tal:condition="python:view.direct_conversations(sort_mode='total_comments')">
+    	<h2> Conversations </h2>
+        <div class="conv" tal:repeat="conversation python:view.direct_conversations(sort_mode='total_comments')">
+        <h3>
+          <a href=""
+             tal:attributes="href conversation/url"
+             tal:content="conversation/title">
+             Topic
+          </a>
+        </h3>
+        <table style="width: 100%;" class="listing nosort">
+          <thead>
+            <tr>
+              <th class="replies">Antworten</th>
+              <th class="latest_reply">Neuester Kommentar</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+            <tr class="odd">
+              <td tal:content="conversation/total_comments">0</td>
+              <td>
+                <tal:block tal:condition="conversation/last_commenter">
+                  <a href="" tal:attributes="href conversation/url">
+                    <span tal:replace="conversation/last_commenter" />
+                  </a>
+                  <span class="discreet" tal:content="python:toLocalizedTime(conversation['last_comment_date'])" />
+                </tal:block>
+                <tal:block tal:condition="not:conversation/last_commenter">
+                  <span class="discreet">Noch keine Gespräche.</span>
+                </tal:block>
+              </td>
+            </tr>
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
 
     <div tal:replace="structure provider:plone.belowcontentbody" />
 

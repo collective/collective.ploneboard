@@ -14,6 +14,16 @@ class MessageboardView(BrowserView):
         self.list_of_topics = []
         self.list_of_conv = []
         self.current_user = getSecurityManager().getUser()
+        self.catalog = getToolByName(self.context, 'portal_catalog')
+        results = self.catalog(portal_type="topic")
+        for result in results:
+            rid = result.getRID()
+            id_of = self.catalog._catalog.getIndex(
+                "id").getEntryForObject(rid, default=[])
+            self.list_of_topics.append(id_of)
+        for topic_id in self.context.objectIds():
+            if topic_id not in self.list_of_topics:
+                self.list_of_conv.append(topic_id)
         context = self.context.aq_inner
         # print context.category
         if context.category:
@@ -32,24 +42,18 @@ class MessageboardView(BrowserView):
         ans = self.context.absolute_url() + "/@@my-contribution"
         return ans
 
-    def categories(self):						# Returns topics grouped by categories
+    def categories(self, sort_mode="recent"):
+        # Returns topics grouped by categories
+        # Default function: the sort_mode for conversations is RECENT FIRST
         categ = {}
-        catalog = getToolByName(self.context, 'portal_catalog')
-        results = catalog(portal_type="topic")
-        for result in results:
-            rid = result.getRID()
-            id_of = catalog._catalog.getIndex(
-                "id").getEntryForObject(rid, default=[])
-            self.list_of_topics.append(id_of)
         for topic_id in self.context.objectIds():
             if topic_id not in self.list_of_topics:
-                self.list_of_conv.append(topic_id)
                 continue
             topic = self.context[topic_id]
             conversations = getMultiAdapter(
                 (topic, self.request),
                 name="view"
-            ).conversations()
+            ).conversations(sort_mode)
             if topic.category == []:
                 topic.category.append('Unspecified')
             for each_category in topic.category:
@@ -85,7 +89,7 @@ class MessageboardView(BrowserView):
                 )
         return categ
 
-    def direct_conversations(self):
+    def direct_conversations(self, sort_mode="recent"):
         conversations = []
         for conv_id in self.list_of_conv:
             conversation_entity = self.context[conv_id]
@@ -110,29 +114,16 @@ class MessageboardView(BrowserView):
                             '%b %d, %Y %I:%M %p'
                             ),
                     })
+        if sort_mode == "recent":
+            sort_key = "modification_time"
+        else:
+            sort_key = "total_comments"
         # Order based on last modified (default)
         conversations = sorted(
             conversations,
             key=lambda conversation_instance: conversation_instance[
-                'modification_time'
+                sort_key
                 ],
             reverse=True
             )
         return conversations
-    """
-    def topics(self):
-        topics = []
-        for topic_id in self.context.objectIds():
-            topic = self.context[topic_id]
-            conversations = getMultiAdapter(
-                (topic, self.request),
-                name="view"
-            ).conversations()
-            topics.append({
-                'title': topic.title,
-                'category': topic.category,
-                'url': topic.absolute_url(),
-                'conversations': conversations,
-            })
-        return topics
-    """

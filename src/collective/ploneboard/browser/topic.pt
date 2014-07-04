@@ -10,7 +10,25 @@
 <metal:main fill-slot="main">
   <tal:main-macro metal:define-macro="main"
     tal:define="toLocalizedTime nocall:context/@@plone/toLocalizedTime">
-
+  <script rel="javascript" type="text/javascript">
+      $(window).load(function () {
+        $('.recent').css("display","block");
+        $('.total_comments').css("display","none");
+        $('#recent-button').bind("click", function (e) {
+          $('.recent').css("display","block");
+          $('.total_comments').css("display","none");
+          });
+        $('#total_comments-button').bind("click", function (e) {
+          $('.total_comments').css("display","block");
+          $('.recent').css("display","none");
+          });
+        });
+    </script>
+    <style type="text/css">
+    a:hover {
+        cursor:pointer;
+    }
+    </style>
     <div tal:replace="structure provider:plone.abovecontenttitle" />
 
     <h1 class="documentFirstHeading" tal:content="context/title" />
@@ -23,41 +41,88 @@
     	<span class="catname" tal:content="cat" />
     </div>
     <div tal:replace="structure provider:plone.abovecontentbody" />
+    <br/>
+    <div style="float:right">
+      Sort by:
+      <a id="recent-button"> Recent </a>
+      |
+      <a id="total_comments-button"> Comments </a>
+    </div>
+    <br/>
 
-    <table style="width: 100%;" class="listing nosort">
-      <thead>
-        <tr>
-          <th>Gespräch</th>
-          <th>Antworten</th>
-          <th>Neuester Kommentar</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tal:repeat tal:repeat="conversation view/conversations">
-          <tr class="odd">
-            <td class="forumTitleCell">
-              <a class="listingForum" href=""
-                 tal:content="conversation/title"
-                 tal:attributes="href conversation/url">
-                Topic
-              </a>
-            </td>
-            <td tal:content="conversation/total_comments">0</td>
-            <td>
-              <tal:block tal:condition="conversation/last_commenter">
-                <a href="" tal:attributes="href conversation/url">
-                  <span tal:replace="conversation/last_commenter" />
-                </a>
-                <span class="discreet" tal:content="python:toLocalizedTime(conversation['last_comment_date'])" />
-              </tal:block>
-              <tal:block tal:condition="not:conversation/last_commenter">
-                <span class="discreet">Noch keine Gespräche.</span>
-              </tal:block>
-            </td>
+    <div class="recent">
+      <table style="width: 100%;" class="listing nosort">
+        <thead>
+          <tr>
+            <th>Gespräch</th>
+            <th>Antworten</th>
+            <th>Neuester Kommentar</th>
           </tr>
-        </tal:repeat>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <tal:repeat tal:repeat="conversation python:view.conversations('recent')">
+            <tr class="odd">
+              <td class="forumTitleCell">
+                <a class="listingForum" href=""
+                   tal:content="conversation/title"
+                   tal:attributes="href conversation/url">
+                  Topic
+                </a>
+              </td>
+              <td tal:content="conversation/total_comments">0</td>
+              <td>
+                <tal:block tal:condition="conversation/last_commenter">
+                  <a href="" tal:attributes="href conversation/url">
+                    <span tal:replace="conversation/last_commenter" />
+                  </a>
+                  <span class="discreet" tal:content="python:toLocalizedTime(conversation['last_comment_date'])" />
+                </tal:block>
+                <tal:block tal:condition="not:conversation/last_commenter">
+                  <span class="discreet">Noch keine Gespräche.</span>
+                </tal:block>
+              </td>
+            </tr>
+          </tal:repeat>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="total_comments">
+      <table style="width: 100%;" class="listing nosort">
+        <thead>
+          <tr>
+            <th>Gespräch</th>
+            <th>Antworten</th>
+            <th>Neuester Kommentar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tal:repeat tal:repeat="conversation python:view.conversations('total_comments')">
+            <tr class="odd">
+              <td class="forumTitleCell">
+                <a class="listingForum" href=""
+                   tal:content="conversation/title"
+                   tal:attributes="href conversation/url">
+                  Topic
+                </a>
+              </td>
+              <td tal:content="conversation/total_comments">0</td>
+              <td>
+                <tal:block tal:condition="conversation/last_commenter">
+                  <a href="" tal:attributes="href conversation/url">
+                    <span tal:replace="conversation/last_commenter" />
+                  </a>
+                  <span class="discreet" tal:content="python:toLocalizedTime(conversation['last_comment_date'])" />
+                </tal:block>
+                <tal:block tal:condition="not:conversation/last_commenter">
+                  <span class="discreet">Noch keine Gespräche.</span>
+                </tal:block>
+              </td>
+            </tr>
+          </tal:repeat>
+        </tbody>
+      </table>
+    </div>
 
     <div tal:replace="structure provider:plone.belowcontentbody" />
 
