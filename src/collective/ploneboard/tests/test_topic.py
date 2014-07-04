@@ -101,11 +101,11 @@ class TopicViewIntegrationTest(unittest.TestCase):
         )
         conversation = IConversation(self.topic.conv1)
         comment1 = createObject('plone.Comment')
-        comment1.creation_date = datetime.utcnow()
+        comment1.creation_date = datetime.now()
         comment1.author_name = u'John Doe'
         conversation.addComment(comment1)
         comment2 = createObject('plone.Comment')
-        comment2.creation_date = datetime.utcnow()
+        comment2.creation_date = datetime.now()
         comment2.author_name = u'Jane Doe'
         conversation.addComment(comment2)
         from collective.ploneboard.browser.topic import TopicView
@@ -123,6 +123,9 @@ class TopicViewIntegrationTest(unittest.TestCase):
                     'total_comments': 2,
                     'last_commenter': u'Jane Doe',
                     'last_comment_date': comment2.creation_date,
+                    'modification_time': comment2.creation_date.strftime(
+                        '%b %d, %Y %I:%M %p'
+                        ),
                 }
             ]
         )
