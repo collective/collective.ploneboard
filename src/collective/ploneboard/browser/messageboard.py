@@ -60,7 +60,10 @@ class MessageboardView(BrowserView):
                         'title': topic.title,
                         'category': topic.category,
                         'url': topic.absolute_url(),
-                        'conversations': conversations
+                        'conversations': conversations,
+                        'modification_time': topic.modified().strftime(
+                            '%b %d, %Y %I:%M %p'
+                            ),
                         })
                 else:
                     key = each_category
@@ -69,27 +72,52 @@ class MessageboardView(BrowserView):
                         'category': topic.category,
                         'url': topic.absolute_url(),
                         'conversations': conversations,
+                        'modification_time': topic.modified().strftime(
+                            '%b %d, %Y %I:%M %p'
+                            ),
                         })
+        # Order based on last modified (default)
+        for each_category in categ:
+            categ[each_category] = sorted(
+                categ[each_category],
+                key=lambda topic_instance: topic_instance['modification_time'],
+                reverse=True
+                )
         return categ
 
     def direct_conversations(self):
         conversations = []
         for conv_id in self.list_of_conv:
             conversation_entity = self.context[conv_id]
-            pad_conv = IConversation(conversation_entity)
-            # XXX: last_commenter should be in metadata
-            comments = pad_conv.items()
-            if comments:
-                last_commenter = comments[-1:][0][1].author_name
-            else:
-                last_commenter = ""
-            conversations.append({
-                'title': conversation_entity.title,
-                'url': conversation_entity.absolute_url(),
-                'total_comments': pad_conv.total_comments,
-                'last_commenter': last_commenter,
-                'last_comment_date': pad_conv.last_comment_date,
-                })
+            # Check for view permission
+            sm = getSecurityManager()
+            if sm.checkPermission('View', conversation_entity):
+                pad_conv = IConversation(conversation_entity)
+                # XXX: last_commenter should be in metadata
+                comments = pad_conv.items()
+                if comments:
+                    last_commenter = comments[-1:][0][1].author_name
+                else:
+                    last_commenter = ""
+                conversations.append({
+                    'title': conversation_entity.title,
+                    'url': conversation_entity.absolute_url(),
+                    'total_comments': pad_conv.total_comments,
+                    'last_commenter': last_commenter,
+                    'last_comment_date': pad_conv.last_comment_date,
+                    'modification_time':
+                        conversation_entity.modified().strftime(
+                            '%b %d, %Y %I:%M %p'
+                            ),
+                    })
+        # Order based on last modified (default)
+        conversations = sorted(
+            conversations,
+            key=lambda conversation_instance: conversation_instance[
+                'modification_time'
+                ],
+            reverse=True
+            )
         return conversations
     """
     def topics(self):
