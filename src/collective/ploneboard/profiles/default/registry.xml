@@ -8,5 +8,6 @@
   </record>
   <records interface="plone.app.discussion.interfaces.IDiscussionSettings">
       <value key="text_transform">text/html</value>
+      <value key="edit_comment_enabled">True</value>
   </records>
 </registry>

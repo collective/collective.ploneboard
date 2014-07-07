@@ -234,6 +234,11 @@
       <role name="Owner"/>
       <role name="Site Administrator"/>
     </permission>
+    <permission name="Edit comments" acquire="True">
+      <role name="Manager"/>
+      <role name="Owner"/>
+      <role name="Site Administrator"/>
+    </permission>
     <permission name="Review comments" acquire="True">
       <role name="Manager"/>
       <role name="Reviewer"/>
