@@ -54,8 +54,6 @@
 
         $("#edit-button").bind("click",function (e){
         	initMCEall();
-        	forceTinyMceReload();
-        	console.log('hi');
         })
         /*
         $("#commenting #form-buttons-cancel").bind("click", function (e) {

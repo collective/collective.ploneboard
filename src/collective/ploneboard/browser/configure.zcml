@@ -12,6 +12,13 @@
     factory=".commentextender.CommentExtender"
     provides="plone.z3cform.fieldsets.interfaces.IFormExtender" />
 
+  <!-- Resource directory for javascripts -->
+  <browser:resourceDirectory
+    name="collective.ploneboard.javascripts"
+    directory="javascripts"
+    layer="collective.ploneboard.interfaces.IPloneboardLayer"
+    />
+
   <!-- Message Board -->
   <browser:page
     name="view"
