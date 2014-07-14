@@ -1,0 +1,22 @@
+*** Settings ***
+
+Library  Selenium2Library  timeout=10  implicit_wait=0.5
+
+Suite Setup  Start browser
+Suite Teardown  Close All Browsers
+
+*** Variables ***
+
+${BROWSER} =  Firefox
+
+*** Test Cases ***
+
+Hello World
+    [Tags]  hello
+    Go to  http://localhost:55001/plone/hello-world
+    Page should contain  Hello World!
+
+*** Keywords ***
+
+Start browser
+    Open browser  http://localhost:55001/plone/  browser=${BROWSER}

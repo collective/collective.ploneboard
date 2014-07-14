@@ -52,7 +52,7 @@ setup(name='collective.ploneboard',
           'collective.akismet',
           'collective.z3cform.norobots',
       ],
-      extras_require={'test': ['plone.app.testing']},
+      extras_require={'test': ['plone.app.testing[robot]']},
       entry_points="""
       # -*- Entry points: -*-
       [z3c.autoinclude.plugin]
