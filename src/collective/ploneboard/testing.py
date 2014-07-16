@@ -1,3 +1,4 @@
+from plone.app.robotframework.testing import AUTOLOGIN_LIBRARY_FIXTURE
 from plone.app.testing import PloneSandboxLayer
 from plone.app.testing import applyProfile
 from plone.app.testing import PLONE_FIXTURE
@@ -30,7 +31,10 @@ COLLECTIVE_PLONEBOARD_INTEGRATION_TESTING = IntegrationTesting(
 )
 
 COLLECTIVE_PLONEBOARD_ROBOT_TESTING = FunctionalTesting(
-    bases=(COLLECTIVE_PLONEBOARD_FIXTURE,
-           z2.ZSERVER_FIXTURE),
+    bases=(
+        COLLECTIVE_PLONEBOARD_FIXTURE,
+        AUTOLOGIN_LIBRARY_FIXTURE,
+        z2.ZSERVER_FIXTURE
+    ),
     name="CollectivePloneboardLayer:Robot"
 )
