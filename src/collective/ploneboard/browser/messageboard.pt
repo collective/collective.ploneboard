@@ -46,7 +46,7 @@
             <li class="catlist"><span class="catname" tal:content="mc"/></li>
         </div>
 	</ul>
-    <small tal:condition="not: context/cats"> Unspecified</small>
+    <small tal:condition="not: context/cats"> Unspecified<br/></small>
     <a href="" tal:attributes="href view/link_recent_comments">
         <img tal:attributes="src string:${context/@@plone_portal_state/portal_url}/++resource++collective.ploneboard/images/recent.png" alt="[ X ]"/>
         Recent Comments

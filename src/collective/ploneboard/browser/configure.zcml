@@ -5,12 +5,12 @@
   i18n_domain="collective.ploneboard">
 
   <!-- Comment Extender -->
-  <adapter
+  <!-- adapter
     factory=".commentextender.CommentExtenderFactory"
     provides=".commentextender.ICommentExtenderFields" />
   <adapter
     factory=".commentextender.CommentExtender"
-    provides="plone.z3cform.fieldsets.interfaces.IFormExtender" />
+    provides="plone.z3cform.fieldsets.interfaces.IFormExtender" /-->
 
   <!-- Resource directory for javascripts -->
   <browser:resourceDirectory

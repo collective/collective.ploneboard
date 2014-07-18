@@ -4,6 +4,9 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
 from plone.app.discussion.interfaces import IConversation
 from AccessControl import getSecurityManager
+from zope.component import queryUtility
+from plone.registry.interfaces import IRegistry
+from plone.app.discussion.interfaces import IDiscussionSettings
 
 
 class MessageboardView(BrowserView):
@@ -33,6 +36,16 @@ class MessageboardView(BrowserView):
         if u'' in context.cats:
             context.cats.remove(u'')
         # print context.cats
+        registry = queryUtility(IRegistry)
+        settings = registry.forInterface(IDiscussionSettings)
+        self.qi_tool = getToolByName(context, 'portal_quickinstaller')
+        pid = 'plone.formwidget.captcha'
+        installed = [p['id'] for p in self.qi_tool.listInstalledProducts()]
+        if pid in installed:
+            if context.captcha:
+                settings.captcha = "captcha"
+            else:
+                settings.captcha = "disabled"
         return self.template()
 
     def givelink(self):

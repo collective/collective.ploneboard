@@ -9,3 +9,6 @@ Changelog
 
 - Doctests added for workflows
   [aman]
+
+- Captcha support added
+  [aman]

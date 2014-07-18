@@ -197,9 +197,9 @@
                                    i18n:attributes="value"
                                    />
                         </form>
-                        <a tal:condition="reply/attachment|nothing"
+                        <!--a tal:condition="reply/attachment|nothing"
                            tal:content="reply/attachment/filename"
-                           tal:attributes="href string:${reply/absolute_url}/@@download/attachment/${reply/attachment/filename}">Attachment</a>
+                           tal:attributes="href string:${reply/absolute_url}/@@download/attachment/${reply/attachment/filename}">Attachment</a-->
                     </div>
 
 
