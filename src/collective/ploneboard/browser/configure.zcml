@@ -49,4 +49,14 @@
     layer="collective.ploneboard.interfaces.IPloneboardLayer"
     />
 
+  <!-- Recent Comments -->
+  <browser:page
+    name="recent-comments"
+    for="*"
+    class=".recent.Comments"
+    permission="zope2.View"
+    template="recent_comments.pt"
+    layer="collective.ploneboard.interfaces.IPloneboardLayer"
+    />
+
 </configure>

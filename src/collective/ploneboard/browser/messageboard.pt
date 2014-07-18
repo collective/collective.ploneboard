@@ -36,7 +36,7 @@
 
     <p class="documentDescription" tal:content="context/description" />
     <a style="float:right" href="" tal:condition="view/givelink" tal:attributes="href view/givelink" >
-        <img tal:attributes="src string:${context/@@plone_portal_state/portal_url}/++resource++collective.ploneboard/images/new_conversation.gif" alt="[      X ]"/>
+        <img tal:attributes="src string:${context/@@plone_portal_state/portal_url}/++resource++collective.ploneboard/images/new_conversation.gif" alt="[ X ]"/>
         My Contribution
     </a>
     <!--div tal:content="structure here/@@rate-if-you-dare" /-->
@@ -47,13 +47,17 @@
         </div>
 	</ul>
     <small tal:condition="not: context/cats"> Unspecified</small>
+    <a href="" tal:attributes="href view/link_recent_comments">
+        <img tal:attributes="src string:${context/@@plone_portal_state/portal_url}/++resource++collective.ploneboard/images/recent.png" alt="[ X ]"/>
+        Recent Comments
+    </a>
     <div tal:replace="structure provider:plone.abovecontentbody" />
     <br/>
     <div style="float:right">
     	Sort by:
     	<a id="recent-button"> Recent </a>
     	|
-    	<a id="total_comments-button"> Comments </a>
+    	<a id="total_comments-button"> #Comments </a>
     </div>
     <br/>
 

@@ -42,6 +42,10 @@ class MessageboardView(BrowserView):
         ans = self.context.absolute_url() + "/@@my-contribution"
         return ans
 
+    def link_recent_comments(self):
+        ans = self.context.absolute_url() + "/@@recent-comments"
+        return ans
+
     def categories(self, sort_mode="recent"):
         # Returns topics grouped by categories
         # Default function: the sort_mode for conversations is RECENT FIRST
