@@ -14,20 +14,25 @@ class Comments(BrowserView):
 
     def recent_comments(self):
         comments = []
-	folder_path = '/'.join(self.context.getPhysicalPath())
-	limit = 50
+        folder_path = '/'.join(self.context.getPhysicalPath())
+        limit = 50
         results = self.catalog.searchResults(
-            {'portal_type': "Discussion Item",'review_state': "published","path": {'query': folder_path}, "sort_on": "modified", "sort_order":"descending", "sort_limit": limit}
+            {
+                'portal_type': "Discussion Item",
+                'review_state': "published",
+                "path": {'query': folder_path},
+                "sort_on": "modified",
+                "sort_order": "descending",
+                "sort_limit": limit}
             )
         for result in results:
             comments.append({
-            	'title': result["Title"],
-            	'description': result["Description"],
-            	'review_state': result["review_state"],
-            	'url': result.getURL(),
-            	'modified_time': result["modified"].strftime(
-		'%b %d, %Y %I:%M %p'
-                ),
+                'title': result["Title"],
+                'description': result["Description"],
+                'review_state': result["review_state"],
+                'url': result.getURL(),
+                'modified_time': result["modified"].strftime(
+                    '%b %d, %Y %I:%M %p'
+                    ),
             })
         return comments
-
