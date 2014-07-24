@@ -5,6 +5,7 @@ from Products.CMFCore.utils import getToolByName
 from plone.app.discussion.interfaces import IConversation
 from AccessControl import getSecurityManager
 from zope.component import queryUtility
+from datetime import date
 from plone.registry.interfaces import IRegistry
 from plone.app.discussion.interfaces import IDiscussionSettings
 
@@ -47,6 +48,88 @@ class MessageboardView(BrowserView):
             else:
                 settings.captcha = "disabled"
         return self.template()
+
+    def statistics(self):
+        self.num_of_topics = 0
+        self.num_of_conversations = 0
+        self.num_of_comments = 0
+        self.last_commenter = None
+        self.last_comment_date = None
+        self.last_comment_url = None
+        self.users_participated = 0
+        self.likes = 0
+        folder_path = '/'.join(self.context.getPhysicalPath())
+        comments = self.catalog.searchResults({
+            'portal_type': "Discussion Item",
+            'review_state': "published",
+            "path": {'query': folder_path},
+            "sort_on": "modified",
+            "sort_order": "descending",
+            # "sort_limit": limit
+            })
+        conversations = self.catalog.searchResults({
+            'portal_type': "conversation",
+            'review_state': "published",
+            "path": {'query': folder_path},
+            "sort_on": "modified",
+            "sort_order": "descending",
+            # "sort_limit": limit
+            })
+        topics = self.catalog.searchResults({
+            'portal_type': "topic",
+            'review_state': "published",
+            "path": {'query': folder_path},
+            "sort_on": "modified",
+            "sort_order": "descending",
+            # "sort_limit": limit
+            })
+        self.num_of_topics = len(topics)
+        self.num_of_conversations = len(conversations)
+        self.num_of_comments = len(comments)
+        if len(comments) != 0:
+            self.last_commenter = comments[0]["Title"]
+            self.last_comment_date = comments[0]["modified"].strftime(
+                '%b %d, %Y %I:%M %p'
+                )
+            self.last_comment_url = comments[0].getURL()
+        users = []
+        self.comments_today = 0
+        for comment in comments:
+            if comment["Creator"] not in users:
+                users.append(comment["Creator"])
+            if comment["modified"].strftime('%b %d, %Y') == \
+                    date.today().strftime('%b %d, %Y'):
+                self.comments_today += 1
+        for conv in conversations:
+            if conv["Creator"] not in users:
+                users.append(conv["Creator"])
+        for topic in topics:
+            if topic["Creator"] not in users:
+                users.append(topic["Creator"])
+        self.users_participated = len(users)
+        portal_membership = getToolByName(
+            self.context,
+            'portal_membership')
+        if self.last_commenter is None:
+            self.last_commenter_image = 'defaultUser.png'
+        else:
+            self.last_commenter_image = portal_membership\
+                .getPersonalPortrait(self.last_commenter)\
+                .absolute_url()
+        result = {
+            'topics': self.num_of_topics,
+            'convs': self.num_of_conversations,
+            'comments': self.num_of_comments,
+            'last_commenter': self.last_commenter,
+            'last_commenter_image': self.last_commenter_image,
+            'last_comment_date': self.last_comment_date,
+            'last_comment_url': self.last_comment_url,
+            'users': self.users_participated,
+            'comments_today': self.comments_today
+            }
+        ans = []
+        ans.append(result)
+        return ans
 
     def givelink(self):
         ans = None

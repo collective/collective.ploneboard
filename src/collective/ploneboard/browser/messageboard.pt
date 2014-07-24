@@ -21,6 +21,18 @@
 				$('.total_comments').css("display","block");
 				$('.recent').css("display","none");
 				});
+      $('#stat_button').bind("click", function (e) {
+
+         if ( $( ".statistics" ).is( ":hidden" ) ) {
+          $( ".statistics" ).slideDown( "slow" );
+          var src = $("#arrow_button").attr("src").replace("down", "up");
+          $("#arrow_button").attr("src", src);
+          } else {
+          $( ".statistics" ).hide();
+          var src = $("#arrow_button").attr("src").replace("up", "down");
+          $("#arrow_button").attr("src", src);
+          }
+        });
 			});
 	</script>
 	<style type="text/css">
@@ -47,10 +59,96 @@
         </div>
 	</ul>
     <small tal:condition="not: context/cats"> Unspecified<br/></small>
-    <a href="" tal:attributes="href view/link_recent_comments">
+    <br/>
+
+    <a href="" tal:attributes="href view/link_recent_comments" style="float:right">
         <img tal:attributes="src string:${context/@@plone_portal_state/portal_url}/++resource++collective.ploneboard/images/recent.png" alt="[ X ]"/>
         Recent Comments
     </a>
+
+    <a id="stat_button" style="font-size: 16px;">
+        <img tal:attributes="src string:${context/@@plone_portal_state/portal_url}/++resource++collective.ploneboard/images/stat_icon.png" alt="[ X ]"/>
+        Statistics
+        <img id="arrow_button" tal:attributes="src string:${context/@@plone_portal_state/portal_url}/++resource++collective.ploneboard/images/down_arrow.png" alt="[ X ]"/>
+    </a>
+
+    <br/>
+    <div class="statistics" tal:define="stat view/statistics" style="display:none; background:#deeaf3; padding:10px">
+      <!--div tal:content="stat"/-->
+      <div tal:repeat="val stat">
+        <table style="text-align:center; width:100%">
+          <thead>
+            <th>
+              Topics
+            </th>
+            <th>
+              Conversations
+            </th>
+            <th>
+              Comments
+            </th>
+            <th>
+              Users
+            </th>
+            <th>
+              Last Comment
+            </th>
+            <th>
+              Comments Today
+            </th>
+          </thead>
+          <tr>
+            <td>
+              <img tal:attributes="src string:${context/@@plone_portal_state/portal_url}/++resource++collective.ploneboard/images/topic_stat_icon.png" alt="[ X ]"/>
+            </td>
+            
+            <td>
+              <img tal:attributes="src string:${context/@@plone_portal_state/portal_url}/++resource++collective.ploneboard/images/conversation_stat_icon.png" alt="[ X ]"/>
+            </td>
+
+            <td>
+              <img tal:attributes="src string:${context/@@plone_portal_state/portal_url}/++resource++collective.ploneboard/images/comment_stat_icon.png" alt="[ X ]"/>
+            </td>
+
+            <td>
+              <img tal:attributes="src string:${context/@@plone_portal_state/portal_url}/++resource++collective.ploneboard/images/users_stat_icon.png" alt="[ X ]"/>
+            </td>
+
+            <td>
+              <img src="defaultUser.png" tal:attributes="src val/last_commenter_image" alt="[ X ]"/>
+            </td>
+
+            <td>
+                <span style="font: bold 75px/1 Sans-Serif;" tal:content="val/comments_today"/>
+            </td>
+          
+          </tr>
+          <tr>
+            <td>
+              <span tal:content="val/topics" style="font: bold 25px/1 Sans-Serif;"> Topics </span>
+            </td>
+            <td>
+              <span tal:content="val/convs" style="font: bold 25px/1 Sans-Serif;"> Conversations </span>
+            </td>
+            <td>
+              <span tal:content="val/comments" style="font: bold 25px/1 Sans-Serif;"> Comments </span>
+            </td>
+            <td>
+              <span tal:content="val/users" style="font: bold 25px/1 Sans-Serif;"> Users </span>
+            </td>
+            <td>
+              <a tal:attributes="href val/last_comment_url">
+                <span tal:content="val/last_commenter"> Last Commenter </span>
+              </a>
+              <br/>
+              <span tal:content="val/last_comment_date"/>
+            </td>
+          </tr>
+
+
+        </table>
+      </div>
+    </div>
     <div tal:replace="structure provider:plone.abovecontentbody" />
     <br/>
     <div style="float:right">
