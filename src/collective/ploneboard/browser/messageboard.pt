@@ -73,9 +73,10 @@
     </a>
 
     <br/>
-    <div class="statistics" tal:define="stat view/statistics" style="display:none; background:#deeaf3; padding:10px">
+    <div class="statistics" style="display:none; background:#deeaf3; padding:10px">
       <!--div tal:content="stat"/-->
-      <div tal:repeat="val stat">
+      <div tal:repeat="s_comment view/statistics_comment">
+      	<div tal:repeat="s_users view/statistics_users">
         <table style="text-align:center; width:100%">
           <thead>
             <th>
@@ -115,38 +116,39 @@
             </td>
 
             <td>
-              <img src="defaultUser.png" tal:attributes="src val/last_commenter_image" alt="[ X ]"/>
+              <img src="defaultUser.png" tal:attributes="src s_comment/last_commenter_image" alt="[ X ]"/>
             </td>
 
             <td>
-                <span style="font: bold 75px/1 Sans-Serif;" tal:content="val/comments_today"/>
+                <span style="font: bold 75px/1 Sans-Serif;" tal:content="s_users/comments_today"/>
             </td>
           
           </tr>
           <tr>
             <td>
-              <span tal:content="val/topics" style="font: bold 25px/1 Sans-Serif;"> Topics </span>
+              <span tal:content="view/statistics_topics" style="font: bold 25px/1 Sans-Serif;"> Topics </span>
             </td>
             <td>
-              <span tal:content="val/convs" style="font: bold 25px/1 Sans-Serif;"> Conversations </span>
+              <span tal:content="view/statistics_conv" style="font: bold 25px/1 Sans-Serif;"> Conversations </span>
             </td>
             <td>
-              <span tal:content="val/comments" style="font: bold 25px/1 Sans-Serif;"> Comments </span>
+              <span tal:content="s_comment/comments" style="font: bold 25px/1 Sans-Serif;"> Comments </span>
             </td>
             <td>
-              <span tal:content="val/users" style="font: bold 25px/1 Sans-Serif;"> Users </span>
+              <span tal:content="s_users/users" style="font: bold 25px/1 Sans-Serif;"> Users </span>
             </td>
             <td>
-              <a tal:attributes="href val/last_comment_url">
-                <span tal:content="val/last_commenter"> Last Commenter </span>
+              <a tal:attributes="href s_comment/last_comment_url">
+                <span tal:content="s_comment/last_commenter"> Last Commenter </span>
               </a>
               <br/>
-              <span tal:content="val/last_comment_date"/>
+              <span tal:content="s_comment/last_comment_date"/>
             </td>
           </tr>
 
 
         </table>
+    	</div>
       </div>
     </div>
     <div tal:replace="structure provider:plone.abovecontentbody" />
