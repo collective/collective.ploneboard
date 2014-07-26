@@ -1,0 +1,64 @@
+div.reply {
+    padding: 1em 0;
+}
+
+.commentDate {
+    padding-top: 0.1em !important;
+    }
+
+.documentByLine {
+    padding: 0.2em;
+    font-size: 15px;
+    }
+
+.comment_rating {
+    float: left;
+    padding: 0.5em;
+    }
+
+.comment_rating_left {
+    height: 30px;
+    float: left;
+    }
+
+.comment_rating_number, .comment_rating_number_clicked {
+    font-size:  25px;
+    color:#555555;
+    text-align: right !important;
+    margin-top: 1px;
+    }
+
+.comment_rating_number_clicked {
+    color:#732205;
+    }
+
+.comment_arrows {
+    padding-left: 0.1em;
+    line-height: 2.5em;
+    float: left;
+    }
+
+.comment_arrow_up, .comment_arrow_up_clicked, .comment_arrow_down, .comment_arrow_down_clicked {
+    cursor: pointer;
+    padding: 0 1em;
+    margin-right: 5px;
+    margin-left: 5px;
+    float: left;
+    }
+
+.comment_arrow_up {
+    background: url("++resource++collective.ploneboard/images/go-up.png") center no-repeat;
+    }
+
+.comment_arrow_down {
+    background: url("++resource++collective.ploneboard/images/go-down.png") center no-repeat;
+    }
+
+.comment_arrow_up_clicked {
+    background: url("++resource++collective.ploneboard/images/go-up-clicked.png") center no-repeat;
+    }
+
+.comment_arrow_down_clicked {
+    background: url("++resource++collective.ploneboard/images/go-down-clicked.png") center no-repeat;
+    }
+

@@ -45,12 +45,7 @@ setup(name='collective.ploneboard',
           'plone.directives.form',  # get rid of that dependency
           'plone.namedfile[blobs]',
           'z3c.jbot',
-          # 'plone.browserlayer',
           # 'plone.formwidget.captcha',
-          # 'plone.formwidget.recaptcha',
-          # 'collective.captcha',
-          # 'collective.akismet',
-          # 'collective.z3cform.norobots',
       ],
       extras_require={'test': ['plone.app.testing']},
       entry_points="""

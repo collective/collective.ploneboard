@@ -6,4 +6,6 @@
         />
     <javascript
         id="++resource++collective.ploneboard.javascripts/comments.js" />
+    <javascript
+        id="++resource++collective.ploneboard.javascripts/rateable.js" />
 </object>

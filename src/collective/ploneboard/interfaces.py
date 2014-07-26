@@ -7,6 +7,7 @@ from collective.ploneboard import _
 from zope.schema.vocabulary import SimpleVocabulary
 from zope.schema.interfaces import IContextSourceBinder
 from five import grok
+from plone.app.discussion.interfaces import IDiscussionLayer
 
 
 @grok.provider(IContextSourceBinder)
@@ -62,5 +63,10 @@ class IConversation(form.Schema):
 
 
 class IPloneboardLayer(Interface):
+    """
+    """
+
+
+class IMyDiscussionLayer(IDiscussionLayer):
     """
     """
