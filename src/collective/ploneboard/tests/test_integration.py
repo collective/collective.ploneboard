@@ -5,7 +5,7 @@ import transaction
 import unittest2 as unittest
 
 from plone.testing.z2 import Browser
-
+from Products.CMFCore.utils import getToolByName
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import setRoles
 from plone.app.testing import SITE_OWNER_NAME
@@ -96,6 +96,27 @@ class PloneboardContenttypesFunctionalTest(unittest.TestCase):
         ).value = "This is my first reply."
         self.browser.getControl(name="form.buttons.comment").click()
         self.assertTrue("This is my first reply" in self.browser.contents)
+
+    def test_comment_initial_rating(self):
+        self.portal.invokeFactory('messageboard', 'board')
+        self.portal.board.invokeFactory('topic', 'topic')
+        self.portal.board.topic.invokeFactory('conversation', 'conv')
+        transaction.commit()
+
+        self.browser.open(self.portal.board.topic.conv.absolute_url())
+        self.browser.getControl(
+            name='form.widgets.text'
+        ).value = "Rate this comment"
+        self.browser.getControl(name="form.buttons.comment").click()
+        self.catalog = getToolByName(self.portal, 'portal_catalog')
+        comment_brain = self.catalog.searchResults(
+            portal_type='Discussion Item'
+            )[0]
+        name_r = comment_brain["id"]+'-conv'
+        self.assertTrue(
+            "<div class=\"comment_rating_number_clicked\" id=\""
+            + name_r + "\" name=\""+name_r + "\">1</div>" in
+            self.browser.contents)
     """
     def test_conversation_attachment(self):
         self.portal.invokeFactory('messageboard', 'board')

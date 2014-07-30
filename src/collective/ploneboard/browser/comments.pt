@@ -134,12 +134,13 @@
                         <div class="comment_rating_left">
                         <p class="comment_rating_number" 
                             tal:condition="anonymous"
-                            tal:attributes="id tag_id"
+                            tal:attributes="id tag_id; name tag_id"
                             tal:content="python:view.get_rating(reply)"/>
                         <div class="comment_rating_number" 
                             tal:condition="not: anonymous"
                             tal:attributes="
                             id tag_id;
+                            name tag_id;
                             class python:member_vote != None and 'comment_rating_number_clicked' or 'comment_rating_number'"
                             tal:content="python:view.get_rating(reply)"/>
                         </div>
