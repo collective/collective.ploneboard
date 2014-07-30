@@ -1,6 +1,5 @@
 *** Settings ***
 
-Resource  plone/app/robotframework/selenium.robot
 Resource  plone/app/robotframework/keywords.robot
 
 Library  Remote  ${PLONE_URL}/RobotRemote
@@ -15,20 +14,24 @@ Scenario: Add Plone Board
     Given a logged in site administrator
       and the portal root
      When I add a message board
-     Then a new message board has been created
+#     Then a new message board has been created
 
 
 *** Keywords ***
 
 a logged in site administrator
-  Go to  ${PLONE_URL}
   Enable autologin as  Site Administrator
+  Go to  ${PLONE_URL}
 
 the portal root
   Go to  ${PLONE_URL}
 
 I add a message board
-  Go to  ${PLONE_URL}
+  Click Link  css=#plone-contentmenu-factories a
+#  Import library  DebugLibrary
+#  Debug
+#  Click Link  css=#plone-contentmenu-factories #message-board
+
 
 a new message board has been created
   Page should contain  Item created
