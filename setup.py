@@ -47,7 +47,10 @@ setup(name='collective.ploneboard',
           'z3c.jbot',
           # 'plone.formwidget.captcha',
       ],
-      extras_require={'test': ['plone.app.testing']},
+      extras_require={'test': [
+          'plone.app.testing',
+          'plone.app.robotframework[debug]',
+      ]},
       entry_points="""
       # -*- Entry points: -*-
       [z3c.autoinclude.plugin]
