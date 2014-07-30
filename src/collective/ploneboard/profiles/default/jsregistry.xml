@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<object name="portal_javascripts">
+    <javascript
+        id="++resource++plone.app.discussion.javascripts/comments.js"
+        remove="True"
+        />
+    <javascript
+        id="++resource++collective.ploneboard.javascripts/comments.js" />
+    <javascript
+        id="++resource++collective.ploneboard.javascripts/rateable.js" />
+</object>

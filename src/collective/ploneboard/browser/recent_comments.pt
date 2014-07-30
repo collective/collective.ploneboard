@@ -1,0 +1,28 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      metal:use-macro="context/main_template/macros/master">
+
+    <metal:block fill-slot="content-core">
+	<div class="MyComments" tal:condition="view/recent_comments">
+                <h1 style="color:GREY">Recent Comments </h1>
+                <hr>
+                <div tal:repeat="comment view/recent_comments">
+                    <br/>
+                    <!--span style="float:right;color:BLUE" tal:content="comment/review_state">Review state</span-->
+                    <h3>
+                        <img tal:attributes="src string:${context/@@plone_portal_state/portal_url}/++resource++collective.ploneboard/images/comment.png" alt="[ X ]"/>
+                        <a href="" tal:attributes="href comment/url" tal:content="comment/description">Messageboard</a>
+                    </h3>
+                    <small style="float:right">
+                        last modified 
+                        <span tal:content="comment/modified_time">Modified Time</span>
+                    </small>
+                    <p tal:content="comment/title">Description</p>
+                    <br/>
+                    <hr style="height:2px;border-width:0;color:white;background-color:white;">
+                </div>
+            </div>
+    </metal:block>
+
+</html>

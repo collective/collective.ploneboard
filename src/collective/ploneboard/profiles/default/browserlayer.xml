@@ -1,6 +1,11 @@
+<?xml version="1.0"?>
 <layers>
     <layer
         name="collective.ploneboard"
         interface="collective.ploneboard.interfaces.IPloneboardLayer"
-    />
+        />
+    <layer
+        name="my.discussion"
+        interface="collective.ploneboard.interfaces.IMyDiscussionLayer"
+        />
 </layers>

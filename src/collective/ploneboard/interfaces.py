@@ -7,6 +7,7 @@ from collective.ploneboard import _
 from zope.schema.vocabulary import SimpleVocabulary
 from zope.schema.interfaces import IContextSourceBinder
 from five import grok
+from plone.app.discussion.interfaces import IDiscussionLayer
 
 
 @grok.provider(IContextSourceBinder)
@@ -26,7 +27,15 @@ class IMessageboard(form.Schema):
         title=_(u"Categories"),
         description=_(
             u"Enter the categories you want to have available for topics," +
-            "one category on each line."
+            u"one category on each line."
+            ),
+        required=False,
+        )
+    captcha = schema.Bool(
+        title=_(u"Show Captcha"),
+        description=_(
+            u"Select to show (not to hide) captcha for anonymous" +
+            u" (if plone.formwidget.captcha is installed and activated)"
             ),
         required=False,
         )
@@ -54,5 +63,10 @@ class IConversation(form.Schema):
 
 
 class IPloneboardLayer(Interface):
+    """
+    """
+
+
+class IMyDiscussionLayer(IDiscussionLayer):
     """
     """

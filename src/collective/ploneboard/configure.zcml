@@ -12,8 +12,8 @@
   <includeDependencies package="collective.autopermission" />
   <include file="permissions.zcml" />
 
-  <include package="z3c.jbot" file="meta.zcml" />
-  <browser:jbot directory="overrides" />
+  <!-- include package="z3c.jbot" file="meta.zcml" />
+  <browser:jbot directory="overrides" /-->
 
   <include package=".browser" />
 
@@ -39,4 +39,11 @@
       <depends name="workflows" />
       <depends name="browserlayer" />
   </genericsetup:importStep>
+
+  <subscriber
+    for="plone.app.discussion.interfaces.IComment
+        zope.lifecycleevent.interfaces.IObjectAddedEvent"
+    handler=".browser.comments.initial_rating"
+    />
+
 </configure>

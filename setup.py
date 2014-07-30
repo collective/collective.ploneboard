@@ -45,14 +45,12 @@ setup(name='collective.ploneboard',
           'plone.directives.form',  # get rid of that dependency
           'plone.namedfile[blobs]',
           'z3c.jbot',
-          # 'plone.browserlayer',
-          'plone.formwidget.captcha',
-          'plone.formwidget.recaptcha',
-          'collective.captcha',
-          'collective.akismet',
-          'collective.z3cform.norobots',
+          # 'plone.formwidget.captcha',
       ],
-      extras_require={'test': ['plone.app.testing']},
+      extras_require={'test': [
+          'plone.app.testing',
+          'plone.app.robotframework[debug]',
+      ]},
       entry_points="""
       # -*- Entry points: -*-
       [z3c.autoinclude.plugin]

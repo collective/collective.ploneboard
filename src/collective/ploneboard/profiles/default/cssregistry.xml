@@ -4,4 +4,10 @@
      id="++resource++collective.ploneboard/stylesheets/ploneboard.css"
      insert-after="forms.css"
      />
+ <stylesheet title="" 
+    id="++resource++collective.ploneboard/stylesheets/comments.css"
+    media="screen" rel="stylesheet" rendering="import"
+    cacheable="True" compression="safe" cookable="True"
+    enabled="1" expression=""/>
+
 </object>
