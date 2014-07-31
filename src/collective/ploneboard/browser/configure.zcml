@@ -39,6 +39,16 @@
     layer="collective.ploneboard.interfaces.IPloneboardLayer"
     />
 
+  <!-- Conversation -->
+  <browser:page
+    name="view"
+    for="collective.ploneboard.interfaces.IConversation"
+    class=".conversation.ConversationView"
+    permission="zope2.View"
+    template="conversation.pt"
+    layer="collective.ploneboard.interfaces.IPloneboardLayer"
+    />
+  
   <!-- My Contribution -->
   <browser:page
     name="my-contribution"
