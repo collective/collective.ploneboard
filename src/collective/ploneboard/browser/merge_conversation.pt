@@ -1,0 +1,32 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      metal:use-macro="context/main_template/macros/master">
+
+    <metal:block fill-slot="content-core">
+        <div>
+            <h1>Hello
+                <span>this gets replaced</span>
+            </h1>
+            <div class="MyConversations" tal:condition="view/conversations" >
+              <div tal:repeat="conversation view/conversations">
+                  <br/>
+                  <span style="float:right;color:BLUE" tal:content="conversation/review_state">Review state</span>
+                  <h3>
+                      <img tal:attributes="src string:${context/@@plone_portal_state/portal_url}/++resource++collective.ploneboard/images/conversation.gif" alt="[ X ]"/>
+                      <a href="" tal:attributes="href conversation/url" tal:content="conversation/title">Messageboard</a>
+                  </h3>
+                  <small style="float:right">
+                      last modified 
+                      <span tal:content="conversation/modified_time">Modified Time</span>
+                  </small>
+                  <p tal:content="conversation/description">Description</p>
+                  <br/>
+                  <hr style="height:2px;border-width:0;color:white;background-color:white;">
+              </div>
+            </div>
+        </div>
+
+    </metal:block>
+
+</html>

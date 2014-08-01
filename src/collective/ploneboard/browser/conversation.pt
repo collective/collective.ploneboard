@@ -11,7 +11,19 @@
 <metal:main fill-slot="main">
   <tal:main-macro metal:define-macro="main"
     tal:define="toLocalizedTime nocall:context/@@plone/toLocalizedTime">
-  
+
+    <script rel="javascript" type="text/javascript">
+	$(window).load(function () {
+
+		$("form[name='merge']").prepOverlay({
+            cssclass: 'overlay-merge',
+            width: '80%',
+			subtype: 'ajax',
+			filter: '#content>*'
+		})
+	});
+	</script>
+
     <div tal:replace="structure provider:plone.abovecontenttitle" />
 
     <h1 class="documentFirstHeading" tal:content="context/title" />
@@ -19,7 +31,11 @@
     <div tal:replace="structure provider:plone.belowcontenttitle" />
     <p class="documentFirstHeading" tal:content="context/description" />
     
-    <div tal:replace="structure context/text/output" />
+    <!--div tal:replace="structure context/text/output" /-->
+
+    <form name="merge" action="" method="get" class="convactionsform" tal:condition="view/canmerge" tal:attributes="action view/givemergelink">
+		<input name="form.button.MergeConversation" class="context" type="submit" value="Merge Conversation" i18n:attributes="value label_merge;" />
+	</form>
 
     <div tal:replace="structure provider:plone.belowcontentbody" />
 

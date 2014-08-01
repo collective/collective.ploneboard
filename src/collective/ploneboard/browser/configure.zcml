@@ -68,6 +68,16 @@
     template="recent_comments.pt"
     layer="collective.ploneboard.interfaces.IPloneboardLayer"
     />
+  
+  <!-- Merge Conversations -->
+  <browser:page
+    name="merge-conversation"
+    for="collective.ploneboard.interfaces.IConversation"
+    class=".merge.Conversation"
+    permission="ploneboard.MergeConversation"
+    template="merge_conversation.pt"
+    layer="collective.ploneboard.interfaces.IPloneboardLayer"
+    />
 
   <!-- Override plone.app.discussion's comments viewlet -->
   <browser:viewlet

@@ -22,5 +22,9 @@
     <permission name="Collective Ploneboard: Add Topic" acquire="True">
       <role name="Manager"/>
     </permission>
+    <permission name="Collective Ploneboard: Merge Conversation" acquire="True">
+      <role name="Manager"/>
+      <role name="Owner"/>
+    </permission>
   </permissions>
 </rolemap>

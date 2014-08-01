@@ -113,10 +113,11 @@ class PloneboardContenttypesFunctionalTest(unittest.TestCase):
             portal_type='Discussion Item'
             )[0]
         name_r = comment_brain["id"]+'-conv'
+        contents = self.browser.contents
         self.assertTrue(
             "<div class=\"comment_rating_number_clicked\" id=\""
             + name_r + "\" name=\""+name_r + "\">1</div>" in
-            self.browser.contents)
+            contents)
     """
     def test_conversation_attachment(self):
         self.portal.invokeFactory('messageboard', 'board')
