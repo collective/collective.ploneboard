@@ -69,7 +69,7 @@
     layer="collective.ploneboard.interfaces.IPloneboardLayer"
     />
   
-  <!-- Merge Conversations -->
+  <!-- Merge Conversations: Choose conversation -->
   <browser:page
     name="merge-conversation"
     for="collective.ploneboard.interfaces.IConversation"
