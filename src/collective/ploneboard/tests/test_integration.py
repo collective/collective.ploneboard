@@ -97,6 +97,35 @@ class PloneboardContenttypesFunctionalTest(unittest.TestCase):
         self.browser.getControl(name="form.buttons.comment").click()
         self.assertTrue("This is my first reply" in self.browser.contents)
 
+    def test_recent_comments(self):
+        self.portal.invokeFactory('messageboard', 'board')
+        self.portal.board.invokeFactory('topic', 'topic')
+        self.portal.board.topic.invokeFactory('conversation', 'conv')
+        transaction.commit()
+
+        self.browser.open(self.portal.board.topic.conv.absolute_url())
+        self.browser.getControl(
+            name='form.widgets.text'
+        ).value = "This is my first reply."
+        self.browser.getControl(name="form.buttons.comment").click()
+        self.browser.getControl(
+            name='form.widgets.text'
+        ).value = "This is my second reply."
+        self.browser.getControl(name="form.buttons.comment").click()
+        self.browser.open(
+            self.portal.board.absolute_url() + '/@@recent-comments'
+            )
+        self.assertTrue(
+            "This is my second reply" in self.browser.contents
+            )
+        self.assertTrue(
+            "This is my first reply" in self.browser.contents
+            )
+        contents = self.browser.contents
+        index1 = contents.index("first reply")
+        index2 = contents.index("second reply")
+        self.assertTrue(index2 < index1)
+
     def test_comment_initial_rating(self):
         self.portal.invokeFactory('messageboard', 'board')
         self.portal.board.invokeFactory('topic', 'topic')

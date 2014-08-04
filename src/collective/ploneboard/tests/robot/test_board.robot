@@ -28,8 +28,8 @@ the portal root
 
 I add a message board
   Click Link  css=#plone-contentmenu-factories a
-#  Import library  DebugLibrary
-#  Debug
+  Import library  DebugLibrary
+  Debug
 #  Click Link  css=#plone-contentmenu-factories #message-board
 
 

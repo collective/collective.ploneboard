@@ -48,7 +48,7 @@ setup(name='collective.ploneboard',
           # 'plone.formwidget.captcha',
       ],
       extras_require={'test': [
-          'plone.app.testing',
+          'plone.app.testing[robot]',
           'plone.app.robotframework[debug]',
       ]},
       entry_points="""
