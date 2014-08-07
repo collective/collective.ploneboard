@@ -49,7 +49,8 @@ setup(name='collective.ploneboard',
       ],
       extras_require={'test': [
           'plone.app.testing[robot]',
-          'plone.app.robotframework[debug]',
+          'plone.app.contenttypes[test]',
+          'plone.app.robotframework[ride,reload,debug]',
       ]},
       entry_points="""
       # -*- Entry points: -*-
