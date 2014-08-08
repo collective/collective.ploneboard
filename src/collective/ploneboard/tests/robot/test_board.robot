@@ -64,8 +64,8 @@ I add a conversation
   Click Button  Save
   Go to  ${PLONE_URL}/my-message-board/my-topic/++add++conversation
   Input text  name=form.widgets.IBasic.title  My Conversation
-  Import library  DebugLibrary
-  Debug
+#  Import library  DebugLibrary
+#  Debug
 #  Input text  name=form.widgets.text  Text in my conversation
 #  Click Button  Save
 
