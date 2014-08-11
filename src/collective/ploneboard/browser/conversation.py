@@ -58,8 +58,6 @@ class ConversationView(BrowserView):
                 conv1 = result.getObject()
             else:
                 continue
-        conv1.description = conv1.description + u"\n Merged with: \n" \
-            + conv2.description
         conversation1 = IConversation(conv1)
         IReplies(conversation1)
         conversation2 = IConversation(conv2)
