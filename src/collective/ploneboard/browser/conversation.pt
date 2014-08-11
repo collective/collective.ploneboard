@@ -31,7 +31,9 @@
     <div tal:replace="structure provider:plone.belowcontenttitle" />
     <p class="documentFirstHeading" tal:content="context/description" />
     
-    <!--div tal:replace="structure context/text/output" /-->
+    <div tal:condition="context/text">
+        <div tal:replace="structure context/text/output" />
+    </div>
 
     <form name="merge" action="" method="get" class="convactionsform" tal:condition="view/canmerge" tal:attributes="action view/givemergelink">
 		<input name="form.button.MergeConversation" class="context" type="submit" value="Merge Conversation" i18n:attributes="value label_merge;" />

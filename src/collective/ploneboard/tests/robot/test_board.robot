@@ -20,17 +20,13 @@ Scenario: Add Plone Board
 Scenario: Add Topic within Plone Board
     Given a logged in site administrator
       and the portal root
-      When I add a message board
-      and I add a topic
+      When I add a topic within ploneboard
       Then a topic has been created
-
 
 Scenario: Add Conversation within a Topic in Plone Board
     Given a logged in site administrator
       and the portal root
-      When I add a message board
-      and I add a topic
-      and I add a conversation
+      When I add a conversation within topic within ploneboard
       Then a conversation has been created
 
 *** Keywords ***
@@ -44,30 +40,22 @@ the portal root
 
 I add a message board
 #  Click Link  css=#plone-contentmenu-factories a
-  Create content  type=messageboard  id=my-message-board  title=My Message Board
+  ${message_board_uid}  Create content  type=messageboard  id=my-message-board  title=My Message Board
 #  Import library  DebugLibrary
 #  Debug
 #  Click Link  css=#plone-contentmenu-factories #message-board
 
-I add a topic
+I add a topic within ploneboard
+  ${message_board_uid}  Create content  type=messageboard  id=my-message-board  title=My Message Board
   Go to  ${PLONE_URL}/my-message-board/view
-  Wait until page contains  My Message Board
-  Go to  ${PLONE_URL}/my-message-board/++add++topic
-  Input text  name=form.widgets.IBasic.title  My Topic
-  Click Button  Save
+  ${topic_uid}  Create content  type=topic  id=my-topic  title=My Topic  container=${message_board_uid}
 
-I add a conversation
+I add a conversation within topic within ploneboard
+  ${message_board_uid}  Create content  type=messageboard  id=my-message-board  title=My Message Board
   Go to  ${PLONE_URL}/my-message-board/view
-  Wait until page contains  My Message Board
-  Go to  ${PLONE_URL}/my-message-board/++add++topic
-  Input text  name=form.widgets.IBasic.title  My Topic
-  Click Button  Save
-  Go to  ${PLONE_URL}/my-message-board/my-topic/++add++conversation
-  Input text  name=form.widgets.IBasic.title  My Conversation
-#  Import library  DebugLibrary
-#  Debug
-#  Input text  name=form.widgets.text  Text in my conversation
-#  Click Button  Save
+  ${topic_uid}  Create content  type=topic  id=my-topic  title=My Topic  container=${message_board_uid}
+  Go to  ${PLONE_URL}/my-message-board/my-topic/view
+  ${conversation_uid}  Create content  type=conversation  id=my-conv  title=My Conv  container=${topic_uid}
 
 a new message board has been created
   Go to  ${PLONE_URL}/my-message-board/view
@@ -78,5 +66,5 @@ a topic has been created
   Wait until page contains  My Topic
 
 a conversation has been created
-  Go to  ${PLONE_URL}/my-message-board/my-topic/my-conversation/view
-  Wait until page contains  My Conversation
+  Go to  ${PLONE_URL}/my-message-board/my-topic/my-conv/view
+  Wait until page contains  My Conv
