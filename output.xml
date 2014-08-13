@@ -1,0 +1,1097 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generated="20140813 23:58:50.324" generator="Robot 2.8.4 (Python 2.7.5+ on linux2)">
+<suite source="/home/aman/gsoc/collective.ploneboard/src/collective/ploneboard/tests/robot/test_edit_comment.robot" id="s1" name="Test Edit Comment">
+<test id="s1-t1" name="Scenario: Edit Comment">
+<kw type="setup" name="BuiltIn.Run Keywords">
+<doc>Executes all the given keywords in a sequence.</doc>
+<arguments>
+<arg>Open test browser</arg>
+</arguments>
+<kw type="kw" name="selenium.Open test browser">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Selenium2Library.Open Browser">
+<doc>Opens a new browser instance to given URL.</doc>
+<arguments>
+<arg>${START_URL}</arg>
+<arg>${BROWSER}</arg>
+<arg>remote_url=${REMOTE_URL}</arg>
+<arg>desired_capabilities=${DESIRED_CAPABILITIES}</arg>
+<arg>ff_profile_dir=${FF_PROFILE_DIR}</arg>
+</arguments>
+<msg timestamp="20140813 23:58:50.988" level="INFO">Opening browser 'Firefox' to base url 'http://localhost:55001/plone'</msg>
+<status status="PASS" endtime="20140813 23:59:13.872" starttime="20140813 23:58:50.986"></status>
+</kw>
+<status status="PASS" endtime="20140813 23:59:13.873" starttime="20140813 23:58:50.984"></status>
+</kw>
+<status status="PASS" endtime="20140813 23:59:13.873" starttime="20140813 23:58:50.983"></status>
+</kw>
+<kw type="kw" name="Given a logged in site administrator">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Remote.Enable Autologin As">
+<doc>Add and configure DomainAuthHelper PAS-plugin to login</doc>
+<arguments>
+<arg>Site Administrator</arg>
+</arguments>
+<status status="PASS" endtime="20140813 23:59:13.889" starttime="20140813 23:59:13.876"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Go To">
+<doc>Navigates the active browser instance to the provided URL.</doc>
+<arguments>
+<arg>${PLONE_URL}</arg>
+</arguments>
+<msg timestamp="20140813 23:59:13.890" level="INFO">Opening url 'http://localhost:55001/plone'</msg>
+<status status="PASS" endtime="20140813 23:59:14.297" starttime="20140813 23:59:13.890"></status>
+</kw>
+<status status="PASS" endtime="20140813 23:59:14.298" starttime="20140813 23:59:13.874"></status>
+</kw>
+<kw type="kw" name="and the portal root">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Selenium2Library.Go To">
+<doc>Navigates the active browser instance to the provided URL.</doc>
+<arguments>
+<arg>${PLONE_URL}</arg>
+</arguments>
+<msg timestamp="20140813 23:59:14.300" level="INFO">Opening url 'http://localhost:55001/plone'</msg>
+<status status="PASS" endtime="20140813 23:59:14.611" starttime="20140813 23:59:14.300"></status>
+</kw>
+<status status="PASS" endtime="20140813 23:59:14.611" starttime="20140813 23:59:14.299"></status>
+</kw>
+<kw type="kw" name="When I add a comment in a conversation">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="${message_board_uid} = Remote.Create Content">
+<doc>Create content and return its UID</doc>
+<arguments>
+<arg>type=messageboard</arg>
+<arg>id=my-message-board</arg>
+<arg>title=My Message Board</arg>
+</arguments>
+<msg timestamp="20140813 23:59:14.750" level="INFO">b636aae0a6e64999aea6cf1fcd5796ca</msg>
+<msg timestamp="20140813 23:59:14.751" level="INFO">${message_board_uid} = b636aae0a6e64999aea6cf1fcd5796ca</msg>
+<status status="PASS" endtime="20140813 23:59:14.750" starttime="20140813 23:59:14.614"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Go To">
+<doc>Navigates the active browser instance to the provided URL.</doc>
+<arguments>
+<arg>${PLONE_URL}/my-message-board/view</arg>
+</arguments>
+<msg timestamp="20140813 23:59:14.753" level="INFO">Opening url 'http://localhost:55001/plone/my-message-board/view'</msg>
+<status status="PASS" endtime="20140813 23:59:15.353" starttime="20140813 23:59:14.752"></status>
+</kw>
+<kw type="kw" name="${topic_uid} = Remote.Create Content">
+<doc>Create content and return its UID</doc>
+<arguments>
+<arg>type=topic</arg>
+<arg>id=my-topic</arg>
+<arg>title=My Topic</arg>
+<arg>container=${message_board_uid}</arg>
+</arguments>
+<msg timestamp="20140813 23:59:15.559" level="INFO">04eebcffb2ad4d168826d55caaa9ac43</msg>
+<msg timestamp="20140813 23:59:15.560" level="INFO">${topic_uid} = 04eebcffb2ad4d168826d55caaa9ac43</msg>
+<status status="PASS" endtime="20140813 23:59:15.560" starttime="20140813 23:59:15.354"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Go To">
+<doc>Navigates the active browser instance to the provided URL.</doc>
+<arguments>
+<arg>${PLONE_URL}/my-message-board/my-topic/view</arg>
+</arguments>
+<msg timestamp="20140813 23:59:15.562" level="INFO">Opening url 'http://localhost:55001/plone/my-message-board/my-topic/view'</msg>
+<status status="PASS" endtime="20140813 23:59:16.072" starttime="20140813 23:59:15.561"></status>
+</kw>
+<kw type="kw" name="${conversation_uid} = Remote.Create Content">
+<doc>Create content and return its UID</doc>
+<arguments>
+<arg>type=conversation</arg>
+<arg>id=my-conv</arg>
+<arg>title=My Conv</arg>
+<arg>container=${topic_uid}</arg>
+</arguments>
+<msg timestamp="20140813 23:59:16.260" level="INFO">71089151828a43498f996b3a9ab5b2ef</msg>
+<msg timestamp="20140813 23:59:16.261" level="INFO">${conversation_uid} = 71089151828a43498f996b3a9ab5b2ef</msg>
+<status status="PASS" endtime="20140813 23:59:16.260" starttime="20140813 23:59:16.073"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Go To">
+<doc>Navigates the active browser instance to the provided URL.</doc>
+<arguments>
+<arg>${PLONE_URL}/my-message-board/my-topic/my-conv/view</arg>
+</arguments>
+<msg timestamp="20140813 23:59:16.262" level="INFO">Opening url 'http://localhost:55001/plone/my-message-board/my-topic/my-conv/view'</msg>
+<status status="PASS" endtime="20140813 23:59:16.815" starttime="20140813 23:59:16.261"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Import Library">
+<doc>Imports a library with the given name and optional arguments.</doc>
+<arguments>
+<arg>DebugLibrary</arg>
+</arguments>
+<status status="PASS" endtime="20140813 23:59:17.764" starttime="20140813 23:59:16.815"></status>
+</kw>
+<kw type="kw" name="keywords.Debug">
+<doc>Pause test execution for test debugging purposes.</doc>
+<arguments>
+</arguments>
+<kw type="kw" name="${debug} = BuiltIn.Run Keyword And Ignore Error">
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<arguments>
+<arg>Import library</arg>
+<arg>DebugLibrary</arg>
+<arg>WITH NAME</arg>
+<arg>DebugLibrary</arg>
+</arguments>
+<kw type="kw" name="BuiltIn.Import Library">
+<doc>Imports a library with the given name and optional arguments.</doc>
+<arguments>
+<arg>DebugLibrary</arg>
+<arg>WITH NAME</arg>
+<arg>DebugLibrary</arg>
+</arguments>
+<status status="PASS" endtime="20140813 23:59:17.771" starttime="20140813 23:59:17.769"></status>
+</kw>
+<msg timestamp="20140813 23:59:17.772" level="INFO">${debug} = ('PASS', None)</msg>
+<status status="PASS" endtime="20140813 23:59:17.772" starttime="20140813 23:59:17.768"></status>
+</kw>
+<kw type="kw" name="${dialogs} = BuiltIn.Run Keyword And Ignore Error">
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<arguments>
+<arg>Import library</arg>
+<arg>Dialogs</arg>
+<arg>WITH NAME</arg>
+<arg>DialogsLibrary</arg>
+</arguments>
+<kw type="kw" name="BuiltIn.Import Library">
+<doc>Imports a library with the given name and optional arguments.</doc>
+<arguments>
+<arg>Dialogs</arg>
+<arg>WITH NAME</arg>
+<arg>DialogsLibrary</arg>
+</arguments>
+<msg timestamp="20140813 23:59:17.802" level="FAIL">Importing test library 'Dialogs' failed: ImportError: No module named _tkinter, please install the python-tk package
+Traceback (most recent call last):
+  File "/home/aman/gsoc/collective.ploneboard/eggs/robotframework-2.8.4-py2.7.egg/robot/libraries/Dialogs.py", line 38, in &lt;module&gt;
+    from dialogs_py import MessageDialog, PassFailDialog, InputDialog, SelectionDialog
+  File "/home/aman/gsoc/collective.ploneboard/eggs/robotframework-2.8.4-py2.7.egg/robot/libraries/dialogs_py.py", line 17, in &lt;module&gt;
+    from Tkinter import (Tk, Toplevel, Frame, Listbox, Label, Button, Entry,
+  File "/usr/lib/python2.7/lib-tk/Tkinter.py", line 42, in &lt;module&gt;
+    raise ImportError, str(msg) + ', please install the python-tk package'
+PYTHONPATH:
+  /home/aman/gsoc/collective.ploneboard/eggs/robotframework-2.8.4-py2.7.egg/robot/libraries
+  /home/aman/gsoc/collective.ploneboard/eggs/robotframework-2.8.4-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Plone-4.3.3-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.upgrade-1.3.6-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/src
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.robotframework-0.9.4-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/robotframework_debuglibrary-0.3-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.schema-4.2.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.i18n-3.7.4-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.component-3.9.5-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/z3c.relationfield-0.6.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/z3c.form-3.1.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.CMFCore-2.2.7-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.uuid-1.0.3-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.namedfile-2.0.5-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.dexterity-2.2.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.textfield-1.2.3-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Babel-1.3-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/selenium-2.42.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/decorator-3.4.0-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/robotframework_selenium2library-1.5.0-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/robotsuite-1.6.0-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/five.globalrequest-1.0-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.testing-4.2.4-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.testing-4.0.11-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/argparse-1.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/setuptools-5.5-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.contenttypes-1.1b1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/z3c.jbot-0.7.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.directives.form-2.0-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.dexterity-2.0.11-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/collective.autopermission-1.0b2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Zope2-2.13.22-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.ZCatalog-2.13.27-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.SecureMailHost-1.1.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.ResourceRegistries-2.2.10-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.PortalTransforms-2.1.3-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.PluggableAuthService-1.10.0-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.PlonePAS-4.1.3-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.PloneLanguageTool-3.2.7-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.MimetypesRegistry-2.0.5-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.GenericSetup-1.7.4-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.DCWorkflow-2.2.4-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.CMFUid-2.2.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.CMFQuickInstallerTool-3.0.6-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.CMFFormController-3.0.3-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.CMFEditions-2.2.9-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.CMFDiffTool-2.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.CMFDefault-2.2.4-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.contentmigration-2.1.7-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.Archetypes-1.9.7-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.CMFPlone-4.3.3-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Acquisition-2.13.8-py2.7-linux-x86_64.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.site-3.9.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.ramcache-1.0-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.location-3.9.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.interface-4.1.1-py2.7-linux-x86_64.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/transaction-1.1.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.portlets-2.5.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.folder-1.0.6-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.session-3.5.3-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.portlets-2.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/five.localsitemanager-2.0.5-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/borg.localrole-3.0.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/wicked-1.1.10-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.theming-1.1.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.openid-2.0.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.iterate-2.1.12-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.caching-1.1.8-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.CMFPlacefulWorkflow-1.5.10-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.event-3.5.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.i18nmessageid-3.5.3-py2.7-linux-x86_64.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/pytz-2013b-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zc.relation-1.0-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/z3c.objpath-1.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.app.container-3.9.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.app.intid-3.7.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/grokcore.component-2.5-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/ZODB3-3.10.5-py2.7-linux-x86_64.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.traversing-3.13.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.security-3.7.4-py2.7-linux-x86_64.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.publisher-3.12.6-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.pagetemplate-3.6.3-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.lifecycleevent-3.6.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.contentprovider-3.7.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.configuration-3.7.4-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.browserresource-3.10.3-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.browserpage-3.12.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.browser-1.3-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/six-1.2.0-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.app.publication-3.12.0-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.ZSQLMethods-2.13.4-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.rfc822-1.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.size-3.4.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.filerepresentation-3.6.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.dottedname-3.4.6-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.container-3.11.2-py2.7-linux-x86_64.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.annotation-3.5.0-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.statusmessages-4.0-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.CMFDynamicViewFTI-4.0.5-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.z3cform-0.8.0-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.synchronize-1.0.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.supermodel-1.2.4-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.memoize-1.1.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.folder-1.0.5-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.behavior-1.0.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.autoform-1.6-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.alterego-1.0-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/docutils-0.9.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/unittest2-0.5.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/lxml-2.3.6-py2.7-linux-x86_64.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.globalrequest-1.0-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.testing-3.9.7-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/watchdog-0.8.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/robotframework_ride-1.3-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.ATContentTypes-2.1.14-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/archetypes.schemaextender-2.1.3-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.versioningbehavior-1.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.formwidget.querystring-1.1.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.relationfield-1.2.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.event-1.1b1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.contentmenu-2.0.10-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/grokcore.view-2.8-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/five.grok-1.3.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.deferredimport-3.5.3-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.contentrules-2.0.4-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.z3cform-0.7.6-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.uuid-1.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.layout-2.3.11-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.content-2.1.4-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.schemaeditor-1.3.7-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.formwidget.namedfile-1.0.9-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/collective.z3cform.datetimewidget-1.2.6-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.StandardCacheManagers-2.13.0-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.PythonScripts-2.13.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.MIMETools-2.13.0-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.MailHost-2.13.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.ExternalMethod-2.13.0-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.BTreeFolder2-2.13.3-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.viewlet-3.7.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.testbrowser-3.11.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.tales-3.5.3-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.tal-3.5.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.structuredtext-3.5.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.sequencesort-3.4.0-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.sendmail-3.7.5-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.ptresource-3.9.0-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.proxy-3.6.1-py2.7-linux-x86_64.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.processlifetime-1.0-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.exceptions-3.6.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.contenttype-3.5.5-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.browsermenu-3.9.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zLOG-2.11.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zExceptions-2.13.0-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zdaemon-2.0.7-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/tempstorage-2.12.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/initgroups-2.13.0-py2.7-linux-x86_64.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/ZopeUndo-2.12.0-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/ZConfig-2.9.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/RestrictedPython-3.6.0-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Record-2.13.0-py2.7-linux-x86_64.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.ZCTextIndex-2.13.5-py2.7-linux-x86_64.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.OFSP-2.13.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Persistence-2.13.2-py2.7-linux-x86_64.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/MultiMapping-2.13.0-py2.7-linux-x86_64.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Missing-2.13.1-py2.7-linux-x86_64.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/ExtensionClass-2.13.2-py2.7-linux-x86_64.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/DocumentTemplate-2.13.2-py2.7-linux-x86_64.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/DateTime-3.0.3-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/AccessControl-3.0.8-py2.7-linux-x86_64.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.registry-1.2.3-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Markdown-2.0.3-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.intelligenttext-2.0.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.PluginRegistry-1.3-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.i18n-2.0.9-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.formlib-4.0.6-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.ZopeVersionControl-1.1.3-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.copy-3.5.0-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/five.formlib-1.0.4-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.validation-2.0-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.PlacelessTranslationService-2.0.4-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.Marshall-2.1.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.CMFCalendar-2.2.3-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.datetime-3.4.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.deprecation-3.4.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.app.locales-3.6.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/z3c.autoinclude-0.3.5-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plonetheme.sunburst-1.4.6-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plonetheme.classic-1.3.3-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.theme-2.1.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.registry-1.0.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.protect-2.0.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.portlet.static-2.0.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.portlet.collection-2.1.5-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.locking-2.0.4-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.indexer-1.0.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.fieldsets-2.0.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.browserlayer-2.1.3-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.batching-1.0.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.workflow-2.1.7-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.vocabularies-2.1.14-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.viewletmanager-2.0.5-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.users-1.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.search-1.1.7-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.redirector-1.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.locales-4.3.3-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.linkintegrity-1.5.4-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.jquerytools-1.5.7-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.jquery-1.7.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.i18n-2.0.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.form-2.2.4-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/extras/plone.app.discussion
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.customerize-1.2.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.controlpanel-2.3.8-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.contentrules-3.0.6-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.contentlisting-1.0.5-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.collection-1.0.11-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.blob-1.5.9-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/five.customerize-1.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/archetypes.referencebrowserwidget-2.4.20-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/archetypes.querywidget-1.0.10-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.TinyMCE-1.3.6-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.PasswordResetTool-2.0.16-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.ExternalEditor-1.1.0-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.ExtendedPathIndex-3.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.CMFActionIcons-2.1.3-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Pillow-2.3.0-py2.7-linux-x86_64.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/feedparser-5.0.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.keyring-2.0.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/repoze.xmliter-0.5-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.resourceeditor-1.0-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.resource-1.0.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.transformchain-1.0.3-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.subrequest-1.6.8-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/roman-1.4.0-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/diazo-1.0.5-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.openid-2.0.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/z3c.zcmlhook-1.0b1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.cachepurging-1.0.5-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.caching-1.0-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/python_dateutil-1.5-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.dublincore-3.7.0-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.copypastemove-3.7.0-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.intid-3.7.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/martian-0.14-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zc.lockfile-1.0.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.error-3.7.4-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.authentication-3.7.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.broken-3.6.0-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/pathtools-0.1.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/argh-0.25.0-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/PyYAML-3.11-py2.7-linux-x86_64.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Pygments-1.6-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.ATReferenceBrowserWidget-3.0-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/rwproperty-1.0-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.querystring-1.1.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.formwidget.contenttree-1.0.7-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/z3c.formwidget.query-0.10-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.intid-1.0.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/five.intid-1.0.3-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.formwidget.recurrence-1.2.5-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.formwidget.datetime-1.0-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.event-1.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/icalendar-3.8.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/collective.elephantvocabulary-0.2.4-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Products.DateRecurringIndex-2.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/grokcore.security-1.6.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/grokcore.viewlet-1.11-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/grokcore.site-1.6.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/grokcore.annotation-1.3-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.componentvocabulary-1.0.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.scale-1.3.3-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/mechanize-0.2.5-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/Unidecode-0.04.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.app.form-4.0.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/python_gettext-1.2-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zc.buildout-1.7.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/collective.monkeypatcher-1.0.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.cachedescriptors-3.5.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.stringinterp-1.0.11-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.app.imaging-1.0.10-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.app.content-3.5.1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.outputfilters-1.12-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/z3c.caching-2.0a1-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/experimental.cssselect-0.3-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/python_openid-2.2.5-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/zope.keyreference-3.6.4-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/eggs/plone.formwidget.autocomplete-1.2.6-py2.7.egg
+  /home/aman/gsoc/collective.ploneboard/bin
+  /home/aman/Plone/Python-2.7/lib/python2.7
+  /home/aman/Plone/Python-2.7/lib/python2.7/plat-x86_64-linux-gnu
+  /home/aman/Plone/Python-2.7/lib/python2.7/lib-tk
+  /home/aman/Plone/Python-2.7/lib/python2.7/lib-old
+  /home/aman/Plone/Python-2.7/lib/python2.7/lib-dynload
+  /usr/lib/python2.7
+  /usr/lib/python2.7/plat-x86_64-linux-gnu
+  /usr/lib/python2.7/lib-tk
+  /home/aman/Plone/Python-2.7/local/lib/python2.7/site-packages
+  /home/aman/Plone/Python-2.7/lib/python2.7/site-packages
+  .
+  /home/aman/gsoc/collective.ploneboard</msg>
+<status status="FAIL" endtime="20140813 23:59:17.803" starttime="20140813 23:59:17.774"></status>
+</kw>
+<msg timestamp="20140813 23:59:17.804" level="INFO">${dialogs} = ('FAIL', u'Importing test library \'Dialogs\' failed: ImportError: No module named _tkinter, please install the python-tk package\nTraceback (most recent call last):\n  File "/home/aman/gsoc/collectiv...</msg>
+<status status="PASS" endtime="20140813 23:59:17.804" starttime="20140813 23:59:17.773"></status>
+</kw>
+<kw type="kw" name="${fallback} = BuiltIn.Run Keyword And Ignore Error">
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<arguments>
+<arg>Import library</arg>
+<arg>plone.app.robotframework.keywords.Debugging</arg>
+<arg>WITH NAME</arg>
+<arg>DebuggingLibrary</arg>
+</arguments>
+<kw type="kw" name="BuiltIn.Import Library">
+<doc>Imports a library with the given name and optional arguments.</doc>
+<arguments>
+<arg>plone.app.robotframework.keywords.Debugging</arg>
+<arg>WITH NAME</arg>
+<arg>DebuggingLibrary</arg>
+</arguments>
+<status status="PASS" endtime="20140813 23:59:17.806" starttime="20140813 23:59:17.805"></status>
+</kw>
+<msg timestamp="20140813 23:59:17.806" level="INFO">${fallback} = ('PASS', None)</msg>
+<status status="PASS" endtime="20140813 23:59:17.806" starttime="20140813 23:59:17.804"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Run Keyword If">
+<doc>Runs the given keyword with the given arguments, if `condition` is true.</doc>
+<arguments>
+<arg>${debug}[0] == 'PASS'</arg>
+<arg>DebugLibrary.Debug</arg>
+</arguments>
+<kw type="kw" name="DebugLibrary.Debug">
+<doc>Open a interactive shell, run any RobotFramework keywords,</doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Selenium2Library.Focus">
+<doc>Sets focus to element identified by `locator`.</doc>
+<arguments>
+<arg>form-widgets-comment-text</arg>
+</arguments>
+<status status="PASS" endtime="20140814 00:01:20.187" starttime="20140814 00:01:20.107"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>form-widgets-comment-text</arg>
+<arg>HEY</arg>
+</arguments>
+<msg timestamp="20140814 00:02:21.544" level="INFO">Typing text 'HEY' into text field 'form-widgets-comment-text'</msg>
+<kw type="kw" name="Selenium2Library.Capture Page Screenshot">
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140814 00:02:23.270" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-1.png"&gt;&lt;img src="selenium-screenshot-1.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" endtime="20140814 00:02:23.271" starttime="20140814 00:02:23.073"></status>
+</kw>
+<msg timestamp="20140814 00:02:26.621" level="FAIL">ElementNotVisibleException: Message: u'Element is not currently visible and so may not be interacted with' ; Stacktrace: 
+    at fxdriver.preconditions.visible (file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js:8791)
+    at DelayedCommand.prototype.checkPreconditions_ (file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js:11438)
+    at DelayedCommand.prototype.executeInternal_/h (file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js:11455)
+    at fxdriver.Timer.prototype.setTimeout/&lt;.notify (file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js:407) </msg>
+<status status="FAIL" endtime="20140814 00:02:26.621" starttime="20140814 00:02:21.543"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>form-widgets-comment-text_ifr</arg>
+<arg>HEY</arg>
+</arguments>
+<msg timestamp="20140814 00:02:44.598" level="INFO">Typing text 'HEY' into text field 'form-widgets-comment-text_ifr'</msg>
+<kw type="kw" name="Selenium2Library.Capture Page Screenshot">
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140814 00:02:45.360" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-2.png"&gt;&lt;img src="selenium-screenshot-2.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" endtime="20140814 00:02:45.360" starttime="20140814 00:02:45.191"></status>
+</kw>
+<msg timestamp="20140814 00:02:45.361" level="FAIL">WebDriverException: Message: u'Element must be user-editable in order to clear it.' ; Stacktrace: 
+    at bot.Error (file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js:3977)
+    at bot.action.clear (file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js:10482)
+    at WebElement.clearElement (file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js:10925)
+    at DelayedCommand.prototype.executeInternal_/h (file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js:11455)
+    at fxdriver.Timer.prototype.setTimeout/&lt;.notify (file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js:407) </msg>
+<status status="FAIL" endtime="20140814 00:02:45.362" starttime="20140814 00:02:44.597"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>tinymce</arg>
+<arg>HEY</arg>
+</arguments>
+<msg timestamp="20140814 00:04:18.132" level="INFO">Typing text 'HEY' into text field 'tinymce'</msg>
+<kw type="kw" name="Selenium2Library.Capture Page Screenshot">
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140814 00:04:18.911" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-3.png"&gt;&lt;img src="selenium-screenshot-3.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" endtime="20140814 00:04:18.911" starttime="20140814 00:04:18.659"></status>
+</kw>
+<msg timestamp="20140814 00:04:18.912" level="FAIL">ValueError: Element locator 'tinymce' did not match any elements.</msg>
+<status status="FAIL" endtime="20140814 00:04:18.912" starttime="20140814 00:04:18.131"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>id=tinymce</arg>
+<arg>HEY</arg>
+</arguments>
+<msg timestamp="20140814 00:04:27.781" level="INFO">Typing text 'HEY' into text field 'id=tinymce'</msg>
+<kw type="kw" name="Selenium2Library.Capture Page Screenshot">
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140814 00:04:28.542" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-4.png"&gt;&lt;img src="selenium-screenshot-4.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" endtime="20140814 00:04:28.542" starttime="20140814 00:04:28.299"></status>
+</kw>
+<msg timestamp="20140814 00:04:28.543" level="FAIL">ValueError: Element locator 'id=tinymce' did not match any elements.</msg>
+<status status="FAIL" endtime="20140814 00:04:28.543" starttime="20140814 00:04:27.780"></status>
+</kw>
+<kw type="kw" name="Remote.Set Field Value">
+<doc>Set field value with a specific type</doc>
+<arguments>
+<arg>id=tinymce</arg>
+<arg>HEY</arg>
+</arguments>
+<msg timestamp="20140814 00:04:46.714" level="FAIL">Keyword 'Remote.Set Field Value' got positional argument after named arguments.</msg>
+<status status="FAIL" endtime="20140814 00:04:46.714" starttime="20140814 00:04:46.713"></status>
+</kw>
+<kw type="kw" name="Remote.Set Field Value">
+<doc>Set field value with a specific type</doc>
+<arguments>
+<arg>${container_uid}</arg>
+<arg>id=tinymce</arg>
+<arg>HEY</arg>
+</arguments>
+<msg timestamp="20140814 00:05:00.997" level="FAIL">Keyword 'Remote.Set Field Value' got positional argument after named arguments.</msg>
+<status status="FAIL" endtime="20140814 00:05:00.997" starttime="20140814 00:05:00.996"></status>
+</kw>
+<kw type="kw" name="Remote.Set Field Value">
+<doc>Set field value with a specific type</doc>
+<arguments>
+<arg>${container_uid}</arg>
+<arg>tinymce</arg>
+<arg>HEY</arg>
+</arguments>
+<msg timestamp="20140814 00:05:04.793" level="FAIL">Non-existing variable '${container_uid}'.</msg>
+<status status="FAIL" endtime="20140814 00:05:04.793" starttime="20140814 00:05:04.792"></status>
+</kw>
+<kw type="kw" name="Remote.Set Field Value">
+<doc>Set field value with a specific type</doc>
+<arguments>
+<arg>${conversation_uid}</arg>
+<arg>tinymce</arg>
+<arg>HEY</arg>
+</arguments>
+<msg timestamp="20140814 00:05:16.011" level="FAIL">set_field_value() takes exactly 5 arguments (4 given)</msg>
+<status status="FAIL" endtime="20140814 00:05:16.011" starttime="20140814 00:05:15.994"></status>
+</kw>
+<kw type="kw" name="Remote.Set Field Value">
+<doc>Set field value with a specific type</doc>
+<arguments>
+<arg>${conversation_uid}</arg>
+<arg>tinymce</arg>
+<arg>HEY</arg>
+<arg>text/html</arg>
+</arguments>
+<status status="PASS" endtime="20140814 00:05:24.327" starttime="20140814 00:05:24.245"></status>
+</kw>
+<kw type="kw" name="{comment_uid}">
+<doc></doc>
+<arguments>
+<arg>Focus</arg>
+<arg>tinymce</arg>
+</arguments>
+<msg timestamp="20140814 00:06:07.123" level="FAIL">No keyword with name '{comment_uid}' found.</msg>
+<status status="FAIL" endtime="20140814 00:06:07.123" starttime="20140814 00:06:07.122"></status>
+</kw>
+<kw type="kw" name="{comment_uid}=">
+<doc></doc>
+<arguments>
+<arg>Focus</arg>
+<arg>tinymce</arg>
+</arguments>
+<msg timestamp="20140814 00:06:12.303" level="FAIL">No keyword with name '{comment_uid}=' found.</msg>
+<status status="FAIL" endtime="20140814 00:06:12.303" starttime="20140814 00:06:12.302"></status>
+</kw>
+<kw type="kw" name="${comment_uid}">
+<doc></doc>
+<arguments>
+<arg>Focus</arg>
+<arg>tinymce</arg>
+</arguments>
+<msg timestamp="20140814 00:06:25.269" level="FAIL">No keyword with name '${comment_uid}' found.</msg>
+<status status="FAIL" endtime="20140814 00:06:25.269" starttime="20140814 00:06:25.268"></status>
+</kw>
+<kw type="kw" name="${comment_uid}=">
+<doc></doc>
+<arguments>
+<arg>Focus</arg>
+<arg>tinymce</arg>
+</arguments>
+<msg timestamp="20140814 00:06:30.472" level="FAIL">No keyword with name '${comment_uid}=' found.</msg>
+<status status="FAIL" endtime="20140814 00:06:30.472" starttime="20140814 00:06:30.472"></status>
+</kw>
+<kw type="kw" name="Click">
+<doc></doc>
+<arguments>
+<arg>id=tinymce</arg>
+</arguments>
+<msg timestamp="20140814 00:09:23.983" level="FAIL">No keyword with name 'Click' found.</msg>
+<status status="FAIL" endtime="20140814 00:09:23.983" starttime="20140814 00:09:23.982"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Click Link">
+<doc>Clicks a link identified by locator.</doc>
+<arguments>
+<arg>id=tinymce</arg>
+</arguments>
+<msg timestamp="20140814 00:09:30.818" level="INFO">Clicking link 'id=tinymce'.</msg>
+<kw type="kw" name="Selenium2Library.Capture Page Screenshot">
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140814 00:09:30.847" level="FAIL">WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<status status="FAIL" endtime="20140814 00:09:30.848" starttime="20140814 00:09:30.836"></status>
+</kw>
+<msg timestamp="20140814 00:09:30.849" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<msg timestamp="20140814 00:09:30.850" level="FAIL">WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<status status="FAIL" endtime="20140814 00:09:30.851" starttime="20140814 00:09:30.818"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Click Element">
+<doc>Click element identified by `locator`.</doc>
+<arguments>
+<arg>id=tinymce</arg>
+</arguments>
+<msg timestamp="20140814 00:09:46.878" level="INFO">Clicking element 'id=tinymce'.</msg>
+<kw type="kw" name="Selenium2Library.Capture Page Screenshot">
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140814 00:09:46.907" level="FAIL">WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<status status="FAIL" endtime="20140814 00:09:46.908" starttime="20140814 00:09:46.890"></status>
+</kw>
+<msg timestamp="20140814 00:09:46.908" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<msg timestamp="20140814 00:09:46.910" level="FAIL">WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<status status="FAIL" endtime="20140814 00:09:46.910" starttime="20140814 00:09:46.877"></status>
+</kw>
+<kw type="kw" name="keywords.Click Action by id">
+<doc></doc>
+<arguments>
+<arg>tinymce</arg>
+</arguments>
+<kw type="kw" name="keywords.Open Action Menu">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="keywords.Open Menu">
+<doc></doc>
+<arguments>
+<arg>plone-contentmenu-actions</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Element Should Be Visible">
+<doc>Verifies that the element identified by `locator` is visible.</doc>
+<arguments>
+<arg>css=dl#${elementId} span</arg>
+</arguments>
+<msg timestamp="20140814 00:10:41.763" level="INFO">Verifying element 'css=dl#plone-contentmenu-actions span' is visible.</msg>
+<kw type="kw" name="Selenium2Library.Capture Page Screenshot">
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140814 00:10:41.789" level="FAIL">WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<status status="FAIL" endtime="20140814 00:10:41.789" starttime="20140814 00:10:41.781"></status>
+</kw>
+<msg timestamp="20140814 00:10:41.789" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<msg timestamp="20140814 00:10:41.790" level="FAIL">WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<status status="FAIL" endtime="20140814 00:10:41.790" starttime="20140814 00:10:41.762"></status>
+</kw>
+<status status="FAIL" endtime="20140814 00:10:41.791" starttime="20140814 00:10:41.760"></status>
+</kw>
+<status status="FAIL" endtime="20140814 00:10:41.791" starttime="20140814 00:10:41.758"></status>
+</kw>
+<status status="FAIL" endtime="20140814 00:10:41.791" starttime="20140814 00:10:41.757"></status>
+</kw>
+<kw type="kw" name="keywords.Click Action by id">
+<doc></doc>
+<arguments>
+<arg>id=tinymce</arg>
+</arguments>
+<kw type="kw" name="keywords.Open Action Menu">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="keywords.Open Menu">
+<doc></doc>
+<arguments>
+<arg>plone-contentmenu-actions</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Element Should Be Visible">
+<doc>Verifies that the element identified by `locator` is visible.</doc>
+<arguments>
+<arg>css=dl#${elementId} span</arg>
+</arguments>
+<msg timestamp="20140814 00:10:51.823" level="INFO">Verifying element 'css=dl#plone-contentmenu-actions span' is visible.</msg>
+<kw type="kw" name="Selenium2Library.Capture Page Screenshot">
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140814 00:10:51.844" level="FAIL">WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<status status="FAIL" endtime="20140814 00:10:51.845" starttime="20140814 00:10:51.835"></status>
+</kw>
+<msg timestamp="20140814 00:10:51.845" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<msg timestamp="20140814 00:10:51.846" level="FAIL">WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<status status="FAIL" endtime="20140814 00:10:51.846" starttime="20140814 00:10:51.822"></status>
+</kw>
+<status status="FAIL" endtime="20140814 00:10:51.847" starttime="20140814 00:10:51.819"></status>
+</kw>
+<status status="FAIL" endtime="20140814 00:10:51.848" starttime="20140814 00:10:51.817"></status>
+</kw>
+<status status="FAIL" endtime="20140814 00:10:51.848" starttime="20140814 00:10:51.814"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>tinymce</arg>
+<arg>HELLO</arg>
+</arguments>
+<msg timestamp="20140814 00:12:55.537" level="INFO">Typing text 'HELLO' into text field 'tinymce'</msg>
+<kw type="kw" name="Selenium2Library.Capture Page Screenshot">
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140814 00:12:55.560" level="FAIL">WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<status status="FAIL" endtime="20140814 00:12:55.561" starttime="20140814 00:12:55.552"></status>
+</kw>
+<msg timestamp="20140814 00:12:55.561" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<msg timestamp="20140814 00:12:55.563" level="FAIL">WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<status status="FAIL" endtime="20140814 00:12:55.563" starttime="20140814 00:12:55.536"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>form-widgets-text</arg>
+<arg>HELLO</arg>
+</arguments>
+<msg timestamp="20140814 00:13:07.816" level="INFO">Typing text 'HELLO' into text field 'form-widgets-text'</msg>
+<kw type="kw" name="Selenium2Library.Capture Page Screenshot">
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140814 00:13:07.842" level="FAIL">WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<status status="FAIL" endtime="20140814 00:13:07.842" starttime="20140814 00:13:07.832"></status>
+</kw>
+<msg timestamp="20140814 00:13:07.842" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<msg timestamp="20140814 00:13:07.844" level="FAIL">WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<status status="FAIL" endtime="20140814 00:13:07.845" starttime="20140814 00:13:07.815"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>id=tinymce</arg>
+<arg>HELLO</arg>
+</arguments>
+<msg timestamp="20140814 00:13:31.126" level="INFO">Typing text 'HELLO' into text field 'id=tinymce'</msg>
+<kw type="kw" name="Selenium2Library.Capture Page Screenshot">
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140814 00:13:31.150" level="FAIL">WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<status status="FAIL" endtime="20140814 00:13:31.150" starttime="20140814 00:13:31.143"></status>
+</kw>
+<msg timestamp="20140814 00:13:31.151" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<msg timestamp="20140814 00:13:31.152" level="FAIL">WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<status status="FAIL" endtime="20140814 00:13:31.152" starttime="20140814 00:13:31.125"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140814 00:13:37.321" level="FAIL">Keyword 'Selenium2Library.Input Text' expected 2 arguments, got 0.</msg>
+<status status="FAIL" endtime="20140814 00:13:37.321" starttime="20140814 00:13:37.320"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>css=body.mceContentBody</arg>
+<arg>HEEEE</arg>
+</arguments>
+<msg timestamp="20140814 00:21:30.252" level="INFO">Typing text 'HEEEE' into text field 'css=body.mceContentBody'</msg>
+<kw type="kw" name="Selenium2Library.Capture Page Screenshot">
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140814 00:21:30.274" level="FAIL">WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<status status="FAIL" endtime="20140814 00:21:30.275" starttime="20140814 00:21:30.267"></status>
+</kw>
+<msg timestamp="20140814 00:21:30.275" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<msg timestamp="20140814 00:21:30.276" level="FAIL">WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<status status="FAIL" endtime="20140814 00:21:30.277" starttime="20140814 00:21:30.251"></status>
+</kw>
+<kw type="kw" name="Remote.Set Field Value">
+<doc>Set field value with a specific type</doc>
+<arguments>
+<arg>css=body.mceContentBody</arg>
+<arg>HEEEE text/html</arg>
+</arguments>
+<msg timestamp="20140814 00:22:04.503" level="FAIL">Keyword 'Remote.Set Field Value' got positional argument after named arguments.</msg>
+<status status="FAIL" endtime="20140814 00:22:04.504" starttime="20140814 00:22:04.503"></status>
+</kw>
+<kw type="kw" name="Remote.Set Field Value">
+<doc>Set field value with a specific type</doc>
+<arguments>
+<arg>${conversation_uid}</arg>
+<arg>body.mceContentBody</arg>
+<arg>HEEEE text/html</arg>
+</arguments>
+<msg timestamp="20140814 00:22:21.984" level="FAIL">set_field_value() takes exactly 5 arguments (4 given)</msg>
+<status status="FAIL" endtime="20140814 00:22:21.984" starttime="20140814 00:22:21.968"></status>
+</kw>
+<kw type="kw" name="Remote.Set Field Value">
+<doc>Set field value with a specific type</doc>
+<arguments>
+<arg>${conversation_uid}</arg>
+<arg>body.mceContentBody</arg>
+<arg>HEEEE</arg>
+<arg>text/html</arg>
+</arguments>
+<status status="PASS" endtime="20140814 00:23:24.572" starttime="20140814 00:23:24.492"></status>
+</kw>
+<kw type="kw" name="${comment_uid}">
+<doc></doc>
+<arguments>
+<arg>Click Element</arg>
+<arg>css=body.mceContentBody</arg>
+</arguments>
+<msg timestamp="20140814 00:25:36.831" level="FAIL">No keyword with name '${comment_uid}' found.</msg>
+<status status="FAIL" endtime="20140814 00:25:36.831" starttime="20140814 00:25:36.830"></status>
+</kw>
+<kw type="kw" name="${comment_uid}=">
+<doc></doc>
+<arguments>
+<arg>Click Element</arg>
+<arg>css=body.mceContentBody</arg>
+</arguments>
+<msg timestamp="20140814 00:25:42.995" level="FAIL">No keyword with name '${comment_uid}=' found.</msg>
+<status status="FAIL" endtime="20140814 00:25:42.995" starttime="20140814 00:25:42.994"></status>
+</kw>
+<kw type="kw" name="${comment_uid}=">
+<doc></doc>
+<arguments>
+<arg>Get Element attribute</arg>
+<arg>css=body.mceContentBody@uid</arg>
+</arguments>
+<msg timestamp="20140814 00:26:48.420" level="FAIL">No keyword with name '${comment_uid}=' found.</msg>
+<status status="FAIL" endtime="20140814 00:26:48.420" starttime="20140814 00:26:48.419"></status>
+</kw>
+<kw type="kw" name="${comment_uid}">
+<doc></doc>
+<arguments>
+<arg>Get Element attribute</arg>
+<arg>css=body.mceContentBody@uid</arg>
+</arguments>
+<msg timestamp="20140814 00:26:54.784" level="FAIL">No keyword with name '${comment_uid}' found.</msg>
+<status status="FAIL" endtime="20140814 00:26:54.784" starttime="20140814 00:26:54.784"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Get Element Attribute">
+<doc>Return value of element attribute.</doc>
+<arguments>
+<arg>css=body.mceContentBody@uid</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Capture Page Screenshot">
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140814 00:27:00.232" level="FAIL">WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<status status="FAIL" endtime="20140814 00:27:00.233" starttime="20140814 00:27:00.221"></status>
+</kw>
+<msg timestamp="20140814 00:27:00.233" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<msg timestamp="20140814 00:27:00.234" level="FAIL">WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<status status="FAIL" endtime="20140814 00:27:00.235" starttime="20140814 00:27:00.209"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Get Element Attribute">
+<doc>Return value of element attribute.</doc>
+<arguments>
+<arg>tinymce@uid</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Capture Page Screenshot">
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140814 00:27:36.028" level="FAIL">WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<status status="FAIL" endtime="20140814 00:27:36.028" starttime="20140814 00:27:36.010"></status>
+</kw>
+<msg timestamp="20140814 00:27:36.029" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<msg timestamp="20140814 00:27:36.030" level="FAIL">WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<status status="FAIL" endtime="20140814 00:27:36.030" starttime="20140814 00:27:35.991"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Get Element Attribute">
+<doc>Return value of element attribute.</doc>
+<arguments>
+<arg>id=tinymce@uid</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Capture Page Screenshot">
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140814 00:27:42.837" level="FAIL">WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<status status="FAIL" endtime="20140814 00:27:42.838" starttime="20140814 00:27:42.830"></status>
+</kw>
+<msg timestamp="20140814 00:27:42.838" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<msg timestamp="20140814 00:27:42.838" level="FAIL">WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<status status="FAIL" endtime="20140814 00:27:42.838" starttime="20140814 00:27:42.105"></status>
+</kw>
+<kw type="kw" name="Remote.Set Field Value">
+<doc>Set field value with a specific type</doc>
+<arguments>
+<arg>css=body.mceContentBody</arg>
+<arg>body.mceContentBody</arg>
+<arg>HEEEE</arg>
+<arg>text/html</arg>
+</arguments>
+<msg timestamp="20140814 00:29:36.785" level="FAIL">Keyword 'Remote.Set Field Value' got positional argument after named arguments.</msg>
+<status status="FAIL" endtime="20140814 00:29:36.785" starttime="20140814 00:29:36.784"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Get Element Attribute">
+<doc>Return value of element attribute.</doc>
+<arguments>
+<arg>css=mceContentBody@uid</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Capture Page Screenshot">
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140814 00:31:38.761" level="FAIL">WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<status status="FAIL" endtime="20140814 00:31:38.762" starttime="20140814 00:31:38.754"></status>
+</kw>
+<msg timestamp="20140814 00:31:38.762" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<msg timestamp="20140814 00:31:38.763" level="FAIL">WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<status status="FAIL" endtime="20140814 00:31:38.763" starttime="20140814 00:31:37.642"></status>
+</kw>
+<status status="PASS" endtime="20140814 00:32:14.728" starttime="20140813 23:59:17.807"></status>
+</kw>
+<status status="PASS" endtime="20140814 00:32:14.729" starttime="20140813 23:59:17.807"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Run Keyword If">
+<doc>Runs the given keyword with the given arguments, if `condition` is true.</doc>
+<arguments>
+<arg>${debug}[0] == 'FAIL' and ${dialogs}[0] == 'PASS'</arg>
+<arg>DialogsLibrary.Pause Execution</arg>
+</arguments>
+<status status="PASS" endtime="20140814 00:32:14.732" starttime="20140814 00:32:14.730"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Run Keyword If">
+<doc>Runs the given keyword with the given arguments, if `condition` is true.</doc>
+<arguments>
+<arg>${debug}[0] == 'FAIL' and ${dialogs}[0] == 'FAIL'</arg>
+<arg>DebuggingLibrary.Stop</arg>
+</arguments>
+<status status="PASS" endtime="20140814 00:32:14.734" starttime="20140814 00:32:14.733"></status>
+</kw>
+<status status="PASS" endtime="20140814 00:32:14.735" starttime="20140813 23:59:17.765"></status>
+</kw>
+<kw type="kw" name="Remote.Set Field Value">
+<doc>Set field value with a specific type</doc>
+<arguments>
+<arg>id=form-widgets-comment-text</arg>
+<arg>HELLO</arg>
+</arguments>
+<msg timestamp="20140814 00:32:14.736" level="FAIL">Keyword 'Remote.Set Field Value' got positional argument after named arguments.</msg>
+<status status="FAIL" endtime="20140814 00:32:14.737" starttime="20140814 00:32:14.736"></status>
+</kw>
+<status status="FAIL" endtime="20140814 00:32:14.737" starttime="20140813 23:59:14.612"></status>
+</kw>
+<kw type="teardown" name="Selenium2Library.Close All Browsers">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<arguments>
+</arguments>
+<status status="PASS" endtime="20140814 00:32:14.772" starttime="20140814 00:32:14.739"></status>
+</kw>
+<doc></doc>
+<tags>
+</tags>
+<status status="FAIL" endtime="20140814 00:32:14.773" critical="yes" starttime="20140813 23:58:50.959">Keyword 'Remote.Set Field Value' got positional argument after named arguments.</status>
+</test>
+<doc></doc>
+<metadata>
+</metadata>
+<status status="FAIL" endtime="20140814 00:32:14.777" starttime="20140813 23:58:50.325"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="1" pass="0">Critical Tests</stat>
+<stat fail="1" pass="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="1" pass="0" id="s1" name="Test Edit Comment">Test Edit Comment</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20140814 00:09:30.849" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<msg timestamp="20140814 00:09:46.908" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<msg timestamp="20140814 00:10:41.789" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<msg timestamp="20140814 00:10:51.845" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<msg timestamp="20140814 00:12:55.561" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<msg timestamp="20140814 00:13:07.842" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<msg timestamp="20140814 00:13:31.151" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<msg timestamp="20140814 00:21:30.275" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<msg timestamp="20140814 00:27:00.233" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<msg timestamp="20140814 00:27:36.029" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<msg timestamp="20140814 00:27:42.838" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+<msg timestamp="20140814 00:31:38.762" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: WebDriverException: Message: u'\'[JavaScript Error: "a is null" {file: "file:///tmp/tmpPyIDkQ/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/command_processor.js" line: 8732}]\' when calling method: [nsICommandProcessor::execute]' </msg>
+</errors>
+</robot>
