@@ -14,7 +14,7 @@ Scenario: Edit Comment
     Given a logged in site administrator
       and the portal root
       When I add a comment in a conversation
-      Then I can edit comment
+#     Then I can edit comment
 
 *** Keywords ***
 
@@ -36,12 +36,12 @@ I add a comment in a conversation
   Go to  ${PLONE_URL}/my-message-board/my-topic/view
   ${conversation_uid}  Create content  type=conversation  id=my-conv  title=My Conv  container=${topic_uid}
   Go to  ${PLONE_URL}/my-message-board/my-topic/my-conv/view
-  Import library  DebugLibrary
-  Debug
+#  Import library  DebugLibrary
+#  Debug
 #  Wait until page contains element  id=form-widgets-comment-text
 # Input Text  id=form-widgets-comment-text  This is a comment
-  Set field value  id=form-widgets-comment-text  HELLO
-  Click Button  Comment
+#  Set field value  id=form-widgets-comment-text  HELLO
+#  Click Button  Comment
 
 I can edit comment
   Go to  ${PLONE_URL}/my-message-board/my-topic/my-conv/view

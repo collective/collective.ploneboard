@@ -45,31 +45,14 @@ class ConversationView(BrowserView):
             )
         return ans
 
-    def merge_them(self, merge_into=None, merge_from=None):
-        """"""
-        results = self.catalog.searchResults({'portal_type': "conversation"})
-        # Merges conv2 (merge_from) into conv1 (merge_into)
-        conv1 = None
-        conv2 = None
-        for result in results:
-            if result["id"] == merge_from:
-                conv2 = result.getObject()
-            elif result["id"] == merge_into:
-                conv1 = result.getObject()
-            else:
-                continue
-        conversation1 = IConversation(conv1)
-        IReplies(conversation1)
-        conversation2 = IConversation(conv2)
-        IReplies(conversation2)
-        # Take out all the comments out of conversation1
+    def getConvDetails(self, conv):
+        # Take out all the comments out of conversation
         # For each comment store text, author_username, creator, creation_date
         # and modification, comment_id, in_reply_to, title, author_name,
         # author_email, user_notification
         comments_list = []
-        comments_id = conversation1.keys()
-        for id_comment in conversation1:
-            comment_obj = conversation1[id_comment]
+        for id_comment in conv:
+            comment_obj = conv[id_comment]
             if not IAttributeAnnotatable.providedBy(comment_obj):
                 alsoProvides(comment_obj, IAttributeAnnotatable)
             annotations = IAnnotations(comment_obj)
@@ -78,7 +61,7 @@ class ConversationView(BrowserView):
                 0
                 )
             comments_list.append({
-                'comment_obj': conversation1[id_comment],
+                'comment_obj': conv[id_comment],
                 'comment_text': comment_obj.getText('text/plain'),
                 'comment_au': comment_obj.author_username,
                 'comment_an': comment_obj.author_name,
@@ -92,43 +75,9 @@ class ConversationView(BrowserView):
                 'comment_title': comment_obj.title,
                 'comment_rating': rating,
                 })
-        for i in comments_id:
-            try:
-                del conversation1[i]
-            except:
-                print "Id was not found"
+        return comments_list
 
-        comments_list2 = []
-        for id_comment in conversation2:
-            comment_obj = conversation2[id_comment]
-            if not IAttributeAnnotatable.providedBy(comment_obj):
-                alsoProvides(comment_obj, IAttributeAnnotatable)
-            annotations = IAnnotations(comment_obj)
-            rating = annotations.get(
-                'collective.ploneboard.discussion.rating',
-                0
-                )
-            comments_list2.append({
-                'comment_obj': conversation2[id_comment],
-                'comment_text': comment_obj.getText('text/plain'),
-                'comment_au': comment_obj.author_username,
-                'comment_an': comment_obj.author_name,
-                'comment_ae': comment_obj.author_email,
-                'comment_un': comment_obj.user_notification,
-                'comment_creator': comment_obj.creator,
-                'comment_cd': comment_obj.creation_date,
-                'comment_md': comment_obj.modification_date,
-                'comment_id': id_comment,
-                'comment_irt': comment_obj.in_reply_to,
-                'comment_title': comment_obj.title,
-                'comment_rating': rating,
-                })
-        f_c_l = comments_list + comments_list2
-        final_comments_list = sorted(
-            f_c_l,
-            key=lambda comment: comment['comment_cd']
-            )
-
+    def addToConv1(self, conversation1, final_comments_list):
         old_to_new_id = {0: 0}
         for comment in final_comments_list:
             new_comment = createObject('plone.Comment')
@@ -151,3 +100,36 @@ class ConversationView(BrowserView):
             annotations = IAnnotations(new_comment)
             rating = comment['comment_rating']
             annotations['collective.ploneboard.discussion.rating'] = rating
+
+    def merge_them(self, merge_into=None, merge_from=None):
+        """"""
+        results = self.catalog.searchResults({'portal_type': "conversation"})
+        # Merges conv2 (merge_from) into conv1 (merge_into)
+        conv1 = None
+        conv2 = None
+        for result in results:
+            if result["id"] == merge_from:
+                conv2 = result.getObject()
+            elif result["id"] == merge_into:
+                conv1 = result.getObject()
+            else:
+                continue
+        conversation1 = IConversation(conv1)
+        IReplies(conversation1)
+        conversation2 = IConversation(conv2)
+        IReplies(conversation2)
+        comments_list = self.getConvDetails(conversation1)
+        comments_id = conversation1.keys()
+        for i in comments_id:
+            try:
+                del conversation1[i]
+            except:
+                print "Id was not found"
+
+        comments_list2 = self.getConvDetails(conversation2)
+        f_c_l = comments_list + comments_list2
+        final_comments_list = sorted(
+            f_c_l,
+            key=lambda comment: comment['comment_cd']
+            )
+        self.addToConv1(conversation1, final_comments_list)
