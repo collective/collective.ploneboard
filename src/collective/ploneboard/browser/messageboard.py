@@ -188,7 +188,7 @@ class MessageboardView(BrowserView):
             ).conversations(sort_mode)
             if topic.category == []:
                 topic.category.append('Unspecified')
-            elif topic.category == None:
+            elif topic.category is None:
                 topic.category = []
                 topic.category.append('Unspecified')
             for each_category in topic.category:
