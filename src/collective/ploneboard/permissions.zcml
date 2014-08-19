@@ -18,4 +18,9 @@
     title="Collective Ploneboard: Add Conversation"
     />
 
+  <permission
+    id="ploneboard.MergeConversation"
+    title="Collective Ploneboard: Merge Conversation"
+    />
+
 </configure>

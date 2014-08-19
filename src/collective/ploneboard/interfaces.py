@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 from plone.app.textfield import RichText
 from plone.directives import form
+from plone.supermodel import model
 from zope import schema
 from zope.interface import Interface
 from collective.ploneboard import _
@@ -53,7 +54,7 @@ class ITopic(form.Schema):
         )
 
 
-class IConversation(form.Schema):
+class IConversation(model.Schema):
     """
     """
     text = RichText(

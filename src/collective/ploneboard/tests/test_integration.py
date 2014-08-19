@@ -5,7 +5,7 @@ import transaction
 import unittest2 as unittest
 
 from plone.testing.z2 import Browser
-
+from Products.CMFCore.utils import getToolByName
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import setRoles
 from plone.app.testing import SITE_OWNER_NAME
@@ -96,6 +96,64 @@ class PloneboardContenttypesFunctionalTest(unittest.TestCase):
         ).value = "This is my first reply."
         self.browser.getControl(name="form.buttons.comment").click()
         self.assertTrue("This is my first reply" in self.browser.contents)
+
+    def test_recent_comments(self):
+        self.portal.invokeFactory('messageboard', 'board')
+        self.portal.board.invokeFactory('topic', 'topic')
+        self.portal.board.topic.invokeFactory('conversation', 'conv')
+        transaction.commit()
+
+        self.browser.open(self.portal.board.topic.conv.absolute_url())
+        self.browser.getControl(
+            name='form.widgets.text'
+        ).value = "This is my first reply."
+        self.browser.getControl(name="form.buttons.comment").click()
+        self.browser.getControl(
+            name='form.widgets.text'
+        ).value = "This is my second reply."
+        self.browser.getControl(name="form.buttons.comment").click()
+        self.browser.open(
+            self.portal.board.absolute_url() + '/@@recent-comments'
+            )
+        self.assertTrue(
+            "This is my second reply" in self.browser.contents
+            )
+        self.assertTrue(
+            "This is my first reply" in self.browser.contents
+            )
+        # contents = self.browser.contents
+        # index1 = contents.index("first reply")
+        # index2 = contents.index("second reply")
+        # print index1, index2
+        # self.assertTrue(index2 < index1)
+
+    def test_comment_initial_rating(self):
+        self.portal.invokeFactory('messageboard', 'board')
+        self.portal.board.invokeFactory('topic', 'topic')
+        self.portal.board.topic.invokeFactory('conversation', 'conv')
+        transaction.commit()
+
+        self.browser.open(self.portal.board.topic.conv.absolute_url())
+        self.browser.getControl(
+            name='form.widgets.text'
+        ).value = "Rate this comment"
+        self.browser.getControl(name="form.buttons.comment").click()
+        self.catalog = getToolByName(self.portal, 'portal_catalog')
+        # comment_brain = self.catalog.searchResults(
+        #    portal_type='Discussion Item'
+        #    )[0]
+        # name_r = comment_brain["id"]+'-conv'
+        contents = self.browser.contents
+        self.assertTrue(
+            "<div class=\"comment_rating_number_clicked\"" in contents
+            )
+        self.assertTrue(
+            "1</div>" in contents
+            )
+        # self.assertTrue(
+        #    "<div class=\"comment_rating_number_clicked\" id=\""
+        #    + name_r + "\" name=\""+name_r + "\">1</div>" in
+        #    contents)
     """
     def test_conversation_attachment(self):
         self.portal.invokeFactory('messageboard', 'board')
