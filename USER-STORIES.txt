@@ -1,4 +1,3 @@
-
 As an administrator I can add a message board.
 As an administrator I can add a topic to an existing message board.
 As a member I can add a conversation to an existing topic.
