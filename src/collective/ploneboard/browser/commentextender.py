@@ -32,6 +32,7 @@ class CommentExtenderFields(Persistent):
     adapts(Comment)
     attachment = u""
 
+
 CommentExtenderFactory = factory(CommentExtenderFields)
 
 

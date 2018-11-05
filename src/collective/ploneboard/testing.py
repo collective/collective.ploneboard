@@ -21,6 +21,7 @@ class CollectiveploneboardLayer(PloneSandboxLayer):
     def setUpPloneSite(self, portal):
         applyProfile(portal, 'collective.ploneboard:default')
 
+
 COLLECTIVE_PLONEBOARD_FIXTURE = CollectiveploneboardLayer()
 COLLECTIVE_PLONEBOARD_INTEGRATION_TESTING = IntegrationTesting(
     bases=(COLLECTIVE_PLONEBOARD_FIXTURE,),
