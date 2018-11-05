@@ -28,6 +28,15 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
+  <genericsetup:registerProfile
+      name="uninstall"
+      title="Ploneboard (uninstall)"
+      directory="profiles/uninstall"
+      description="Uninstalls the collective.ploneboard add-on."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      post_handler=".setuphandlers.uninstall"
+      />
+
   <include file="permissions.zcml" />
 
 </configure>
