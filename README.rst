@@ -23,7 +23,7 @@ collective.ploneboard
 
 |
 
-.. image:: https://raw.githubusercontent.com/kitconcept/collective.ploneboard/master/kitconcept.png
+.. image:: https://raw.githubusercontent.com/collective/collective.ploneboard/master/kitconcept.png
    :alt: kitconcept
    :target: https://kitconcept.com/
 
