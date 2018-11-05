@@ -38,6 +38,7 @@ Features
 - Add Topic
 - Add conversation
 - Reply to a conversation
+- Add an attachment to a conversation
 
 
 Examples
