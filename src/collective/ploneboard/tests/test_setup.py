@@ -1,5 +1,7 @@
 import unittest
-
+from plone import api
+from plone.app.testing import setRoles
+from plone.app.testing import TEST_USER_ID
 from Products.CMFCore.utils import getToolByName
 
 from collective.ploneboard.testing import \
@@ -48,3 +50,30 @@ class TestSetup(unittest.TestCase):
         self.portal.restrictedTraverse(
             '++resource++collective.ploneboard/stylesheets/ploneboard.css'
         )
+
+
+class TestUninstall(unittest.TestCase):
+
+    layer = COLLECTIVE_PLONEBOARD_INTEGRATION_TESTING
+
+    def setUp(self):
+        self.portal = self.layer['portal']
+        self.installer = api.portal.get_tool('portal_quickinstaller')
+        roles_before = api.user.get_roles(TEST_USER_ID)
+        setRoles(self.portal, TEST_USER_ID, ['Manager'])
+        self.installer.uninstallProducts(['collective.ploneboard'])
+        setRoles(self.portal, TEST_USER_ID, roles_before)
+
+    def test_product_uninstalled(self):
+        """Test if collective.ploneboard is cleanly uninstalled."""
+        self.assertFalse(self.installer.isProductInstalled(
+            'collective.ploneboard'))
+
+    def test_browserlayer_removed(self):
+        """Test that ICollectivePloneboard is removed."""
+        from collective.ploneboard.interfaces import \
+            ICollectivePloneboardLayer
+        from plone.browserlayer import utils
+        self.assertNotIn(
+            ICollectivePloneboardLayer,
+            utils.registered_layers())
