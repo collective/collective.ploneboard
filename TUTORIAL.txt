@@ -141,7 +141,7 @@ test_messageboard.py::
     from zope.component import createObject
     from zope.component import queryUtility
     from plone.dexterity.interfaces import IDexterityFTI
-    import unittest2 as unittest
+    import unittest
 
     from plone.app.testing import setRoles
     from plone.app.testing import TEST_USER_ID
@@ -319,7 +319,7 @@ FUNCTIONAL TESTS
     from plone.app.testing import SITE_OWNER_NAME
     from plone.app.testing import SITE_OWNER_PASSWORD
     from plone.testing.z2 import Browser
-    import unittest2 as unittest
+    import unittest
 
     from collective.ploneboard.testing import \
         COLLECTIVE_PLONEBOARD_INTEGRATION_TESTING

@@ -20,6 +20,8 @@
 /.mr.developer.cfg
 /src/Products.*
 /src/plone.app.*
+.eggs/
+pip-selfcheck.json
 *.mo
 docs/Makefile
 docs/make.bat

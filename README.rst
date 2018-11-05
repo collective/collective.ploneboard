@@ -1,15 +1,98 @@
-.. contents::
+.. This README is meant for consumption by humans and pypi. Pypi can render rst files so please do not use Sphinx features.
+   If you want to learn more about writing documentation, please check out: http://docs.plone.org/about/documentation_styleguide.html
+   This text does not appear on pypi or github. It is a comment.
 
-Introduction
-============
+==============================================================================
+collective.ploneboard
+==============================================================================
 
-.. image:: https://secure.travis-ci.org/collective/collective.ploneboard.png?branch=master
+.. image:: https://travis-ci.org/kitconcept/collective.ploneboard.svg?branch=master
+    :target: https://travis-ci.org/kitconcept/collective.ploneboard
+
+.. image:: https://img.shields.io/pypi/status/collective.ploneboard.svg
+    :target: https://pypi.python.org/pypi/collective.ploneboard/
+    :alt: Egg Status
+
+.. image:: https://img.shields.io/pypi/v/collective.ploneboard.svg
+    :target: https://pypi.python.org/pypi/collective.ploneboard
+    :alt: Latest Version
+
+.. image:: https://img.shields.io/pypi/l/collective.ploneboard.svg
+    :target: https://pypi.python.org/pypi/collective.ploneboard
+    :alt: License
+
+|
+
+.. image:: https://raw.githubusercontent.com/kitconcept/collective.ploneboard/master/kitconcept.png
+   :alt: kitconcept
+   :target: https://kitconcept.com/
 
 This is an experimental Plone add-on product to rewrite the functionality
 of Products.Ploneboard from the scratch with Dexterity types and
 plone.app.discussion.
 
-https://travis-ci.org/tisto/collective.ploneboard.png?branch=master
+Features
+--------
+
+- Add message board
+- Add Topic
+- Add conversation
+- Reply to a conversation
+
+
+Examples
+--------
+
+This add-on can be seen in action at the following sites:
+- Is there a page on the internet where everybody can see the features?
+
+
+Translations
+------------
+
+This product has been translated into
+
+- Klingon (thanks, K'Plai)
+
+
+Installation
+------------
+
+Install collective.ploneboard by adding it to your buildout::
+
+    [buildout]
+
+    ...
+
+    eggs =
+        collective.ploneboard
+
+
+and then running ``bin/buildout``
+
+
+Contribute
+----------
+
+- Issue Tracker: https://github.com/collective/collective.ploneboard/issues
+- Source Code: https://github.com/collective/collective.ploneboard
+- Documentation: https://docs.plone.org/foo/bar
+
+
+Support
+-------
+
+If you are having issues,
+`please let us know <https://github.com/collective/collective.ploneboard/issues>`_.
+
+If you require professional support, feel free to drop us a note at info@kitconcept.com.
+
+
+License
+-------
+
+The project is licensed under the GPLv2.
+
 
 Test Setup
 ----------
@@ -78,4 +161,3 @@ Later
 
 As a member I can attach a file to my comments/replies.
 As a member I can search a message board.
-

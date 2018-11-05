@@ -2,7 +2,7 @@
 import os
 import transaction
 
-import unittest2 as unittest
+import unittest
 
 from plone.testing.z2 import Browser
 

@@ -5,7 +5,7 @@
 """
 import doctest
 
-import unittest2 as unittest
+import unittest
 import pprint
 
 from plone.testing import layered

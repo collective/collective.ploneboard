@@ -1,7 +1,7 @@
 from zope.component import createObject
 from zope.component import queryUtility
 from plone.dexterity.interfaces import IDexterityFTI
-import unittest2 as unittest
+import unittest
 
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
