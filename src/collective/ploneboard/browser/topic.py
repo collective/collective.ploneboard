@@ -27,6 +27,6 @@ class TopicView(BrowserView):
                 'url': conv.absolute_url(),
                 'total_comments': pad_conv.total_comments(),
                 'last_commenter': last_commenter,
-                # 'last_comment_date': pad_conv.last_comment_date,
+                'last_comment_date': pad_conv.last_comment_date,
             })
         return conversations
