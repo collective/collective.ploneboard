@@ -1,0 +1,39 @@
+As an administrator I can add a message board.
+As an administrator I can add a topic to an existing message board.
+As a member I can add a conversation to an existing topic.
+As a member I can add a reply to an existing conversation.
+As an administrator I can add categories to a message board.
+As an administrator I can assign different workflows to a message board.
+As an administrator I can specify maximum number of attachments per comment.
+As an administrator I can specify maximum size per attachment.
+As an administrator I can choose whether to allow user to edit his comment or not.
+As an administrator I can specify the state for the forum, i.e. who can start a new conversation. Possible options: Free for all, Membership required, Moderated forum and advanced.
+As an administrator I can choose whether to allow upvotes and downvotes (rating) on comments/replies of this conversation.
+As a starter of a new conversation I can choose whether to have captcha support for comments/replies within my conversation.
+As a member I can edit my comments.
+As a member I can add attachments to my replies/comments.
+As a member I can "reply with quote", i.e. seed my response with the text from the comment/reply I choose to reply to.
+As a member I can upvote or downvote (rate) any comment/reply, if allowed.
+As a member I can choose to be notified on new replies to an existing conversation.
+As a member I can choose to be notified about replies to my conversation/reply.
+As a member I will get a notification if someone replies in conversation started by me.
+As a member I will also get a notification when someone replies back to my reply in any conversation.
+As a member I can view topics, conversations and comments added by me.
+As anonymous I can see topics on message board based on categories, if allowed to see.
+As anonymous I can see conversations within a topic sorted based on time-of-last-modification (recent first) and on more number of comments (default), if allowed to see.
+As anonymous I can see replies in any conversation sorted based on time (default), upvotes and unanswered first (one with no replies first and rest following), if allowed to see.
+As anonymous I can search in a message board, search space being the area I have permission to view.
+As a member I can use a rich text editor (TinyMCE) to reply to a comment.
+As a member I can search for comments and replies.
+As a member I can see a list of the most recent comments,conversations and topics happening.
+As a member I can add a signature to all my conversation/replies.
+As a member I can use smileys in my conversation/replies.
+As a member I can view basic statistics about a message board.
+As an administrator I can move conversations to another topic.
+As an administrator I can merge two conversation into one.
+As an administrator I can migrate a message board from Products.CMFPlone.
+As a member I'll have my user rating based on number of comments on my conversations, number of comments I post and conversations/topics I start. (something like stackoverflow)
+As a member I can delete some reply in my conversation specifying reason "abusive" or "spam" or “undesired” to notify the author.
+As anonymous I can subscribe to some member, so that I'll be notified every time that member posts or discuss something which I have permission to view.
+As a member I can mark comments in my conversation as "Important" and will have them viewed at the top seperately.
+As anonymous I can search with statements also, like '<type> by <username>'. Type being "Topics"/"Conversations"/"Comments".
