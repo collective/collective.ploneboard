@@ -86,7 +86,7 @@ Support
 If you are having issues,
 `please let us know <https://github.com/collective/collective.ploneboard/issues>`_.
 
-If you require professional support, feel free to drop us a note at info@kitconcept.com.
+If you require professional support, or want to sponsor new features, feel free to drop us a note at info@kitconcept.com.
 
 
 License
@@ -155,10 +155,3 @@ As a member I can add a reply to an existing conversation.
   >>> browser.getControl(name="form.buttons.comment").click()
   >>> "This is my first reply" in browser.contents
   True
-
-
-Later
------
-
-As a member I can attach a file to my comments/replies.
-As a member I can search a message board.
