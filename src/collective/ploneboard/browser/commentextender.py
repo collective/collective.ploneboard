@@ -49,3 +49,20 @@ class CommentExtender(extensible.FormExtender):
     def update(self):
         self.add(ICommentExtenderFields, prefix="")
         self.move('attachment', after='text', prefix="")
+
+
+# Patch Comment security to allow access for audio attachment
+###
+
+
+# a) The first option is to allow access or all sub objects, which means that
+#    anyone, who can see the comment object, can see all its (non protected)
+#    attributes
+Comment.__allow_access_to_unprotected_subobjects__ = 1
+
+# b) Would be to either provide __allow_access_to_unprotected_subobjects__
+#    function with check for all possible fields or configure permission
+#    for the audio field. Unfortunately, the permission on the field would
+#    work only if the field value is acquisition aware, which NamedBlob
+#    is not, and therefore the following would not work (and would also
+#    prevent option a) from working by making the subobject protected.
