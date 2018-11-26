@@ -22,3 +22,7 @@
 .portaltype-messageboard th.latest_reply {
     width: 30%;
 }
+
+.commentAttachment {
+    clear: both;
+}

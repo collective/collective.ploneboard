@@ -114,12 +114,12 @@
                                    i18n:attributes="value"
                                    />
                         </form>
+                    </div>
+                    <div class="commentAttachment">
                         <a tal:condition="reply/attachment|nothing"
                            tal:content="reply/attachment/filename"
                            tal:attributes="href string:${reply/absolute_url}/@@download/attachment/${reply/attachment/filename}">Attachment</a>
                     </div>
-
-
                 </div>
                 <button class="context reply-to-comment-button hide allowMultiSubmit"
                         tal:condition="python:isDiscussionAllowed and (isAnon and isAnonymousDiscussionAllowed or userHasReplyPermission)"
