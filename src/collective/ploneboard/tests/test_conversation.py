@@ -58,7 +58,7 @@ class ConversationIntegrationTest(unittest.TestCase):
 
         self.portal.board.topic.invokeFactory(
             'Conversation',
-            'conversation'
+            id='conversation'
         )
 
         obj = self.portal.board.topic['conversation']
