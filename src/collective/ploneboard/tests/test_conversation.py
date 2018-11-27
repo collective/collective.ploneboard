@@ -49,13 +49,12 @@ class ConversationIntegrationTest(unittest.TestCase):
     def test_adding(self):
         self.portal.invokeFactory(
             'Message Board',
-            'board'
+            id='board'
         )
         self.portal.board.invokeFactory(
             'Topic',
-            'topic'
+            id='topic'
         )
-
         self.portal.board.topic.invokeFactory(
             'Conversation',
             id='conversation'
