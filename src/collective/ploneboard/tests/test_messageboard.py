@@ -28,7 +28,7 @@ class MessageBoardIntegrationTest(unittest.TestCase):
     def test_fti(self):
         fti = queryUtility(
             IDexterityFTI,
-            name='messageboard'
+            name='Message Board'
         )
         schema = fti.lookupSchema()
         self.assertEquals(IMessageboard, schema)
@@ -36,7 +36,7 @@ class MessageBoardIntegrationTest(unittest.TestCase):
     def test_factory(self):
         fti = queryUtility(
             IDexterityFTI,
-            name='messageboard'
+            name='Message Board'
         )
         factory = fti.factory
         new_object = createObject(factory)
@@ -44,7 +44,7 @@ class MessageBoardIntegrationTest(unittest.TestCase):
 
     def test_adding(self):
         self.portal.invokeFactory(
-            'messageboard',
+            'Message Board',
             'board')
         board = self.portal['board']
         self.failUnless(IMessageboard.providedBy(board))
@@ -60,7 +60,7 @@ class MessageBoardViewIntegrationTest(unittest.TestCase):
         self.request['ACTUAL_URL'] = self.portal.absolute_url()
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
         self.portal.invokeFactory(
-            'messageboard',
+            'Message Board',
             'board',
         )
         self.board = self.portal['board']
@@ -77,8 +77,8 @@ class MessageBoardViewIntegrationTest(unittest.TestCase):
         self.assertTrue('My Message Board' in view())
 
     def test_topics_method_returns_topics(self):
-        self.portal.board.invokeFactory('topic', id='topic1', title='Topic 1')
-        self.portal.board.invokeFactory('topic', id='topic2', title='Topic 2')
+        self.portal.board.invokeFactory('Topic', id='topic1', title='Topic 1')
+        self.portal.board.invokeFactory('Topic', id='topic2', title='Topic 2')
         from collective.ploneboard.browser.messageboard import MessageboardView
         view = MessageboardView(self.portal.board, self.request)
 
@@ -91,14 +91,14 @@ class MessageBoardViewIntegrationTest(unittest.TestCase):
         )
 
     def test_topics_method_returns_conversations(self):
-        self.portal.board.invokeFactory('topic', id='topic1', title='Topic 1')
+        self.portal.board.invokeFactory('Topic', id='topic1', title='Topic 1')
         self.portal.board.topic1.invokeFactory(
-            'conversation',
+            'Conversation',
             id='conv1',
             title='Conversation 1'
         )
         self.portal.board.topic1.invokeFactory(
-            'conversation',
+            'Conversation',
             id='conv2',
             title='Conversation 2'
         )

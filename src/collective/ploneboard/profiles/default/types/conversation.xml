@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<object name="conversation" meta_type="Dexterity FTI"
+<object name="Conversation" meta_type="Dexterity FTI"
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     i18n:domain="collective.ploneboard">
 
