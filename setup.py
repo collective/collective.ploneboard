@@ -16,7 +16,7 @@ long_description = (
 
 setup(name='collective.ploneboard',
       version=version,
-      description="",
+      description="Web board for the Plone Content Management System",
       long_description=long_description,
       # Get more strings from
       # http://pypi.python.org/pypi?%3Aaction=list_classifiers
@@ -31,7 +31,7 @@ setup(name='collective.ploneboard',
           "Programming Language :: Python :: 2.7",
           "Topic :: Software Development :: Libraries :: Python Modules",
       ],
-      keywords='plone board collaboration',
+      keywords='plone web board collaboration',
       author='kitconcept GmbH',
       author_email='info@kitconcept.com',
       url='http://github.com/collective/collective.ploneboard/',

@@ -33,7 +33,7 @@
         <thead>
           <tr>
             <th>Gespräch</th>
-            <th class="replies">Antworten</th>
+            <!--<th class="replies">Antworten</th>-->
             <th class="latest_reply">Neuester Kommentar</th>
           </tr>
         </thead>
@@ -47,13 +47,15 @@
                   Topic
                 </a>
               </td>
-              <td tal:content="conversation/total_comments">0</td>
+              <!--<td tal:content="conversation/total_comments">0</td>-->
               <td>
                 <tal:block tal:condition="conversation/last_commenter">
-                  <a href="" tal:attributes="href conversation/url">
-                    <span tal:replace="conversation/last_commenter" />
-                  </a>
                   <span class="discreet" tal:content="python:toLocalizedTime(conversation['last_comment_date'])" />
+                  (
+                    <a href="" tal:attributes="href conversation/url">
+                      <span tal:replace="conversation/last_commenter" />
+                    </a>
+                  )
                 </tal:block>
                 <tal:block tal:condition="not:conversation/last_commenter">
                   <span class="discreet">Noch keine Gespräche.</span>
