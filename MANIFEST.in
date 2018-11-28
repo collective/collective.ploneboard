@@ -1,0 +1,14 @@
+graft src/collective/ploneboard
+graft docs
+include *.rst
+include *.txt
+exclude *.cfg
+exclude *.yml
+exclude *.in
+exclude *.jmx
+exclude *.yaml
+exclude .coveragerc
+exclude .editorconfig
+exclude Dockerfile
+exclude Makefile
+global-exclude *.pyc
