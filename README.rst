@@ -27,17 +27,22 @@ collective.ploneboard
    :alt: kitconcept
    :target: https://kitconcept.com/
 
-This is an experimental Plone add-on product to rewrite the functionality
-of Products.Ploneboard from the scratch with Dexterity types and
-plone.app.discussion.
+collective.ploneboard is a message board for the Plone content management system.
+It is an attempt to rewrite the functionality of Products.Ploneboard from the scratch.
+It uses the Dexterity content types framework and plone.app.discussion for implementing conversations.
+
+The add-on is tested with Plone 5.1 and 5.2.
+It should work with older Plone versions (5.0 and 4.3) as well.
+Though, we can not give any guarantee for this.
+
 
 Features
 --------
 
-- Add message board
-- Add Topic
-- Add conversation
-- Reply to a conversation
+- Add a message board
+- Add a topic to a message board
+- Add a conversation to a topic
+- Add a reply to a conversation
 - Add an attachment to a conversation
 
 
