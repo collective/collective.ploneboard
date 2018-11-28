@@ -46,7 +46,7 @@ setup(name='collective.ploneboard',
           'setuptools',
           'plone.api',
           'plone.app.dexterity',
-          'plone.directives.form',  # get rid of that dependency
+          'plone.supermodel',
           'plone.namedfile[blobs]',
           'z3c.jbot',
       ],

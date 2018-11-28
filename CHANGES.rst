@@ -4,6 +4,9 @@ Changelog
 1.0.0a2 (unreleased)
 --------------------
 
+- Get rid of the plone.directives.form dependency.
+  [timo]
+
 - Add license and dev status to pypi classifiers.
   [timo]
 

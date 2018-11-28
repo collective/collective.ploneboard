@@ -12,12 +12,12 @@ from plone.app.testing import SITE_OWNER_NAME
 from plone.app.testing import SITE_OWNER_PASSWORD
 
 from collective.ploneboard.testing import \
-    COLLECTIVE_PLONEBOARD_INTEGRATION_TESTING
+    COLLECTIVE_PLONEBOARD_FUNCTIONAL_TESTING
 
 
 class PloneboardContenttypesFunctionalTest(unittest.TestCase):
 
-    layer = COLLECTIVE_PLONEBOARD_INTEGRATION_TESTING
+    layer = COLLECTIVE_PLONEBOARD_FUNCTIONAL_TESTING
 
     def setUp(self):
         app = self.layer['app']
