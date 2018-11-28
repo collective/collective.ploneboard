@@ -3,6 +3,7 @@ from plone import api
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.utils import get_installer
 
 from collective.ploneboard.testing import \
     COLLECTIVE_PLONEBOARD_INTEGRATION_TESTING
@@ -15,22 +16,19 @@ class TestSetup(unittest.TestCase):
     def setUp(self):
         self.app = self.layer['app']
         self.portal = self.layer['portal']
-        self.qi_tool = getToolByName(self.portal, 'portal_quickinstaller')
+        self.request = self.layer['request']
+        self.installer = get_installer(self.portal, self.request)
 
     def test_product_is_installed(self):
-        pid = 'collective.ploneboard'
-        installed = [p['id'] for p in self.qi_tool.listInstalledProducts()]
         self.assertTrue(
-            pid in installed,
-            'package %s appears not to have been installed' % pid
+            self.installer.is_product_installed('collective.ploneboard'),
+            'package collective.ploneboard appears not to have been installed'
         )
 
     def test_dexterity_is_installed(self):
-        pid = 'plone.app.dexterity'
-        installed = [p['id'] for p in self.qi_tool.listInstalledProducts()]
         self.assertTrue(
-            pid in installed,
-            'package %s appears not to have been installed' % pid
+            self.installer.is_product_installed('plone.app.dexterity'),
+            'package plone.app.dexterity appears not to have been installed'
         )
 
     def test_discussion_is_globally_allowed(self):
@@ -58,15 +56,16 @@ class TestUninstall(unittest.TestCase):
 
     def setUp(self):
         self.portal = self.layer['portal']
-        self.installer = api.portal.get_tool('portal_quickinstaller')
+        self.request = self.layer['request']
+        self.installer = get_installer(self.portal, self.request)
         roles_before = api.user.get_roles(TEST_USER_ID)
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
-        self.installer.uninstallProducts(['collective.ploneboard'])
+        self.installer.uninstall_product('collective.ploneboard')
         setRoles(self.portal, TEST_USER_ID, roles_before)
 
     def test_product_uninstalled(self):
         """Test if collective.ploneboard is cleanly uninstalled."""
-        self.assertFalse(self.installer.isProductInstalled(
+        self.assertFalse(self.installer.is_product_installed(
             'collective.ploneboard'))
 
     def test_browserlayer_removed(self):
