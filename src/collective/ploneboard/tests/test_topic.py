@@ -31,7 +31,7 @@ class TopicIntegrationTest(unittest.TestCase):
     def test_fti(self):
         fti = queryUtility(
             IDexterityFTI,
-            name='topic'
+            name='Topic'
         )
         schema = fti.lookupSchema()
         self.assertEquals(ITopic, schema)
@@ -39,7 +39,7 @@ class TopicIntegrationTest(unittest.TestCase):
     def test_factory(self):
         fti = queryUtility(
             IDexterityFTI,
-            name='topic'
+            name='Topic'
         )
         factory = fti.factory
         new_object = createObject(factory)
@@ -49,17 +49,17 @@ class TopicIntegrationTest(unittest.TestCase):
         self.assertRaises(
             ValueError,
             self.portal.invokeFactory,
-            'topic',
+            'Topic',
             'my-topic',
         )
 
     def test_adding(self):
         self.portal.invokeFactory(
-            'messageboard',
+            'Message Board',
             'board'
         )
         self.portal.board.invokeFactory(
-            'topic',
+            'Topic',
             'mytopic'
         )
         obj = self.portal.board['mytopic']
@@ -76,11 +76,11 @@ class TopicViewIntegrationTest(unittest.TestCase):
         self.request['ACTUAL_URL'] = self.portal.absolute_url()
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
         self.portal.invokeFactory(
-            'messageboard',
+            'Message Board',
             'board',
         )
         board = self.portal['board']
-        board.invokeFactory('topic', id='topic1', title='Topic 1')
+        board.invokeFactory('Topic', id='topic1', title='Topic 1')
         self.topic = board.topic1
 
     def test_messageboard_view(self):
@@ -95,7 +95,7 @@ class TopicViewIntegrationTest(unittest.TestCase):
 
     def test_conversations_method(self):
         self.topic.invokeFactory(
-            'conversation',
+            'Conversation',
             id='conv1',
             title='Conversation 1'
         )

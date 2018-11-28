@@ -24,7 +24,7 @@ class ConversationIntegrationTest(unittest.TestCase):
     def test_fti(self):
         fti = queryUtility(
             IDexterityFTI,
-            name='conversation'
+            name='Conversation'
         )
         schema = fti.lookupSchema()
         self.assertEquals(IConversation, schema)
@@ -32,7 +32,7 @@ class ConversationIntegrationTest(unittest.TestCase):
     def test_factory(self):
         fti = queryUtility(
             IDexterityFTI,
-            name='conversation'
+            name='Conversation'
         )
         factory = fti.factory
         new_object = createObject(factory)
@@ -42,23 +42,22 @@ class ConversationIntegrationTest(unittest.TestCase):
         self.assertRaises(
             ValueError,
             self.portal.invokeFactory,
-            'conversation',
+            'Conversation',
             'my-conversation',
         )
 
     def test_adding(self):
         self.portal.invokeFactory(
-            'messageboard',
-            'board'
+            'Message Board',
+            id='board'
         )
         self.portal.board.invokeFactory(
-            'topic',
-            'topic'
+            'Topic',
+            id='topic'
         )
-
         self.portal.board.topic.invokeFactory(
-            'conversation',
-            'conversation'
+            'Conversation',
+            id='conversation'
         )
 
         obj = self.portal.board.topic['conversation']
@@ -73,15 +72,15 @@ class ConversationIntegrationTest(unittest.TestCase):
         )
 
         self.portal.invokeFactory(
-            'messageboard',
+            'Message Board',
             'board'
         )
         self.portal.board.invokeFactory(
-            'topic',
+            'Topic',
             'topic'
         )
         self.portal.board.topic.invokeFactory(
-            'conversation',
+            'Conversation',
             'conversation'
         )
         obj = self.portal.board.topic['conversation']
@@ -90,15 +89,15 @@ class ConversationIntegrationTest(unittest.TestCase):
 
     def test_comment_download(self):
         self.portal.invokeFactory(
-            'messageboard',
+            'Message Board',
             'board'
         )
         self.portal.board.invokeFactory(
-            'topic',
+            'Topic',
             'topic'
         )
         self.portal.board.topic.invokeFactory(
-            'conversation',
+            'Conversation',
             'conv'
         )
 

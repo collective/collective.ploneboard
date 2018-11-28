@@ -112,7 +112,7 @@ Add message board
 
 "As an administrator I can add a message board."
 
-  >>> browser.open(portal_url + '/++add++messageboard')
+  >>> browser.open(portal_url + '/++add++Message Board')
   >>> browser.getControl(name='form.widgets.IDublinCore.title').value = "My Message Board"
   >>> browser.getControl("Save").click()
   >>> "My Message Board" in browser.contents

@@ -38,7 +38,7 @@ class PloneboardContenttypesFunctionalTest(unittest.TestCase):
             transaction.commit()
 
     def test_messageboard(self):
-        self.browser.open(self.portal_url + '/++add++messageboard')
+        self.browser.open(self.portal_url + '/++add++Message Board')
         self.browser.getControl(
             name='form.widgets.IDublinCore.title'
         ).value = "My Message Board"
@@ -46,7 +46,7 @@ class PloneboardContenttypesFunctionalTest(unittest.TestCase):
         self.assertTrue("My Message Board" in self.browser.contents)
 
     def test_topic(self):
-        self.portal.invokeFactory('messageboard', 'board')
+        self.portal.invokeFactory('Message Board', 'board')
         transaction.commit()
 
         self.browser.open(self.portal.board.absolute_url())
@@ -58,8 +58,8 @@ class PloneboardContenttypesFunctionalTest(unittest.TestCase):
         self.assertTrue("My First Topic" in self.browser.contents)
 
     def test_conversation(self):
-        self.portal.invokeFactory('messageboard', 'board')
-        self.portal.board.invokeFactory('topic', 'topic')
+        self.portal.invokeFactory('Message Board', 'board')
+        self.portal.board.invokeFactory('Topic', 'topic')
         transaction.commit()
 
         self.browser.open(self.portal.board.topic.absolute_url())
@@ -74,9 +74,9 @@ class PloneboardContenttypesFunctionalTest(unittest.TestCase):
         self.assertTrue("My First Conversation" in self.browser.contents)
 
     def test_reply(self):
-        self.portal.invokeFactory('messageboard', 'board')
-        self.portal.board.invokeFactory('topic', 'topic')
-        self.portal.board.topic.invokeFactory('conversation', 'conv')
+        self.portal.invokeFactory('Message Board', 'board')
+        self.portal.board.invokeFactory('Topic', 'topic')
+        self.portal.board.topic.invokeFactory('Conversation', 'conv')
         transaction.commit()
 
         self.browser.open(self.portal.board.topic.conv.absolute_url())
@@ -87,9 +87,9 @@ class PloneboardContenttypesFunctionalTest(unittest.TestCase):
         self.assertTrue("This is my first reply" in self.browser.contents)
 
     def test_conversation_attachment(self):
-        self.portal.invokeFactory('messageboard', 'board')
-        self.portal.board.invokeFactory('topic', 'topic')
-        self.portal.board.topic.invokeFactory('conversation', 'conv')
+        self.portal.invokeFactory('Message Board', 'board')
+        self.portal.board.invokeFactory('Topic', 'topic')
+        self.portal.board.topic.invokeFactory('Conversation', 'conv')
         transaction.commit()
 
         self.browser.open(self.portal.board.topic.conv.absolute_url())

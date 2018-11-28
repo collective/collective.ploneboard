@@ -1,31 +1,29 @@
 <?xml version="1.0"?>
-<object name="messageboard" meta_type="Dexterity FTI"
+<object name="Conversation" meta_type="Dexterity FTI"
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     i18n:domain="collective.ploneboard">
 
   <!-- Basic properties -->
-  <property name="title" i18n:translate="">Message Board</property>
+  <property name="title" i18n:translate="">Conversation</property>
   <property name="description" i18n:translate=""></property>
-  <property name="content_icon">++resource++collective.ploneboard/images/ploneboard.gif</property>
+  <property name="content_icon">++resource++collective.ploneboard/images/conversation.gif</property>
 
-  <property name="allow_discussion">False</property>
+  <property name="allow_discussion">True</property>
 
   <!-- Hierarchy control -->
-  <property name="global_allow">True</property>
+  <property name="global_allow">False</property>
   <property name="filter_content_types">True</property>
   <property name="allowed_content_types">
-    <element value="topic" />
   </property>
 
   <!-- Schema, class and security -->
-  <property name="schema">collective.ploneboard.interfaces.IMessageboard</property>
-  <property name="klass">plone.dexterity.content.Container</property>
-  <property name="add_permission">ploneboard.AddMessageboard</property>
+  <property name="schema">collective.ploneboard.interfaces.IConversation</property>
+  <property name="klass">plone.dexterity.content.Item</property>
+  <property name="add_permission">ploneboard.AddConversation</property>
 
   <!-- enabled behaviors -->
   <property name="behaviors">
-    <element value="plone.app.dexterity.behaviors.metadata.IDublinCore" />
-    <element value="plone.app.dexterity.behaviors.exclfromnav.IExcludeFromNavigation" />
+    <element value="plone.app.dexterity.behaviors.metadata.IBasic" />
     <element value="plone.app.content.interfaces.INameFromTitle" />
   </property>
 

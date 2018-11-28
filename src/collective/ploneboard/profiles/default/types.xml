@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <object meta_type="Plone Types Tool" name="portal_types">
-  <object meta_type="Dexterity FTI" name="messageboard" />
-  <object meta_type="Dexterity FTI" name="topic" />
-  <object meta_type="Dexterity FTI" name="conversation" />
+  <object meta_type="Dexterity FTI" name="Message Board" />
+  <object meta_type="Dexterity FTI" name="Topic" />
+  <object meta_type="Dexterity FTI" name="Conversation" />
 </object>
