@@ -6,8 +6,8 @@
 collective.ploneboard
 ==============================================================================
 
-.. image:: https://travis-ci.org/kitconcept/collective.ploneboard.svg?branch=master
-    :target: https://travis-ci.org/kitconcept/collective.ploneboard
+.. image:: https://travis-ci.org/collective/collective.ploneboard.svg?branch=master
+    :target: https://travis-ci.org/collective/collective.ploneboard
 
 .. image:: https://img.shields.io/pypi/status/collective.ploneboard.svg
     :target: https://pypi.python.org/pypi/collective.ploneboard/
