@@ -11,6 +11,8 @@ env:
     #    - PLONE_VERSION=5.0.x
     - PLONE_VERSION=5.1.x
     - PLONE_VERSION=5.2.x
+  allow_failures:
+    - env: PLONE_VERSION=5.2.x
 before_install:
   - mkdir -p $HOME/buildout-cache/{eggs,downloads}
   - mkdir $HOME/.buildout
