@@ -37,7 +37,7 @@ build-plone5: ## Create Virtualenv and installs Ansible via Pip
 .PHONY: clean
 clean: ## Remove old Virtualenv and creates a new one
 	@echo "Clean"
-	rm -rf bin lib include share .Python .installed.cfg .mr.developer.cfg
+	rm -rf .eggs bin eggs develop-eggs lib parts include share .Python .installed.cfg .mr.developer.cfg
 
 .PHONY: test
 test: ## Run Tests
