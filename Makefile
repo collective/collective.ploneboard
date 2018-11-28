@@ -21,7 +21,7 @@ all: build
 .PHONY: build
 build: ## Create Virtualenv and installs Ansible via Pip
 	@echo "$(GREEN)==> Setup Virtual Env$(RESET)"
-	virtualenv -p python2 .
+	virtualenv -p python2 --clear .
 	bin/pip install pip --upgrade
 	bin/pip install -r requirements.txt --upgrade
 	bin/buildout
@@ -29,7 +29,7 @@ build: ## Create Virtualenv and installs Ansible via Pip
 .PHONY: build-plone-5.2
 build-plone-5.2: ## Create Virtualenv and installs Ansible via Pip
 	@echo "$(GREEN)==> Setup Virtual Env$(RESET)"
-	virtualenv -p python2 .
+	virtualenv -p python2 --clear .
 	bin/pip install pip --upgrade
 	bin/pip install -r requirements.txt --upgrade
 	bin/buildout -c plone-5.2.x.cfg

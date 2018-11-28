@@ -22,7 +22,7 @@
 
   <genericsetup:registerProfile
       name="default"
-      title="Ploneboard"
+      title="Plone Board"
       directory="profiles/default"
       description="Installs the collective.ploneboard package"
       provides="Products.GenericSetup.interfaces.EXTENSION"
@@ -30,7 +30,7 @@
 
   <genericsetup:registerProfile
       name="uninstall"
-      title="Ploneboard (uninstall)"
+      title="Plone Board (uninstall)"
       directory="profiles/uninstall"
       description="Uninstalls the collective.ploneboard add-on."
       provides="Products.GenericSetup.interfaces.EXTENSION"
