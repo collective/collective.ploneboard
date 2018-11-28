@@ -71,7 +71,6 @@ class MessageBoardViewIntegrationTest(unittest.TestCase):
             (self.board, self.portal.REQUEST),
             name="view"
         )
-        view = view.__of__(self.portal)
         self.assertTrue(view())
         self.assertTrue(view.template.filename.endswith('messageboard.pt'))
         self.assertTrue('My Message Board' in view())

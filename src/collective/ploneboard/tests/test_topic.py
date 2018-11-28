@@ -88,7 +88,6 @@ class TopicViewIntegrationTest(unittest.TestCase):
             (self.topic, self.portal.REQUEST),
             name="view"
         )
-        view = view.__of__(self.topic)
         self.assertTrue(view())
         self.assertTrue(view.template.filename.endswith('topic.pt'))
         self.assertTrue('Topic 1' in view())
