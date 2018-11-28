@@ -7,6 +7,7 @@ exclude *.yml
 exclude *.in
 exclude *.jmx
 exclude *.yaml
+exclude *.png
 exclude .coveragerc
 exclude .editorconfig
 exclude Dockerfile
