@@ -22,7 +22,7 @@ setup(name='collective.ploneboard',
       # http://pypi.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
           "Environment :: Web Environment",
-          "Development Status:: 3 - Alpha",
+          "Development Status :: 3 - Alpha",
           "Framework :: Plone",
           "Framework :: Plone :: 5.0",
           "Framework :: Plone :: 5.1",
