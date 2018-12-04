@@ -10,7 +10,9 @@
     provides=".commentextender.ICommentExtenderFields" />
   <adapter
     factory=".commentextender.CommentExtender"
-    provides="plone.z3cform.fieldsets.interfaces.IFormExtender" />
+    provides="plone.z3cform.fieldsets.interfaces.IFormExtender"
+    for="collective.ploneboard.interfaces.IMessageboard"
+  />
 
   <!-- Message Board -->
   <browser:page
